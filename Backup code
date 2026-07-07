@@ -362,6 +362,7 @@
                 <h4 class="font-bold text-sm text-white">Basic Membership</h4>
                 <div class="flex items-center gap-2 my-1">
                     <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(78)"></span>
+                    <span class="text-xs text-gray-500 line-through">৳78</span>
                 </div>
                 <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
                     <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Country: Asia</li>
@@ -408,6 +409,7 @@
                 </h4>
                 <div class="flex items-center gap-2 my-1">
                     <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(171)"></span>
+                    <span class="text-xs text-gray-500 line-through">৳171</span>
                 </div>
                 <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
                     <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Official Artist Channel Badge (🎵)</li>
