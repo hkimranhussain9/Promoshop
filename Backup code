@@ -417,7 +417,7 @@
                     <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Delivery: 5-7 Working Days</li>
                 </ul>
             </div>
-        </div>
+
 
         <button @click="navigateTo('youtube-activation')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide">
             Proceed to Activation
@@ -756,7 +756,7 @@
         </div>
     </div>
 
-            <!-- ==================== DYNAMIC LIVE PURCHASE NOTIFICATION SYSTEM ==================== -->
+          <!-- ==================== DYNAMIC LIVE PURCHASE NOTIFICATION SYSTEM ==================== --
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- পেমেন্ট ও চেকআউট পেজ প্রটেকশন ---
@@ -797,6 +797,18 @@
             function showLiveNotification() {
                 if (!toastContainer) return;
 
+                // Alpine.js এর বর্তমান পেজ চেক করা হচ্ছে (হোয়াটসঅ্যাপ এন্ট্রি ভিউতে নোটিফিকেশন বন্ধ রাখার জন্য)
+                const bodyEl = document.querySelector('body');
+                if (bodyEl && bodyEl.__x && bodyEl.__x.$data) {
+                    const currentPage = bodyEl.__x.$data.currentPage;
+                    if (currentPage === 'whatsapp-entry') {
+                        // হোয়াটসঅ্যাপ পেজে থাকলে নোটিফিকেশন দেখাবে না, ৮-১৫ সেকেন্ড পর আবার চেক করবে
+                        let retryDelay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
+                        setTimeout(showLiveNotification, retryDelay);
+                        return;
+                    }
+                }
+
                 const randomName = customerNames[Math.floor(Math.random() * customerNames.length)];
                 const randomPrefix = phonePrefixes[Math.floor(Math.random() * phonePrefixes.length)];
                 const randomDigits = Math.floor(1000 + Math.random() * 9000);
@@ -835,7 +847,7 @@
                     setTimeout(() => { toast.remove(); }, 500);
                 }, 4500);
 
-                // রিয়েল হিউম্যান রিদম টাইমিং লজিক
+                // রিয়েল হিউম্যান রিদম টাইমিং লজিক (পরবর্তী নোটিফিকেশনগুলোর জন্য)
                 let nextRandomDelay;
                 const diceRoll = Math.random();
 
@@ -850,10 +862,12 @@
                 setTimeout(showLiveNotification, nextRandomDelay);
             }
 
-            // প্রথম নোটিফিকেশন ১০ সেকেন্ড পর আসবে (যদি ব্লকড পেজ না হয়)
-            setTimeout(showLiveNotification, 10000);
+            // প্রথম নোটিফিকেশন ৮ থেকে ১৫ সেকেন্ডের মধ্যে যেকোনো একটি সময়ে আসবে
+            const initialDelay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
+            setTimeout(showLiveNotification, initialDelay);
         });
     </script>
+    ```
     <!-- ==================== END OF NOTIFICATION SYSTEM ==================== -->
 
 
@@ -900,16 +914,16 @@
                     { id: "2x-weekly-lite", name: "2X Weekly Lite", originalPrice: 80 },
                         { id: "ff1", name: "115 Diamond", originalPrice: 110 },    // ৩০% ডিসকাউন্টে ৭৭৳ আসবে
     { id: "ff2", name: "240 Diamond", originalPrice: 222 },    // ৩০% ডিসকাউন্টে ১৫৫৳ আসবে
-    { id: "ff3", name: "355 Diamond", originalPrice: 339 },    // ৩০% ডিসকাউন্টে ২৩৭৳ আসবে
-    { id: "ff4", name: "505 Diamond", originalPrice: 480 },    // ৩০% ডিসকাউন্টে ৩৩৬৳ আসবে
-    { id: "ff5", name: "610 Diamond", originalPrice: 558 },    // ৩০% ডিসকাউন্টে ৩৯০৳ আসবে
-    { id: "ff6", name: "850 Diamond", originalPrice: 798 },    // ৩০% ডিসকাউন্টে ৫৫৮৳ আসবে
-    { id: "ff7", name: "1090 Diamond", originalPrice: 1023 },  // ৩০% ডিসকাউন্টে ৭১৬৳ আসবে
-    { id: "ff8", name: "1240 Diamond", originalPrice: 1129 },  // ৩০% ডিসকাউন্টে ৭৯০৳ আসবে
-    { id: "ff9", name: "2530 Diamond", originalPrice: 2272 },  // ৩০% ডিসকাউন্টে ১৫৯০৳ আসবে
-    { id: "ff10", name: "3010 Diamond", originalPrice: 2752 }, // ৩০% ডিসকাউন্টে ১৯২৬৳ আসবে
-    { id: "ff11", name: "5060 Diamond", originalPrice: 4600 }, // ৩০% ডিসকাউন্টে ৩২২০৳ আসবে
-    { id: "ff12", name: "7590 Diamond", originalPrice: 6900 }, // ৩০% ডিসকাউন্টে ৪৮৩০৳ আসবে
+    { id: "ff3", name: "355 Diamond", originalPrice: 339 },   
+    { id: "ff4", name: "505 Diamond", originalPrice: 480 },  
+    { id: "ff5", name: "610 Diamond", originalPrice: 558 },   
+    { id: "ff6", name: "850 Diamond", originalPrice: 798 },   
+    { id: "ff7", name: "1090 Diamond", originalPrice: 1023 }, 
+    { id: "ff8", name: "1240 Diamond", originalPrice: 1129 },  
+    { id: "ff9", name: "2530 Diamond", originalPrice: 2272 }, 
+    { id: "ff10", name: "3010 Diamond", originalPrice: 2752 }, 
+    { id: "ff11", name: "5060 Diamond", originalPrice: 4600 }, 
+    { id: "ff12", name: "7590 Diamond", originalPrice: 6900 },
     { id: "ff13", name: "10120 Diamond", originalPrice: 9200 }
                 ],
                 
