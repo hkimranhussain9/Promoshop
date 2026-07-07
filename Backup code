@@ -362,7 +362,7 @@
                 <h4 class="font-bold text-sm text-white">Basic Membership</h4>
                 <div class="flex items-center gap-2 my-1">
                     <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(99)"></span>
-                    <span class="text-xs text-gray-500 line-through">৳149</span>
+                    <span class="text-xs text-gray-500 line-through">৳78</span>
                 </div>
                 <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
                     <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Country: Asia</li>
@@ -394,9 +394,27 @@
                     <span class="text-xs text-gray-500 line-through">৳1499</span>
                 </div>
                 <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Views: 1,00,000+</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Views: 1,20,000+</li>
                     <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Watch Time: 4,500+ Hour</li>
                     <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Subscribers: 10,000</li>
+                </ul>
+            </div>
+        </div>
+
+            <!-- Official Artist Channel -->
+                 <div @click="selectYtPlan('Artist Verification', 171)" :class="ytPlanName === 'Artist Verification' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
+                <span class="absolute top-3 right-3 bg-purple-600 text-[9px] text-white px-2 py-0.5 rounded-full font-bold uppercase">OAC Badge</span>
+                <h4 class="font-bold text-sm text-white flex items-center gap-1.5">
+                    Artist Verification <i class="fas fa-music text-purple-400 text-xs"></i>
+                </h4>
+                <div class="flex items-center gap-2 my-1">
+                    <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(2499)"></span>
+                    <span class="text-xs text-gray-500 line-through">৳171</span>
+                </div>
+                <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
+                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Official Artist Channel Badge (🎵)</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Music Distribution: Included</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Delivery: Instant</li>
                 </ul>
             </div>
         </div>
