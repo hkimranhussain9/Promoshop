@@ -1271,7 +1271,39 @@
             { id: "a19", data: "", minutes: "600 Minutes", validity: "30 Day", basePrice: 357 }, 
             { id: "a20", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
                         ]
-                    }
+                    },
+skitto: {
+    name: "Skitto",
+    logo: "https://i.im.ge/QMCBr68/image_search_1783651817770.png",
+    offers: [
+        { id: "s0", data: "95 GB", minutes: "1200 Minutes", validity: "30 Day", basePrice: 949 },
+        { id: "s1", data: "22 GB", minutes: "1400 Minutes", validity: "30 Day", basePrice: 609 },
+        { id: "s2", data: "105 GB", minutes: "1850 Minutes", validity: "30 Day", basePrice: 1072 },
+        { id: "s3", data: "68 GB", minutes: "1500 Minutes", validity: "30 Day", basePrice: 899 },
+        { id: "s4", data: "52 GB", minutes: "950 Minutes", validity: "30 Day", basePrice: 749 },
+        { id: "s5", data: "42 GB", minutes: "850 Minutes", validity: "30 Day", basePrice: 599 },
+        { id: "s6", data: "38 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 539 },
+        { id: "s7", data: "27 GB", minutes: "450 Minutes", validity: "30 Day", basePrice: 469 },
+
+        // --- শুধু ডাটা প্যাকেজ ---
+        { id: "s8", data: "58 GB", minutes: "", validity: "30 Day", basePrice: 529 },
+        { id: "s9", data: "105 GB", minutes: "", validity: "30 Day", basePrice: 760 },
+
+        { id: "s19", data: "84 GB", minutes: "", validity: "30 Day", basePrice: 680 },
+        { id: "s10", data: "48 GB", minutes: "", validity: "30 Day", basePrice: 430 },
+        { id: "s11", data: "33 GB", minutes: "", validity: "30 Day", basePrice: 380 },
+80 },
+        { id: "s12", data: "98 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
+        { id: "s13", data: "28 GB", minutes: "", validity: "30 Day", basePrice: 345 },
+        { id: "s14", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 869 },
+
+        // --- শুধু মিনিট প্যাকেজ ---
+        { id: "s15", data: "", minutes: "950 Minutes", validity: "30 Day", basePrice: 475 },
+        { id: "s16", data: "", minutes: "850 Minutes", validity: "30 Day", basePrice: 379 },
+        { id: "s17", data: "", minutes: "650 Minutes", validity: "30 Day", basePrice: 349 },
+        { id: "s18", data: "", minutes: "550 Minutes", validity: "30 Day", basePrice: 315 }
+    ]
+},
                 },
 
                 initMaster() {
