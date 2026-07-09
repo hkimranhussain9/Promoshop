@@ -504,7 +504,7 @@
     </div>
 
 
-     //------Facebook view ----//
+     <!//------Facebook view page------//>
 
     <div x-cloak x-show="currentPage === 'facebook'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
@@ -525,6 +525,7 @@
         <div class="space-y-3">
             <h3 class="font-bold text-gray-300 text-xs uppercase tracking-wider">Choose Your Package</h3>
 
+            <!-- 1. Facebook Followers -->
             <div @click="selectFbPlan('Facebook Followers', 180)" :class="fbPlanName === 'Facebook Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
                 <div class="flex justify-between items-center">
                     <h4 class="font-bold text-white text-xs">Facebook Followers</h4>
@@ -550,6 +551,7 @@
                 </div>
             </div>
 
+            <!----- 2. Facebook Page Followers ----->
             <div @click="selectFbPlan('Facebook Page Followers', 220)" :class="fbPlanName === 'Facebook Page Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
                 <div class="flex justify-between items-center">
                     <h4 class="font-bold text-white text-xs">Facebook Page Followers</h4>
@@ -575,6 +577,7 @@
                 </div>
             </div>
 
+            <!----- 3. Standard Monetizer Package ----->
             <div @click="selectFbPlan('Standard Monetizer Package', 239)" :class="fbPlanName === 'Standard Monetizer Package' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
                 <div class="flex justify-between items-center">
                     <h4 class="font-bold text-white text-xs">Standard Monetizer Package</h4>
@@ -587,11 +590,11 @@
                 <div class="space-y-1.5">
                     <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
                         <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Reach: 700K+ Organic Node</span>
+                        <span>✓ 10,000 followers & 500K+ Organic Reach</span>
                     </div>
                     <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
                         <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Qualify for In-Stream Ads</span>
+                        <span>✓ 60,000 Minutes watchtime</span>
                     </div>
                     <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
                         <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
@@ -600,6 +603,7 @@
                 </div>
             </div>
 
+            <!----- 4. Facebook Post Reaction ----->
             <div @click="selectFbPlan('Facebook Post Reaction', 50)" :class="fbPlanName === 'Facebook Post Reaction' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
                 <div class="flex justify-between items-center">
                     <h4 class="font-bold text-white text-xs">Facebook Post Reaction</h4>
@@ -625,7 +629,8 @@
                 </div>
             </div>
 
-            <div @click="selectFbPlan('Blue Badge Verify', 1450)" :class="fbPlanName === 'Blue Badge Verify' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
+            <!----- 5. Facebook Blue Badge Verification ----->
+            <div @click="selectFbPlan('Blue Badge Verify', 60)" :class="fbPlanName === 'Blue Badge Verify' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
                 <div class="flex justify-between items-center">
                     <h4 class="font-bold text-white text-xs">Blue Badge Verify</h4>
                     <span class="text-[10px] bg-purple-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">OAC Badge</span>
@@ -637,15 +642,15 @@
                 <div class="space-y-1.5">
                     <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
                         <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Profile/Page Verification Submission</span>
+                        <span>✓ Instant Delivery </span>
                     </div>
                     <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
                         <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Legal Documentation & PR Support</span>
+                        <span>✓ Lifetime Verified </span>
                     </div>
                     <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
                         <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Delivery: 5-7 Working Days</span>
+                        <span>✓ Profile/Page Verification Submission (Our Oocument)  </span>
                     </div>
                 </div>
             </div>
@@ -659,7 +664,7 @@
     </div>
 
 
-//-----------------------------///
+   <!//-------- Facebook Action Page ----------///>
    <div x-cloak x-show="currentPage === 'facebook-activation'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
             <button @click="navigateTo('facebook')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
