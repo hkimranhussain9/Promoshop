@@ -234,7 +234,7 @@
             </div>
             
             <button @click="navigateTo('home')" class="w-full mt-6 border border-zinc-700 text-zinc-400 hover:text-white py-2.5 rounded-xl text-xs transition">
-                मुख्य মেনু তে ফিরুন
+                হোম পেজে ফিরে আসুন 
             </button>
         </div>
     </div>
@@ -504,6 +504,7 @@
     </div>
 
     <!-- Facebook View -->
+    <!-- Facebook View -->
     <div x-cloak x-show="currentPage === 'facebook'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
             <button @click="navigateTo('home')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
@@ -513,66 +514,130 @@
             <h1 class="text-base font-bold text-white">Facebook Membership</h1>
         </div>
 
+        <!-- Promo Banner -->
+        <div class="bg-gradient-to-r from-blue-600/10 to-indigo-600/20 border border-blue-500/20 rounded-2xl p-4 text-center">
+            <i class="fab fa-facebook-f text-blue-500 text-3xl mb-1"></i>
+            <h2 class="text-base font-bold mb-0.5 text-white">Facebook Boost Plan</h2>
+            <p class="text-xs text-gray-400 mb-2">Grow your page organically & unlock monetization quickly!</p>
+            <span class="bg-blue-600 text-white text-[10px] px-2.5 py-1 rounded font-bold uppercase" x-text="'🔥 Limited Offer - ' + discountSettings.percent + '% OFF'"></span>
+        </div>
+
         <div class="space-y-3">
-            <div @click="selectFbPlan('Basic Growth Package', 149)" :class="fbPlanName === 'Basic Growth Package' ? 'border-emerald-500 bg-emerald-950/20' : 'border-zinc-800 bg-zinc-950'" class="p-3 border rounded-xl cursor-pointer transition">
+            <h3 class="font-bold text-gray-300 text-xs uppercase tracking-wider">Choose Your Package</h3>
+
+            <!-- 1. Basic Growth Package -->
+            <div @click="selectFbPlan('Basic Growth Package', 149)" :class="fbPlanName === 'Basic Growth Package' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-3 border rounded-xl cursor-pointer transition">
                 <div class="flex justify-between items-center">
                     <h4 class="font-bold text-white text-xs">Basic Growth Package</h4>
                     <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded" x-text="discountSettings.percent + '% OFF'"></span>
                 </div>
                 <div class="text-base font-bold text-white mt-1" x-text="'৳' + calcPriceOnSite(149) + ' '"><span class="text-xs text-zinc-500 line-through">৳149</span></div>
-                <p class="text-[11px] text-zinc-400">✓ Page Followers: 7,000+ & Profile Boost Support</p>
+                <p class="text-[11px] text-zinc-400 mt-1">✓ Page Followers: 7,000+ & Profile Boost Support</p>
             </div>
 
-            <div @click="selectFbPlan('Standard Monetizer Package', 239)" :class="fbPlanName === 'Standard Monetizer Package' ? 'border-emerald-500 bg-emerald-500/5 border-2' : 'border-zinc-800 bg-zinc-950 border'" class="p-3 rounded-xl cursor-pointer transition">
+            <!-- 2. Standard Monetizer Package -->
+            <div @click="selectFbPlan('Standard Monetizer Package', 239)" :class="fbPlanName === 'Standard Monetizer Package' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-3 border rounded-xl cursor-pointer transition">
                 <div class="flex justify-between items-center">
                     <h4 class="font-bold text-white text-xs">Standard Monetizer Package</h4>
-                    <span class="text-[10px] bg-emerald-600 text-white px-2 py-0.5 rounded font-bold">Popular</span>
+                    <span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded font-bold">Popular</span>
                 </div>
                 <div class="text-base font-bold text-white mt-1" x-text="'৳' + calcPriceOnSite(239) + ' '"><span class="text-xs text-zinc-500 line-through">৳239</span></div>
-                <p class="text-[11px] text-zinc-400">✓ Reach: 700K+ Organic Node & Qualify for In-Stream Ads</p>
+                <p class="text-[11px] text-zinc-400 mt-1">✓ Reach: 700K+ Organic Node & Qualify for In-Stream Ads</p>
+            </div>
+
+            <!-- 3. Facebook Post Reaction -->
+            <div @click="selectFbPlan('Facebook Post Reaction', 50)" :class="fbPlanName === 'Facebook Post Reaction' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-3 border rounded-xl cursor-pointer transition">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-xs">Facebook Post Reaction</h4>
+                    <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded" x-text="discountSettings.percent + '% OFF'"></span>
+                </div>
+                <div class="text-base font-bold text-white mt-1" x-text="'৳' + calcPriceOnSite(50) + ' '"><span class="text-xs text-zinc-500 line-through">৳75</span></div>
+                <p class="text-[11px] text-zinc-400 mt-1">✓ Instant Reactions (Like/Love/Wow) on any Post</p>
+            </div>
+
+            <!-- 4. Facebook Followers -->
+            <div @click="selectFbPlan('Facebook Followers', 750)" :class="fbPlanName === 'Facebook Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-3 border rounded-xl cursor-pointer transition">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-xs">Facebook Followers</h4>
+                    <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded" x-text="discountSettings.percent + '% OFF'"></span>
+                </div>
+                <div class="text-base font-bold text-white mt-1" x-text="'৳' + calcPriceOnSite(750) + ' '"><span class="text-xs text-zinc-500 line-through">৳1199</span></div>
+                <p class="text-[11px] text-zinc-400 mt-1">✓ 5,000 Profile/Page Followers (Premium & Non-Drop)</p>
+            </div>
+
+            <!-- 5. Facebook Blue Badge Verification -->
+            <div @click="selectFbPlan('Blue Badge Verification', 1499)" :class="fbPlanName === 'Blue Badge Verification' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-3 border rounded-xl cursor-pointer transition">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-xs flex items-center gap-1">
+                        Blue Badge Verification <i class="fas fa-check-circle text-blue-500 text-xs"></i>
+                    </h4>
+                    <span class="text-[9px] bg-purple-600 text-white px-2 py-0.5 rounded font-bold uppercase">VIP</span>
+                </div>
+                <div class="text-base font-bold text-white mt-1" x-text="'৳' + calcPriceOnSite(1499) + ' '"><span class="text-xs text-zinc-500 line-through">৳2199</span></div>
+                <p class="text-[11px] text-zinc-400 mt-1">✓ Meta Verified Setup Guide & Profile Submission Support</p>
             </div>
         </div>
 
-        <div class="p-1">
-            <button @click="navigateTo('facebook-activation')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-md">
+        <div class="pt-2">
+            <button @click="navigateTo('facebook-activation')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide shadow-md">
                 Proceed to Activation
             </button>
         </div>
     </div>
 
+
     <!-- Facebook Activation View -->
     <div x-cloak x-show="currentPage === 'facebook-activation'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
-        <div class="pt-1">
+        <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
             <button @click="navigateTo('facebook')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
                 <i data-lucide="arrow-left" class="w-5 h-5"></i>
             </button>
+            <i data-lucide="shield-check" class="w-6 h-6 text-emerald-500"></i>
+            <h1 class="text-base font-bold text-white">Activation Panel</h1>
         </div>
-        <div class="border border-zinc-700 rounded-xl p-3 bg-zinc-950 flex items-center justify-between">
+
+        <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 flex items-center justify-between">
             <span class="text-sm font-black text-emerald-500" x-text="'Selected: ' + fbPlanName + ' (৳' + calcCheckoutPrice(fbPlanBasePrice, fbPromo) + ')'"></span>
-            <span class="text-[10px] font-bold bg-zinc-800 text-white px-2 py-0.5 rounded">PROMO OFFER</span>
+            <span class="bg-zinc-800 text-white text-[10px] font-bold px-2 py-0.5 rounded">PROMO OFFER</span>
         </div>
+
+        <div class="bg-zinc-950 border border-zinc-800 text-white rounded-2xl p-5 shadow-lg">
+            <div class="flex items-center gap-2 mb-4">
+                <i class="fab fa-facebook text-blue-500 text-lg"></i>
+                <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400">Confirm Page / Profile Link</h2>
+            </div>
+
+            <div class="mb-2">
+                <input type="url" x-model="fbLink" placeholder="https://facebook.com/yourpage" class="w-full bg-zinc-900 border border-zinc-700 font-medium py-3 px-4 rounded-xl focus:outline-none text-xs text-white focus:border-emerald-500 transition">
+            </div>
+        </div>
+
         <div class="space-y-3">
-            <input type="url" x-model="fbLink" placeholder="Enter Facebook Page/Profile Link *" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-emerald-600 text-white">
-            
             <div>
-                <input type="text" x-model="fbPromo" placeholder="Enter Promo Code *" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-emerald-600 text-white tracking-wider">
+                <input type="text" x-model="fbPromo" placeholder="Enter Promo Code *" class="w-full bg-zinc-950 border border-zinc-800 px-4 py-3 rounded-xl focus:outline-none focus:border-emerald-500 text-xs text-white tracking-wider">
                 
                 <p class="text-[11px] mt-1.5 font-semibold">
                     <span x-show="fbPromo.trim() === ''" class="text-amber-400">Use promo code for <span x-text="discountSettings.percent"></span>% discount</span>
-                    <span x-show="fbPromo.trim() !== '' && fbPromo.trim() !== getLivePromoCode()" class="text-red-500">সঠিক প্রমোকোড পেতে এডমিন কে মেসেজ দিন।</span>
-                    <span x-show="fbPromo.trim() !== '' && fbPromo.trim() === getLivePromoCode()" class="text-green-400"><i class="fas fa-check-circle mr-1"></i> ধন্যবাদ! আপনি ৫০% ডিসকাউন্ট পেয়েছেন।</span>
+                    <span x-show="fbPromo.trim() !== '' && fbPromo.trim() !== getLivePromoCode()" class="text-red-500">সঠিক প্রমোকোড পেতে এডমিনকে মেসেজ দিন।</span>
+                    <span x-show="fbPromo.trim() !== '' && fbPromo.trim() === getLivePromoCode()" class="text-green-400"><i class="fas fa-check-circle mr-1"></i> প্রমোকোডটি সফলভাবে যুক্ত হয়েছে! আপনি ডিসকাউন্ট পেয়েছেন।</span>
                 </p>
             </div>
-
-            <select x-model="fbCountry" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-emerald-600 text-white">
+            
+            <div class="bg-zinc-950 border border-zinc-800 px-4 py-3 rounded-xl text-zinc-400 font-medium text-xs" x-text="fbPlanName"></div>
+            
+            <select x-model="fbCountry" class="w-full bg-zinc-950 border border-zinc-800 px-4 py-3 rounded-xl focus:outline-none focus:border-emerald-500 text-xs text-white">
                 <option value="bangladesh">Bangladesh</option>
                 <option value="india">India</option>
+                <option value="pakistan">Pakistan</option>
             </select>
-            <button @click="handleFbActivation()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-xs shadow-md">
+
+            <button @click="handleFbActivation()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-xs tracking-wide shadow-md">
                 Activate Plan
             </button>
         </div>
     </div>
+
+
 
     <!-- Free Fire Main TopUp View -->
     <div x-cloak x-show="currentPage === 'free-fire-topup'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl pb-6">
