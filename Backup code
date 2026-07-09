@@ -504,7 +504,8 @@
     </div>
 
 
-     <!-- Facebook View -->
+     //------Facebook view ----//
+
     <div x-cloak x-show="currentPage === 'facebook'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
             <button @click="navigateTo('home')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
@@ -514,7 +515,6 @@
             <h1 class="text-base font-bold text-white">Facebook Membership</h1>
         </div>
 
-        <!-- Promo Banner -->
         <div class="bg-gradient-to-r from-blue-600/10 to-indigo-600/20 border border-blue-500/20 rounded-2xl p-4 text-center">
             <i class="fab fa-facebook-f text-blue-500 text-3xl mb-1"></i>
             <h2 class="text-base font-bold mb-0.5 text-white">Facebook Boost Plan</h2>
@@ -525,153 +525,142 @@
         <div class="space-y-3">
             <h3 class="font-bold text-gray-300 text-xs uppercase tracking-wider">Choose Your Package</h3>
 
+            <div @click="selectFbPlan('Facebook Followers', 180)" :class="fbPlanName === 'Facebook Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-xs">Facebook Followers</h4>
+                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-bold uppercase tracking-wide">Profile</span>
+                </div>
+                <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
+                    <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(180)"></span>
+                    <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 180"></span>
+                </div>
+                <div class="space-y-1.5">
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ 5,000 Profile Followers</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Premium & Non-Drop Pack</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Global Active Accounts</span>
+                    </div>
+                </div>
+            </div>
 
+            <div @click="selectFbPlan('Facebook Page Followers', 220)" :class="fbPlanName === 'Facebook Page Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-xs">Facebook Page Followers</h4>
+                    <span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">Best Seller</span>
+                </div>
+                <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
+                    <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(220)"></span>
+                    <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 220"></span>
+                </div>
+                <div class="space-y-1.5">
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ 5,000 Page Followers & Likes</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ 100% Safe & Lifetime Guarantee</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Bangladeshi Real Users</span>
+                    </div>
+                </div>
+            </div>
 
-<div @click="selectFbPlan('Facebook Followers', 180)" :class="fbPlanName === 'Facebook Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
-    <div class="flex justify-between items-center">
-        <h4 class="font-bold text-white text-xs">Facebook Followers</h4>
-        <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-bold uppercase tracking-wide">Profile</span>
-    </div>
-    
-    <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
-        <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(180)"></span>
-        <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 180"></span>
-    </div>
+            <div @click="selectFbPlan('Standard Monetizer Package', 239)" :class="fbPlanName === 'Standard Monetizer Package' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-xs">Standard Monetizer Package</h4>
+                    <span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">Popular</span>
+                </div>
+                <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
+                    <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(239)"></span>
+                    <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 239"></span>
+                </div>
+                <div class="space-y-1.5">
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Reach: 700K+ Organic Node</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Qualify for In-Stream Ads</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Premium & Real Engagement</span>
+                    </div>
+                </div>
+            </div>
 
-    <div class="space-y-1.5">
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ 5,000 Profile Followers</span>
-        </div>
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Premium & Non-Drop Pack</span>
-        </div>
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Global Active Accounts</span>
-        </div>
-    </div>
-</div>
+            <div @click="selectFbPlan('Facebook Post Reaction', 50)" :class="fbPlanName === 'Facebook Post Reaction' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-xs">Facebook Post Reaction</h4>
+                    <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded font-bold" x-text="discountSettings.percent + '% OFF'"></span>
+                </div>
+                <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
+                    <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(50)"></span>
+                    <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 50"></span>
+                </div>
+                <div class="space-y-1.5">
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Instant Reactions (Like/Love/Wow)</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Safe & Non-Drop Pack</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Bangladeshi Active Profiles</span>
+                    </div>
+                </div>
+            </div>
 
-<div @click="selectFbPlan('Facebook Page Followers', 220)" :class="fbPlanName === 'Facebook Page Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
-    <div class="flex justify-between items-center">
-        <h4 class="font-bold text-white text-xs">Facebook Page Followers</h4>
-        <span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">Best Seller</span>
-    </div>
-    
-    <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
-        <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(220)"></span>
-        <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 220"></span>
-    </div>
+            <div @click="selectFbPlan('Blue Badge Verify', 1450)" :class="fbPlanName === 'Blue Badge Verify' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-white text-xs">Blue Badge Verify</h4>
+                    <span class="text-[10px] bg-purple-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">OAC Badge</span>
+                </div>
+                <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
+                    <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(1450)"></span>
+                    <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 1450"></span>
+                </div>
+                <div class="space-y-1.5">
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Profile/Page Verification Submission</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Legal Documentation & PR Support</span>
+                    </div>
+                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>✓ Delivery: 5-7 Working Days</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div class="space-y-1.5">
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ 5,000 Page Followers & Likes</span>
-        </div>
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ 100% Safe & Lifetime Guarantee</span>
-        </div>
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Bangladeshi Real Users</span>
-        </div>
-    </div>
-</div>
-
-<div @click="selectFbPlan('Standard Monetizer Package', 239)" :class="fbPlanName === 'Standard Monetizer Package' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
-    <div class="flex justify-between items-center">
-        <h4 class="font-bold text-white text-xs">Standard Monetizer Package</h4>
-        <span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">Popular</span>
-    </div>
-    
-    <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
-        <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(239)"></span>
-        <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 239"></span>
-    </div>
-
-    <div class="space-y-1.5">
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Reach: 700K+ Organic Node</span>
-        </div>
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Qualify for In-Stream Ads</span>
-        </div>
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Premium & Real Engagement</span>
-        </div>
-    </div>
-</div>
-
-<div @click="selectFbPlan('Facebook Post Reaction', 50)" :class="fbPlanName === 'Facebook Post Reaction' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
-    <div class="flex justify-between items-center">
-        <h4 class="font-bold text-white text-xs">Facebook Post Reaction</h4>
-        <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded font-bold" x-text="discountSettings.percent + '% OFF'"></span>
-    </div>
-    
-    <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
-        <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(50)"></span>
-        <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 50"></span>
-    </div>
-
-    <div class="space-y-1.5">
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Instant Reactions (Like/Love/Wow)</span>
-        </div>
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Safe & Non-Drop Pack</span>
-        </div>
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Bangladeshi Active Profiles</span>
-        </div>
-    </div>
-</div>
-
-<div @click="selectFbPlan('Blue Badge Verify', 1450)" :class="fbPlanName === 'Blue Badge Verify' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
-    <div class="flex justify-between items-center">
-        <h4 class="font-bold text-white text-xs">Blue Badge Verify</h4>
-        <span class="text-[10px] bg-purple-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">OAC Badge</span>
-    </div>
-    
-    <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
-        <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(1450)"></span>
-        <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 1450"></span>
-    </div>
-
-    <div class="space-y-1.5">
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Profile/Page Verification Submission</span>
-        </div>
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Legal Documentation & PR Support</span>
-        </div>
-        <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-            <span>✓ Delivery: 5-7 Working Days</span>
+        <div class="p-1">
+            <button @click="navigateTo('facebook-activation')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide shadow-md">
+                Proceed to Activation
+            </button>
         </div>
     </div>
-</div>
-
-        <button @click="currentPage = 'facebook-activation'" ...>
-
-<button @click="navigateTo('facebook-activation')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide shadow-md">
-    Proceed to Activation
-</button>
 
 
-                
-    <!-- Facebook Activation View -->
-    <div x-cloak x-show="currentPage === 'facebook-activation'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
+//-----------------------------///
+   <div x-cloak x-show="currentPage === 'facebook-activation'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
             <button @click="navigateTo('facebook')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
                 <i data-lucide="arrow-left" class="w-5 h-5"></i>
@@ -690,9 +679,6 @@
                 <i class="fab fa-facebook text-blue-500 text-lg"></i>
                 <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400">Confirm Page / Profile Link</h2>
             </div>
-
-           
-
 
             <div class="mb-2">
                 <input type="url" x-model="fbLink" placeholder="https://facebook.com/yourpage" class="w-full bg-zinc-900 border border-zinc-700 font-medium py-3 px-4 rounded-xl focus:outline-none text-xs text-white focus:border-emerald-500 transition">
