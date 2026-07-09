@@ -1292,7 +1292,6 @@ skitto: {
         { id: "s10", data: "84 GB", minutes: "", validity: "30 Day", basePrice: 680 },
         { id: "s11", data: "48 GB", minutes: "", validity: "30 Day", basePrice: 430 },
         { id: "s12", data: "33 GB", minutes: "", validity: "30 Day", basePrice: 380 },
-80 },
         { id: "s13", data: "98 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
         { id: "s14", data: "28 GB", minutes: "", validity: "30 Day", basePrice: 345 },
         { id: "s15", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 869 },
