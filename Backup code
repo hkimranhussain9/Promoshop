@@ -552,14 +552,14 @@
             </div>
 
             <!----- 2. Facebook Page Followers ----->
-            <div @click="selectFbPlan('Facebook Page Followers', 220)" :class="fbPlanName === 'Facebook Page Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
+            <div @click="selectFbPlan('Facebook Page Followers', 84)" :class="fbPlanName === 'Facebook Page Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
                 <div class="flex justify-between items-center">
                     <h4 class="font-bold text-white text-xs">Facebook Page Followers</h4>
                     <span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">Best Seller</span>
                 </div>
                 <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
                     <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(220)"></span>
-                    <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 220"></span>
+                    <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 84"></span>
                 </div>
                 <div class="space-y-1.5">
                     <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
@@ -630,14 +630,14 @@
             </div>
 
             <!----- 5. Facebook Blue Badge Verification ----->
-            <div @click="selectFbPlan('Blue Badge Verify', 60)" :class="fbPlanName === 'Blue Badge Verify' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
+            <div @click="selectFbPlan('Facebook Profile/Page Verify', 60)" :class="fbPlanName === 'Blue Badge Verify' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
                 <div class="flex justify-between items-center">
                     <h4 class="font-bold text-white text-xs">Blue Badge Verify</h4>
                     <span class="text-[10px] bg-purple-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">OAC Badge</span>
                 </div>
                 <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
                     <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(1450)"></span>
-                    <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 1450"></span>
+                    <span class="text-xs text-zinc-500 line-through" x-text="'৳' + 60"></span>
                 </div>
                 <div class="space-y-1.5">
                     <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
