@@ -1289,21 +1289,21 @@ skitto: {
         { id: "s8", data: "58 GB", minutes: "", validity: "30 Day", basePrice: 529 },
         { id: "s9", data: "105 GB", minutes: "", validity: "30 Day", basePrice: 760 },
 
-        { id: "s19", data: "84 GB", minutes: "", validity: "30 Day", basePrice: 680 },
-        { id: "s10", data: "48 GB", minutes: "", validity: "30 Day", basePrice: 430 },
-        { id: "s11", data: "33 GB", minutes: "", validity: "30 Day", basePrice: 380 },
+        { id: "s10", data: "84 GB", minutes: "", validity: "30 Day", basePrice: 680 },
+        { id: "s11", data: "48 GB", minutes: "", validity: "30 Day", basePrice: 430 },
+        { id: "s12", data: "33 GB", minutes: "", validity: "30 Day", basePrice: 380 },
 80 },
-        { id: "s12", data: "98 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
-        { id: "s13", data: "28 GB", minutes: "", validity: "30 Day", basePrice: 345 },
-        { id: "s14", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 869 },
+        { id: "s13", data: "98 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
+        { id: "s14", data: "28 GB", minutes: "", validity: "30 Day", basePrice: 345 },
+        { id: "s15", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 869 },
 
         // --- শুধু মিনিট প্যাকেজ ---
-        { id: "s15", data: "", minutes: "950 Minutes", validity: "30 Day", basePrice: 475 },
-        { id: "s16", data: "", minutes: "850 Minutes", validity: "30 Day", basePrice: 379 },
-        { id: "s17", data: "", minutes: "650 Minutes", validity: "30 Day", basePrice: 349 },
-        { id: "s18", data: "", minutes: "550 Minutes", validity: "30 Day", basePrice: 315 }
+        { id: "s16", data: "", minutes: "950 Minutes", validity: "30 Day", basePrice: 475 },
+        { id: "s17", data: "", minutes: "850 Minutes", validity: "30 Day", basePrice: 379 },
+        { id: "s18", data: "", minutes: "650 Minutes", validity: "30 Day", basePrice: 349 },
+        { id: "s19", data: "", minutes: "550 Minutes", validity: "30 Day", basePrice: 315 }
     ]
-},
+}
                 },
 
                 initMaster() {
