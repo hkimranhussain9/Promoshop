@@ -662,17 +662,14 @@
     </div>
 </div>
 
+        <button @click="currentPage = 'facebook-activation'" ...>
 
-<div x-show="fbPlanName" x-transition class="mt-5 pt-2">
-    <button @click="currentPage = 'facebook-activation'" class="w-full bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold py-3.5 px-4 rounded-xl transition flex items-center justify-center gap-2 text-sm shadow-lg shadow-emerald-500/20">
-        <span>Proceed to Activation</span>
-        <i data-lucide="arrow-right" class="w-4 h-4"></i>
-    </button>
-</div>
+<button @click="navigateTo('facebook-activation')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide shadow-md">
+    Proceed to Activation
+</button>
 
 
                 
-    <!-- Facebook Activation View -->
     <!-- Facebook Activation View -->
     <div x-cloak x-show="currentPage === 'facebook-activation'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
