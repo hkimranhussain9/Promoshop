@@ -891,6 +891,142 @@
         </div>
     </div>
 
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div id="universal-toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 350px; pointer-events: none;"></div>
+
+<style>
+    /* নোটিফিকেশনের মূল অ্যানিমেশন ও স্টাইল */
+    .live-toast-notification {
+        pointer-events: auto;
+        width: 100%;
+        background-color: rgba(24, 24, 27, 0.95);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: #ffffff;
+        padding: 14px;
+        border-radius: 12px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    .live-toast-notification.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    .live-toast-notification.hide {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- পেজ ইউআরএল ফিল্টার ---
+        // পেমেন্ট বা বিলিং পেজে কাস্টমারকে বিরক্ত না করার জন্য নোটিফিকেশন বন্ধ থাকবে
+        const currentUrl = window.location.href.toLowerCase();
+        const blockedPages = ["checkout", "payment", "pay", "order-received", "bill", "success"];
+        if (blockedPages.some(page => currentUrl.includes(page))) {
+            console.log("Notification disabled on payment pages.");
+            return;
+        }
+
+        // --- ডামি ডেটা সেট ---
+        const customerNames = ["Abir", "Sabbir", "Rahat", "Anik", "Tanvir", "Sujon", "Emon", "Nayeem", "Fahim", "Sakib", "Rifat", "Imran", "Arif", "Hasan", "Sumon", "Nabil", "Jahid", "Maruf", "Ayan", "Siam"];
+        const phonePrefixes = ["017", "019", "018", "016", "015", "013", "014"];
+        const liveProducts = [
+            "YouTube Standard Membership Pack",
+            "YouTube Premium Membership Pack",
+            "Facebook Basic Growth Package",
+            "Facebook Standard Monetizer Package",
+            "Banglalink 100 GB + 1300 Min Combo",
+            "Grameenphone 58 GB + 2000 Min Pack",
+            "Robi 50 GB Internet Package",
+            "Airtel 60 GB Big Data Pack",
+            "Free Fire 1270 Diamond Full Level Up",
+            "Free Fire Weekly Subscription",
+            "Free Fire Monthly Membership Package"
+        ];
+        const timePhrases = ["Just now", "2 seconds ago", "15 seconds ago", "40 seconds ago", "1 minute ago"];
+
+        const toastContainer = document.getElementById('universal-toast-container');
+
+        function showLiveNotification() {
+            if (!toastContainer) return;
+
+            // ডেটা র্যান্ডমাইজেশন
+            const randomName = customerNames[Math.floor(Math.random() * customerNames.length)];
+            const randomPrefix = phonePrefixes[Math.floor(Math.random() * phonePrefixes.length)];
+            const randomDigits = Math.floor(1000 + Math.random() * 9000);
+            const randomProduct = liveProducts[Math.floor(Math.random() * liveProducts.length)];
+            const randomTime = timePhrases[Math.floor(Math.random() * timePhrases.length)];
+            const randomOrderId = Math.floor(1000 + Math.random() * 9000);
+
+            // নোটিফিকেশন নোড তৈরি
+            const toast = document.createElement('div');
+            toast.className = "live-toast-notification";
+            
+            toast.innerHTML = `
+                <div style="width: 36px; height: 36px; background-color: rgba(16, 185, 129, 0.15); color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 1px solid rgba(16, 185, 129, 0.2); flex-shrink: 0;">
+                    <i class="fas fa-shopping-bag text-emerald-400" style="animation: pulse 2s infinite;"></i>
+                </div>
+                <div style="flex-1: 1; min-width: 0; width: 100%;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                        <p style="margin: 0; font-size: 12px; font-weight: bold; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${randomName} (${randomPrefix}***${randomDigits})</p>
+                        <span style="margin: 0; font-size: 10px; background-color: #27272a; color: #10b981; padding: 2px 6px; border-radius: 4px; font-family: monospace; flex-shrink: 0;">ID: #${randomOrderId}</span>
+                    </div>
+                    <p style="margin: 4px 0 0 0; font-size: 11px; color: #d4d4d8; font-weight: 500; line-height: 1.4;">${randomProduct} সফলভাবে কিনেছেন</p>
+                    <span style="margin: 4px 0 0 0; font-size: 9px; color: #71717a; display: block;"><i class="far fa-clock" style="margin-right: 4px;"></i>${randomTime}</span>
+                </div>
+                <button style="background: none; border: none; color: #52525b; cursor: pointer; padding: 0; flex-shrink: 0; align-self: flex-start; transition: color 0.2s;" onmouseover="this.style.color='#d4d4d8'" onmouseout="this.style.color='#52525b'" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times" style="font-size: 11px;"></i>
+                </button>
+            `;
+
+            toastContainer.appendChild(toast);
+
+            // পপ-আপ স্লাইড ইন অ্যানিমেশন
+            setTimeout(() => { toast.classList.add('show'); }, 100);
+
+            // ৪.৫ সেকেন্ড পর পপ-আপ স্লাইড আউট করে ডিলিট করা
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => { toast.remove(); }, 500);
+            }, 4500);
+
+            // হিউম্যান বিহেভিয়ার রিদম টাইমিং (পরবর্তী নোটিফিকেশন আসার ইন্টারভাল)
+            let nextRandomDelay;
+            const diceRoll = Math.random();
+            if (diceRoll < 0.20) {
+                nextRandomDelay = Math.floor(Math.random() * (20000 - 9000 + 1)) + 4000; // ৯-৭ সেকেন্ড (তাড়াতাড়ি)
+            } else if (diceRoll < 0.50) {
+                nextRandomDelay = Math.floor(Math.random() * (40000 - 20000 + 1)) + 12000; // ২০-৪০ সেকেন্ড
+            } else {
+                nextRandomDelay = Math.floor(Math.random() * (60000 - 45000 + 1)) + 30000; // ৪৫-৬০ সেকেন্ড (স্বাভাবিক গ্যাপ)
+            }
+
+            setTimeout(showLiveNotification, nextRandomDelay);
+        }
+
+        // পেজ লোড হওয়ার ঠিক ৭ সেকেন্ড পর প্রথম নোটিফিকেশনটি আসবে
+// ৮ থেকে ১৬ সেকেন্ডের (৮০০০ থেকে ১৬০০০ মিলিসেকেন্ড) মধ্যে র্যান্ডম সময় জেনারেট করা
+const initialRandomDelay = Math.floor(Math.random() * (16000 - 8000 + 1)) + 8000;
+setTimeout(showLiveNotification, initialRandomDelay);
+
+    });
+</script>
+
+
+
+
           <div x-cloak x-show="currentPage === 'service-unavailable'" class="w-full max-w-md bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-b-2xl p-6 text-center">
         <div class="w-16 h-16 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <i data-lucide="alert-triangle" class="h-8 w-8 text-red-500"></i>
