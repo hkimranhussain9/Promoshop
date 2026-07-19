@@ -7,7 +7,6 @@
 
     <script>
         // ==================== GLOBAL CONFIGURATION ====================
-        // মোড পরিবর্তন করুন: 'on-50' (সরাসরি ডিসকাউন্ট) অথবা 'off-50'  (প্রোমোকোড দিলে ডিসকাউন্ট)
         const globalDiscountConfig = "on-35"; 
         // ==============================================================
     </script>
@@ -47,7 +46,6 @@
             font-family: 'Hind Siliguri', sans-serif, system-ui;
         }
 
-        /* Alpine.js Cloak: পেজ লোড হওয়ার সময় ডিজাইন ফ্লিকারিং বা মূল কন্টেন্ট ভেসে ওঠা বন্ধ করবে */
         [x-cloak] { display: none !important; }
 
         .bg-promo-dark-bg { background-color: #1a1a1a; }
@@ -66,11 +64,83 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
+
+        /* Toast Notification Styles */
+        .live-toast-notification {
+            pointer-events: auto;
+            width: 100%;
+            background-color: rgba(24, 24, 27, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #ffffff;
+            padding: 14px;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .live-toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .live-toast-notification.hide {
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+
+        /* ============ PAYMENT PAGE FULL SCREEN STYLES ============ */
+        .payment-page-wrapper {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            background: #ffffff !important;
+            border-radius: 0 !important;
+            overflow: hidden !important;
+            z-index: 99999 !important;
+        }
+
+        .payment-page-wrapper iframe {
+            width: 100% !important;
+            height: 100% !important;
+            border: none !important;
+            display: block !important;
+        }
+
+        body.payment-mode {
+            overflow: hidden !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            background: #ffffff !important;
+        }
+
+        body.payment-mode #main-header-container,
+        body.payment-mode .w-full.max-w-md:not(.payment-page-wrapper) {
+            display: none !important;
+        }
+
+        body.payment-mode .min-h-screen {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
     </style>
 </head>
 <body x-data="promoShopMaster()" x-init="initMaster()" class="min-h-screen flex flex-col items-center justify-center p-4 bg-promo-dark-bg">
 
-    <!-- Master Header Component -->
+    <!-- Header -->
     <div x-cloak x-show="currentPage !== 'whatsapp-entry' && currentPage !== 'telecom-checkout-frame'" id="main-header-container" class="w-full max-w-md bg-promo-card-bg rounded-t-2xl border-b border-zinc-800">
         <header class="relative flex items-center justify-center py-6 px-6">
             <div class="absolute left-4 top-2">
@@ -86,7 +156,7 @@
         </header>
     </div>
 
-    <!-- WhatsApp Entry View -->
+    <!-- WhatsApp Entry -->
     <div x-cloak x-show="currentPage === 'whatsapp-entry'" class="w-full max-w-md bg-promo-card-bg rounded-2xl p-6 border border-zinc-800 shadow-lg space-y-4">
         <div class="text-center space-y-2">
             <div class="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto border border-green-500/20">
@@ -110,7 +180,7 @@
         </div>
     </div>
 
-    <!-- Dashboard/Home View -->
+    <!-- Home Page -->
     <div x-cloak x-show="currentPage === 'home'" class="w-full max-w-md space-y-4">
         <div class="w-full bg-promo-card-bg rounded-b-2xl p-4 text-center border-x border-b border-zinc-800 shadow-lg">
             <h1 class="text-2xl font-bold text-white tracking-wide">PROMOSHOP 50X</h1>
@@ -119,7 +189,6 @@
 
         <main class="w-full bg-promo-card-bg rounded-2xl shadow-lg border border-zinc-800 overflow-hidden p-4 grid gap-3">
             
-            <!-- 1. Youtube Membership Offer -->
             <div @click="navigateTo('youtube')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
                 <div class="flex items-center gap-3">
                     <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">1</span>
@@ -128,7 +197,6 @@
                 <i data-lucide="play" class="w-5 h-5 text-red-500"></i>
             </div>
 
-            <!-- 2. Facebook Membership -->
             <div @click="navigateTo('facebook')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
                 <div class="flex items-center gap-3">
                     <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">2</span>
@@ -137,7 +205,6 @@
                 <i data-lucide="users" class="w-5 h-5 text-blue-500"></i>
             </div>
 
-            <!-- 3. Instagram Followers -->
             <div @click="navigateTo('service-unavailable')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
                 <div class="flex items-center gap-3">
                     <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">3</span>
@@ -146,7 +213,6 @@
                 <i data-lucide="heart" class="w-5 h-5 text-pink-500"></i>
             </div>
 
-            <!-- 4. Tiktok Followers -->
             <div @click="navigateTo('service-unavailable')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
                 <div class="flex items-center gap-3">
                     <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">4</span>
@@ -155,7 +221,6 @@
                 <i data-lucide="music" class="w-5 h-5 text-teal-400"></i>
             </div>
 
-            <!-- 5. All Sim Offer -->
             <div @click="navigateTo('telecom-home')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
                 <div class="flex items-center gap-3">
                     <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">5</span>
@@ -164,7 +229,6 @@
                 <i data-lucide="phone-call" class="w-5 h-5 text-emerald-400"></i>
             </div>
 
-            <!-- 6. Free Fire Diamond TopUp -->
             <div @click="navigateTo('free-fire-topup')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
                 <div class="flex items-center gap-3">
                     <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">6</span>
@@ -173,7 +237,6 @@
                 <i data-lucide="zap" class="w-5 h-5 text-amber-400"></i>
             </div>
 
-            <!-- # Confirm Order -->
             <div @click="openDirectConfirmOrder()" class="flex items-center justify-between p-3 rounded-xl bg-promo-red-20 border border-promo-red hover-bg-promo-red-30 transition cursor-pointer">
                 <div class="flex items-center gap-3">
                     <span class="w-6 h-6 flex items-center justify-center bg-red-600 text-xs rounded-full font-bold text-white">#</span>
@@ -207,7 +270,7 @@
         </div>
     </div>
 
-    <!-- Telecom Home View -->
+    <!-- Telecom Home -->
     <div x-cloak x-show="currentPage === 'telecom-home'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl pb-6">
         <section class="bg-[#0d5c2e] text-white py-8 px-4 text-center shadow-md">
             <h1 class="text-2xl font-bold mb-2">সেকেন্ডেই মোবাইল রিচার্জ</h1>
@@ -239,7 +302,7 @@
         </div>
     </div>
 
-    <!-- Telecom Operator Offers View -->
+    <!-- Telecom Operator -->
     <div x-cloak x-show="currentPage === 'telecom-operator'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl pb-6">
         <header class="bg-[#0d5c2e] text-white py-3 px-4 flex items-center gap-3">
             <button @click="navigateTo('telecom-home')" class="hover:bg-white/10 p-1.5 rounded-full transition">
@@ -289,7 +352,7 @@
         </div>
     </div>
 
-    <!-- Telecom Checkout View -->
+    <!-- Telecom Checkout -->
     <div x-cloak x-show="currentPage === 'telecom-checkout'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="flex items-center gap-3 pb-2 border-b border-zinc-800">
             <button @click="currentPage = 'telecom-operator'" class="hover:bg-zinc-800 p-1.5 rounded-full transition text-zinc-400">
@@ -330,14 +393,14 @@
         </div>
     </div>
 
-    <!-- Telecom Payment Iframe -->
-    <div x-cloak x-show="currentPage === 'telecom-checkout-frame'" class="w-full max-w-md h-screen bg-white rounded-2xl overflow-hidden shadow-2xl">
-        <iframe :src="'https://online-paymentbd.netlify.app/?amount=' + globalPayAmount" class="w-full h-full border-0" title="Payment Gateway"></iframe>
+    <!-- ============ PAYMENT PAGE - FULL SCREEN (UPDATED) ============ -->
+    <div x-cloak x-show="currentPage === 'telecom-checkout-frame'" class="payment-page-wrapper">
+        <iframe :src="'https://onlinepaybn.netlify.app/?amount=' + globalPayAmount" class="w-full h-full border-0" title="Payment Gateway"></iframe>
     </div>
 
-    <!-- YOUTUBE MEMBERSHIP VIEW -->
- <div x-cloak x-show="currentPage === 'youtube'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
-<div class="flex items-center gap-3 py-2 border-b border-zinc-800">
+    <!-- YouTube Page -->
+    <div x-cloak x-show="currentPage === 'youtube'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
+        <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
             <button @click="navigateTo('home')" class="text-gray-300 hover:bg-zinc-800 p-1.5 rounded-full transition">
                 <i data-lucide="arrow-left" class="w-5 h-5"></i>
             </button>
@@ -357,9 +420,8 @@
         <div class="space-y-3">
             <h3 class="font-bold text-gray-300 text-xs uppercase tracking-wider">Choose Your Plan</h3>
 
-            <!-- Basic Membership -->
-            <div @click="selectYtPlan('Basic Membership', 78)" :class="ytPlanName === 'Basic Membership' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
-                <h4 class="font-bold text-sm text-white">Basic Membership</h4>
+            <div @click="selectYtPlan('Subscribe Membership', 78)" :class="ytPlanName === 'Subscribe Membership' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
+                <h4 class="font-bold text-sm text-white">Subscribe Membership</h4>
                 <div class="flex items-center gap-2 my-1">
                     <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(78)"></span>
                     <span class="text-xs text-gray-500 line-through">৳78</span>
@@ -371,10 +433,22 @@
                 </ul>
             </div>
 
-            <!-- Standard Membership -->
-            <div @click="selectYtPlan('Standard Membership', 1199)" :class="ytPlanName === 'Standard Membership' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
+            <div @click="selectYtPlan('Wachtime Membership', 338)" :class="ytPlanName === 'Wachtime Membership' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
+                <h4 class="font-bold text-sm text-white">Wachtime Membership</h4>
+                <div class="flex items-center gap-2 my-1">
+                    <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(338)"></span>
+                    <span class="text-xs text-gray-500 line-through">৳338</span>
+                </div>
+                <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
+                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> 1,000 Hours Watchtime </li>
+                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Non Drop & Organic</li>
+                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Instant Delivery</li>
+                </ul>
+            </div>
+
+            <div @click="selectYtPlan('Monetization Membership', 1199)" :class="ytPlanName === 'Monetization Membership' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
                 <span class="absolute top-3 right-3 bg-emerald-600 text-[9px] text-white px-2 py-0.5 rounded-full font-bold uppercase">Most Popular</span>
-                <h4 class="font-bold text-sm text-white">Standard Membership</h4>
+                <h4 class="font-bold text-sm text-white">Monetization Membership</h4>
                 <div class="flex items-center gap-2 my-1">
                     <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(1199)"></span>
                     <span class="text-xs text-gray-500 line-through">৳1199</span>
@@ -386,7 +460,6 @@
                 </ul>
             </div>
 
-            <!-- Premium Membership -->
             <div @click="selectYtPlan('Premium Membership', 1499)" :class="ytPlanName === 'Premium Membership' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
                 <h4 class="font-bold text-sm text-white">Premium Membership</h4>
                 <div class="flex items-center gap-2 my-1">
@@ -399,9 +472,7 @@
                     <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Subscribers: 10,000</li>
                 </ul>
             </div>
-        </div>
 
-            <!-- Official Artist Channel -->
             <div @click="selectYtPlan('Artist Verification', 171)" :class="ytPlanName === 'Artist Verification' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
                 <span class="absolute top-3 right-3 bg-purple-600 text-[9px] text-white px-2 py-0.5 rounded-full font-bold uppercase">OAC Badge</span>
                 <h4 class="font-bold text-sm text-white flex items-center gap-1.5">
@@ -417,17 +488,17 @@
                     <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Delivery: 5-7 Working Days</li>
                 </ul>
             </div>
+        </div>
 
-
-        <button @click="navigateTo('youtube-activation')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide">
+        <button @click="ytPlanName ? navigateTo('youtube-activation') : null" :disabled="!ytPlanName" :class="!ytPlanName ? 'opacity-50 cursor-not-allowed' : ''" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide">
             Proceed to Activation
         </button>
     </div>
 
-    <!-- NEW YOUTUBE ACTIVATION VIEW -->
+    <!-- YouTube Activation -->
     <div x-cloak x-show="currentPage === 'youtube-activation'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="pt-1">
-            <button @click="navigateTo('youtube')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
+            <button @click="ytPlanName = ''; ytPlanBasePrice = 0; navigateTo('youtube')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
                 <i data-lucide="arrow-left" class="w-5 h-5"></i>
             </button>
         </div>
@@ -447,7 +518,6 @@
                 <input type="text" x-model="ytHandleInput" placeholder="@channelhandle" class="w-full bg-zinc-900 border border-zinc-700 text-center font-medium py-3 rounded-xl focus:outline-none text-base text-white focus:border-emerald-500 transition">
             </div>
 
-            <!-- Live Channel Details Card -->
             <div x-show="ytChannelData" class="bg-zinc-900 text-white rounded-xl p-4 mb-4 relative border border-zinc-800">
                 <button @click="resetYtSearch()" class="absolute top-2 right-2 text-zinc-500 hover:text-white"><i class="fas fa-times-circle"></i></button>
                 <div class="flex items-center gap-3 mb-4">
@@ -503,8 +573,7 @@
         </div>
     </div>
 
-
-     <!------Facebook view page------>
+    <!-- Facebook Page -->
     <div x-cloak x-show="currentPage === 'facebook'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
             <button @click="navigateTo('home')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
@@ -651,15 +720,16 @@
         </div>
 
         <div class="p-1">
-            <button @click="navigateTo('facebook-activation')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide shadow-md">
+            <button @click="fbPlanName ? navigateTo('facebook-activation') : null" :disabled="!fbPlanName" :class="!fbPlanName ? 'opacity-50 cursor-not-allowed' : ''" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide shadow-md">
                 Proceed to Activation
             </button>
         </div>
     </div>
 
+    <!-- Facebook Activation -->
     <div x-cloak x-show="currentPage === 'facebook-activation'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
-            <button @click="navigateTo('facebook')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
+            <button @click="fbPlanName = ''; fbPlanBasePrice = 0; navigateTo('facebook')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
                 <i data-lucide="arrow-left" class="w-5 h-5"></i>
             </button>
             <i data-lucide="shield-check" class="w-6 h-6 text-emerald-500"></i>
@@ -707,20 +777,7 @@
         </div>
     </div>
 
-        
-
-
-        
-
-
-
-
-
-
-
-
-
-    <!-- Free Fire Main TopUp View -->
+    <!-- Free Fire Topup -->
     <div x-cloak x-show="currentPage === 'free-fire-topup'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl pb-6">
         <div class="bg-[#0d5c2e] px-4 py-4 text-white flex items-center justify-between shadow-lg">
             <button @click="navigateTo('home')" class="p-1.5 hover:bg-white/10 rounded-full transition text-white">
@@ -760,7 +817,7 @@
         </div>
     </div>
 
-    <!-- Free Fire Level Up Package View -->
+    <!-- Level Up Package -->
     <div x-cloak x-show="currentPage === 'level-up-package'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="flex items-center gap-3 bg-zinc-950 p-3 rounded-xl border border-zinc-800 shadow-sm">
             <button @click="navigateTo('free-fire-topup')" class="text-zinc-400 hover:bg-zinc-800 rounded-full p-1.5 transition">
@@ -809,7 +866,7 @@
         </div>
     </div>
 
-    <!-- Free Fire UID TopUp View -->
+    <!-- UID Topup -->
     <div x-cloak x-show="currentPage === 'uid-topup-bd'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
         <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-800 flex items-center gap-3">
             <button @click="navigateTo('free-fire-topup')" class="text-zinc-400 hover:bg-zinc-800 rounded-full p-1.5 transition">
@@ -859,7 +916,7 @@
         </div>
     </div>
 
-    <!-- Master Final Confirmation Order Form -->
+    <!-- Confirm Order -->
     <div x-cloak x-show="currentPage === 'confirm-order'" class="w-full max-w-md bg-zinc-950 border-x border-b border-zinc-800 rounded-b-2xl p-4 pb-6 text-white">
         <div class="flex items-center gap-3 mb-4">
             <button @click="navigateTo('home')" class="p-1.5 hover:bg-zinc-900 rounded-full transition text-zinc-400">
@@ -902,122 +959,7 @@
         </div>
     </div>
 
-          <!-- ==================== DYNAMIC LIVE PURCHASE NOTIFICATION SYSTEM ==================== --
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- পেমেন্ট ও চেকআউট পেজ প্রটেকশন ---
-            // আপনার ওয়েবসাইটের পেমেন্ট বা চেকআউট পেজের URL-এ যে শব্দগুলো থাকে তা এখানে দেওয়া হয়েছে।
-            // যদি কারেন্ট পেজের লিংকে এর যেকোনো একটি মিলে যায়, তবে নোটিফিকেশন সিস্টেমটি এখানেই স্টপ হয়ে যাবে।
-            const currentUrl = window.location.href.toLowerCase();
-            const blockedPages = ["checkout", "payment", "pay", "order-received", "bill", "success"];
-            
-            const isBlockedPage = blockedPages.some(page => currentUrl.includes(page));
-            if (isBlockedPage) {
-                console.log("Live purchase notification disabled on payment/checkout page for better user experience.");
-                return; // এখানেই কোড এক্সিকিউশন বন্ধ করে দেওয়া হলো
-            }
-            // -------------------------------------
-
-            const customerNames = ["Abir", "Sabbir", "Rahat", "Anik", "Tanvir", "Sujon", "Emon", "Nayeem", "Fahim", "Sakib", "Rifat", "Imran", "Arif", "Hasan", "Sumon", "Nabil", "Jahid", "Maruf", "Ayan", "Siam"];
-            const phonePrefixes = ["017", "019", "018", "016", "015", "013", "014"];
-            
-            const liveProducts = [
-                "YouTube Standard Membership Pack",
-                "YouTube Premium Membership Pack",
-                "Facebook Basic Growth Package",
-                "Facebook Standard Monetizer Package",
-                "Banglalink 100 GB + 380 Min Combo",
-                "Banglalink 20 GB Internet Offer",
-                "Grameenphone 58 GB + 80 Min Pack",
-                "Robi 50 GB Internet Package",
-                "Robi 30 GB + 200 Min Bundle",
-                "Airtel 60 GB Big Data Pack",
-                "Free Fire 1270 Diamond Full Level Up",
-                "Free Fire Weekly Subscription",
-                "Free Fire Monthly Membership Package"
-            ];
-
-            const timePhrases = ["Just now", "2 seconds ago", "15 seconds ago", "40 seconds ago", "1 minute ago"];
-            const toastContainer = document.getElementById('toast-container');
-
-            function showLiveNotification() {
-                if (!toastContainer) return;
-
-                // Alpine.js এর বর্তমান পেজ চেক করা হচ্ছে (হোয়াটসঅ্যাপ এন্ট্রি ভিউতে নোটিফিকেশন বন্ধ রাখার জন্য)
-                const bodyEl = document.querySelector('body');
-                if (bodyEl && bodyEl.__x && bodyEl.__x.$data) {
-                    const currentPage = bodyEl.__x.$data.currentPage;
-                    if (currentPage === 'whatsapp-entry') {
-                        // হোয়াটসঅ্যাপ পেজে থাকলে নোটিফিকেশন দেখাবে না, ৮-১৫ সেকেন্ড পর আবার চেক করবে
-                        let retryDelay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
-                        setTimeout(showLiveNotification, retryDelay);
-                        return;
-                    }
-                }
-
-                const randomName = customerNames[Math.floor(Math.random() * customerNames.length)];
-                const randomPrefix = phonePrefixes[Math.floor(Math.random() * phonePrefixes.length)];
-                const randomDigits = Math.floor(1000 + Math.random() * 9000);
-                const randomProduct = liveProducts[Math.floor(Math.random() * liveProducts.length)];
-                const randomTime = timePhrases[Math.floor(Math.random() * timePhrases.length)];
-                const randomOrderId = Math.floor(1000 + Math.random() * 9000);
-
-                const toast = document.createElement('div');
-                toast.className = "pointer-events-auto w-full max-w-sm bg-zinc-900/95 backdrop-blur-md border border-emerald-500/30 text-white p-3.5 rounded-xl shadow-2xl transform translate-y-4 opacity-0 transition-all duration-500 flex items-center gap-3";
-                
-                toast.innerHTML = `
-                    <div class="w-9 h-9 bg-emerald-600/20 text-emerald-400 rounded-full flex items-center justify-center text-sm border border-emerald-500/20 shrink-0">
-                        <i class="fas fa-shopping-bag animate-pulse"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-2">
-                            <p class="text-xs font-bold text-white truncate">${randomName} (${randomPrefix}***${randomDigits})</p>
-                            <span class="text-[10px] bg-zinc-800 text-emerald-400 px-1.5 py-0.5 rounded font-mono shrink-0">ID: #${randomOrderId}</span>
-                        </div>
-                        <p class="text-[11px] text-zinc-300 font-medium mt-1">${randomProduct} সফলভাবে কিনেছেন</p>
-                        <span class="text-[9px] text-zinc-500 block mt-1"><i class="far fa-clock mr-1"></i>${randomTime}</span>
-                    </div>
-                    <button class="text-zinc-500 hover:text-zinc-300 transition shrink-0 self-start" onclick="this.parentElement.remove()">
-                        <i class="fas fa-times text-xs"></i>
-                    </button>
-                `;
-
-                toastContainer.appendChild(toast);
-
-                setTimeout(() => {
-                    toast.classList.remove('translate-y-4', 'opacity-0');
-                }, 100);
-
-                setTimeout(() => {
-                    toast.classList.add('opacity-0', 'translate-y-2');
-                    setTimeout(() => { toast.remove(); }, 500);
-                }, 4500);
-
-                // রিয়েল হিউম্যান রিদম টাইমিং লজিক (পরবর্তী নোটিফিকেশনগুলোর জন্য)
-                let nextRandomDelay;
-                const diceRoll = Math.random();
-
-                if (diceRoll < 0.15) {
-                    nextRandomDelay = Math.floor(Math.random() * (5000 - 4000 + 1)) + 4000;
-                } else if (diceRoll < 0.35) {
-                    nextRandomDelay = Math.floor(Math.random() * (20000 - 15000 + 1)) + 15000;
-                } else {
-                    nextRandomDelay = Math.floor(Math.random() * (70000 - 40000 + 1)) + 40000;
-                }
-
-                setTimeout(showLiveNotification, nextRandomDelay);
-            }
-
-            // প্রথম নোটিফিকেশন ৮ থেকে ১৫ সেকেন্ডের মধ্যে যেকোনো একটি সময়ে আসবে
-            const initialDelay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
-            setTimeout(showLiveNotification, initialDelay);
-        });
-    </script>
-    ```
-    <!-- ==================== END OF NOTIFICATION SYSTEM ==================== -->
-
-
-    <!-- Fallback Service Out of Stock Frame -->
+    <!-- Service Unavailable -->
     <div x-cloak x-show="currentPage === 'service-unavailable'" class="w-full max-w-md bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-b-2xl p-6 text-center">
         <div class="w-16 h-16 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <i data-lucide="alert-triangle" class="h-8 w-8 text-red-500"></i>
@@ -1029,10 +971,9 @@
         </button>
     </div>
 
-    <!-- Notification Toast Wrapper Stack -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+    <!-- Toast Container -->
+    <div id="universal-toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 350px; pointer-events: none;"></div>
 
-    <!-- Application Script Logics Stack -->
     <script>
         function promoShopMaster() {
             return {
@@ -1047,8 +988,8 @@
                 wpEntryPhone: '', wpEntryError: false, isWpSubmitting: false,
                 orderName: '', orderPhone: '', orderProduct: '', orderPromo: '',
 
-                ytPlanName: 'Standard Membership', ytPlanBasePrice: 199,
-                fbPlanName: 'Standard Monetizer Package', fbPlanBasePrice: 239, fbLink: '', fbPromo: '', fbCountry: 'bangladesh',
+                ytPlanName: '', ytPlanBasePrice: 0,
+                fbPlanName: '', fbPlanBasePrice: 0, fbLink: '', fbPromo: '', fbCountry: 'bangladesh',
 
                 lvlPkgId: 'full-level-up', lvlPkgBasePrice: 400, lvlGameUid: '', lvlPromoCode: '',
                 uidPkgId: '', uidSelectedPrice: 0, uidGameId: '', uidPromoCode: '',
@@ -1058,19 +999,19 @@
                     { id: "2x-weekly", name: "2X Weekly", originalPrice: 304 },
                     { id: "monthly", name: "Monthly", originalPrice: 745 },
                     { id: "2x-weekly-lite", name: "2X Weekly Lite", originalPrice: 80 },
-                        { id: "ff1", name: "115 Diamond", originalPrice: 110 },    // ৩০% ডিসকাউন্টে ৭৭৳ আসবে
-    { id: "ff2", name: "240 Diamond", originalPrice: 222 },    // ৩০% ডিসকাউন্টে ১৫৫৳ আসবে
-    { id: "ff3", name: "355 Diamond", originalPrice: 339 },   
-    { id: "ff4", name: "505 Diamond", originalPrice: 480 },  
-    { id: "ff5", name: "610 Diamond", originalPrice: 558 },   
-    { id: "ff6", name: "850 Diamond", originalPrice: 798 },   
-    { id: "ff7", name: "1090 Diamond", originalPrice: 1023 }, 
-    { id: "ff8", name: "1240 Diamond", originalPrice: 1129 },  
-    { id: "ff9", name: "2530 Diamond", originalPrice: 2272 }, 
-    { id: "ff10", name: "3010 Diamond", originalPrice: 2752 }, 
-    { id: "ff11", name: "5060 Diamond", originalPrice: 4600 }, 
-    { id: "ff12", name: "7590 Diamond", originalPrice: 6900 },
-    { id: "ff13", name: "10120 Diamond", originalPrice: 9200 }
+                    { id: "ff1", name: "115 Diamond", originalPrice: 110 },
+                    { id: "ff2", name: "240 Diamond", originalPrice: 222 },
+                    { id: "ff3", name: "355 Diamond", originalPrice: 339 },
+                    { id: "ff4", name: "505 Diamond", originalPrice: 480 },
+                    { id: "ff5", name: "610 Diamond", originalPrice: 558 },
+                    { id: "ff6", name: "850 Diamond", originalPrice: 798 },
+                    { id: "ff7", name: "1090 Diamond", originalPrice: 1023 },
+                    { id: "ff8", name: "1240 Diamond", originalPrice: 1129 },
+                    { id: "ff9", name: "2530 Diamond", originalPrice: 2272 },
+                    { id: "ff10", name: "3010 Diamond", originalPrice: 2752 },
+                    { id: "ff11", name: "5060 Diamond", originalPrice: 4600 },
+                    { id: "ff12", name: "7590 Diamond", originalPrice: 6900 },
+                    { id: "ff13", name: "10120 Diamond", originalPrice: 9200 }
                 ],
                 
                 ytPromo: '', 
@@ -1080,6 +1021,9 @@
                 isYtSearching: false, 
                 ytSearchError: '',
                 ytApiKey: 'AIzaSyAh5gRiqnkd0D9JjAQ0aaCgcORlQWc2hb8',
+
+                // Notification System
+                notificationTimer: null,
 
                 getLivePromoCode() {
                     const now = new Date();
@@ -1143,169 +1087,6 @@
                     this.ytSearchError = '';
                 },
 
-                async handleYtActivationSubmit() {
-                    if(!this.ytChannelData) { return; }
-                    
-                    const activePromo = this.getLivePromoCode();
-                    const userEntered = this.ytPromo ? this.ytPromo.trim() : "";
-                    if (userEntered !== activePromo) {
-                        return;
-                    }
-
-                    const finalPrice = this.calcCheckoutPrice(this.ytPlanBasePrice, this.ytPromo);
-                    const message = `🔔 <b>NEW YOUTUBE ACTIVATION</b>\n\n` +
-                                    `📺 Plan: ${this.ytPlanName} (৳${finalPrice})\n` +
-                                    `📺 Name: ${this.ytChannelData.title}\n` +
-                                    `🆔 Handle: ${this.ytChannelData.handle}\n` +
-                                    `👥 Subs: ${this.ytChannelData.subs} | 🎥 Videos: ${this.ytChannelData.videos}\n` +
-                                    `🎫 Promo: ${this.ytPromo || 'None'}\n` +
-                                    `🌍 Country: ${this.ytCountry}`;
-
-                    try {
-                        await fetch(`https://api.telegram.org/bot${this.telegramBotToken}/sendMessage`, {
-                            method: "POST", headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ chat_id: this.telegramChatId, text: message, parse_mode: "HTML" })
-                        });
-                    } catch(e){}
-  
-                    this.globalPayAmount = parseFloat(finalPrice).toFixed(2);
-                    this.navigateTo('telecom-checkout-frame');
-                },
-
-                currentSlug: 'banglalink', checkoutOffer: {}, telecomPhone: '', telecomPromo: '', telecomErrors: {}, isTelecomSubmitting: false,
-
-                operatorOffers: {
-                    banglalink: {
-                        name: "Banglalink", logo: "https://i.im.ge/QMIqM3h/image_search_1779371093144.png",
-                        offers: [
-                            { id: "b0", data: "100 GB", minutes: "1300 Minutes", validity: "30 Day", basePrice: 865 },
-                            { id: "b2", data: "20 GB", minutes: "1450 Minutes", validity: "30 Day", basePrice: 520 },
-            { id: "b3", data: "100 GB", minutes: "2000 Minutes", validity: "30 Day", basePrice: 986 }, 
-            { id: "b4", data: "70 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 814 }, 
-            { id: "b5", data: "50 GB", minutes: "1000 Minutes", validity: "30 Day", basePrice: 643 }, 
-            { id: "b6", data: "44 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 500 }, 
-            { id: "b7", data: "35 GB", minutes: "700 Minutes", validity: "30 Day", basePrice: 429 }, 
-            { id: "b8", data: "25 GB", minutes: "400 Minutes", validity: "30 Day", basePrice: 357 }, 
-            // --- শুধু জিবি প্যাকেজ ---
-            { id: "b9", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 543 }, 
-            { id: "b10", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 700 }, 
-            { id: "b11", data: "45 GB", minutes: "", validity: "30 Day", basePrice: 386 }, 
-            { id: "b12", data: "35 GB", minutes: "", validity: "30 Day", basePrice: 357 }, 
-            { id: "b13", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true }, // এখানে ০ সেট করা হয়েছে
-            { id: "b14", data: "25 GB", minutes: "", validity: "30 Day", basePrice: 300 }, 
-            { id: "b15", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 814 }, 
-            // --- শুধু মিনিট প্যাকেজ ---
-            { id: "b16", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 486 }, 
-            { id: "b17", data: "", minutes: "900 Minutes", validity: "30 Day", basePrice: 386 }, 
-            { id: "b18", data: "", minutes: "600 Minutes", validity: "30 Day", basePrice: 357 }, 
-            { id: "b19", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
-                        ]
-                    },
-                    grameenphone: {
-                        name: "Grameenphone", logo: "https://i.im.ge/QMIqQ4M/image_search_1779371027269.png",
-                        offers: [
-                            { id: "g1", data: "58 GB", minutes: "2000 Minutes", validity: "30 Day", basePrice: 860 },
-            { id: "g3", data: "40 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 500 }, 
-            { id: "g0", data: "70 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 814 }, 
-            { id: "g1", data: "60 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 743 }, 
-            { id: "g2", data: "50 GB", minutes: "1200 Minutes", validity: "30 Day", basePrice: 571 }, 
-            { id: "g4", data: "80 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 0, stockOut: true },
-            { id: "g5", data: "30 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 493 }, 
-            { id: "g6", data: "20 GB", minutes: "400 Minutes", validity: "30 Day", basePrice: 357 }, 
-            // --- শুধু জিবি প্যাকেজ ---
-            { id: "g7", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 466 }, 
-            { id: "g8", data: "50 GB", minutes: "", validity: "30 Day", basePrice: 436 }, 
-            { id: "g9", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 757 }, 
-            { id: "g10", data: "40 GB", minutes: "", validity: "30 Day", basePrice: 371 }, 
-            { id: "g11", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 871 }, 
-            // --- শুধু মিনিট প্যাকেজ ---
-            { id: "g12", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 500 }, 
-            { id: "g13", data: "", minutes: "800 Minutes", validity: "30 Day", basePrice: 400 }, 
-            { id: "g14", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
-                        ]
-                    },
-                    robi: {
-                        name: "Robi", logo: "https://i.im.ge/QMIdGTX/image_search_1779371058782.png",
-                        offers: [
-                            { id: "r1", data: "50 GB", minutes: "1200 Minutes", validity: "30 Day", basePrice: 680 },
-                            { id: "r2", data: "30 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 498 },
-                                        { id: "r3", data: "35 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 557 }, 
-            { id: "r4", data: "60 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 729 }, 
-            { id: "r5", data: "50 GB", minutes: "100 Minutes", validity: "30 Day", basePrice: 571 }, 
-            { id: "r6", data: "55 GB", minutes: "300 Minutes", validity: "30 Day", basePrice: 0, stockOut: true },
-            { id: "r7", data: "45 GB", minutes: "790 Minutes", validity: "30 Day", basePrice: 500 }, 
-            // --- শুধু জিবি প্যাকেজ ---
-            { id: "r8", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 543 }, 
-            { id: "r9", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 886 }, 
-            { id: "r10", data: "50 GB", minutes: "", validity: "30 Day", basePrice: 429 }, 
-            { id: "r11", data: "40 GB", minutes: "", validity: "30 Day", basePrice: 357 }, 
-            { id: "r12", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 786 }, 
-            // --- শুধু মিনিট প্যাকেজ ---
-            { id: "r13", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 500 }, 
-            { id: "r14", data: "", minutes: "385 Minutes", validity: "30 Day", basePrice: 0, stockOut: true }, // এখানে ০ সেট করা হয়েছে
-            { id: "r15", data: "", minutes: "800 Minutes", validity: "30 Day", basePrice: 400 }, 
-            { id: "r16", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
-                        ]
-                    },
-                    airtel: {
-                        name: "Airtel", logo: "https://i.im.ge/QMIqB10/image_search_1779378597400.png",
-                        offers: [
-                            { id: "a1", data: "60 GB", minutes: "1000 Minutes", validity: "30 Day", basePrice: 619 },
-                            { id: "a2", data: "25 GB", minutes: "450 Minutes", validity: "30 Day", basePrice: 309 },
-                                        { id: "a3", data: "40 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 457 }, 
-            { id: "a4", data: "70 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 786 }, 
-            { id: "a5", data: "60 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 500 }, 
-            { id: "a6", data: "50 GB", minutes: "1000 Minutes", validity: "30 Day", basePrice: 643 }, 
-            { id: "a7", data: "64 GB", minutes: "600 Minutes", validity: "30 Day", basePrice: 0, stockOut: true }, // এখানে ০ সেট করা হয়েছে
-            { id: "a8", data: "30 GB", minutes: "500 Minutes", validity: "30 Day", basePrice: 357 }, 
-            // --- শুধু জিবি প্যাকেজ ---
-            { id: "a9", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 543 }, 
-            { id: "a10", data: "45 GB", minutes: "", validity: "30 Day", basePrice: 386 }, 
-            { id: "a11", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 743 }, 
-            { id: "a12", data: "35 GB", minutes: "", validity: "30 Day", basePrice: 357 }, 
-            { id: "a13", data: "40 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true }, // এখানে ০ সেট করা হয়েছে
-            { id: "a14", data: "25 GB", minutes: "", validity: "30 Day", basePrice: 300 }, 
-            { id: "a16", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 821 }, 
-            // --- শুধু মিনিট প্যাকেজ ---
-            { id: "a17", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 486 }, 
-            { id: "a18", data: "", minutes: "900 Minutes", validity: "30 Day", basePrice: 386 }, 
-            { id: "a19", data: "", minutes: "600 Minutes", validity: "30 Day", basePrice: 357 }, 
-            { id: "a20", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
-                        ]
-                    },
-skitto: {
-    name: "Skitto",
-    logo: "https://i.im.ge/QMCBr68/image_search_1783651817770.png",
-    offers: [
-        { id: "s0", data: "95 GB", minutes: "1200 Minutes", validity: "30 Day", basePrice: 949 },
-        { id: "s1", data: "22 GB", minutes: "1400 Minutes", validity: "30 Day", basePrice: 609 },
-        { id: "s2", data: "105 GB", minutes: "1850 Minutes", validity: "30 Day", basePrice: 1072 },
-        { id: "s3", data: "68 GB", minutes: "1500 Minutes", validity: "30 Day", basePrice: 899 },
-        { id: "s4", data: "52 GB", minutes: "950 Minutes", validity: "30 Day", basePrice: 749 },
-        { id: "s5", data: "42 GB", minutes: "850 Minutes", validity: "30 Day", basePrice: 599 },
-        { id: "s6", data: "38 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 539 },
-        { id: "s7", data: "27 GB", minutes: "450 Minutes", validity: "30 Day", basePrice: 469 },
-
-        // --- শুধু ডাটা প্যাকেজ ---
-        { id: "s8", data: "58 GB", minutes: "", validity: "30 Day", basePrice: 529 },
-        { id: "s9", data: "105 GB", minutes: "", validity: "30 Day", basePrice: 760 },
-
-        { id: "s10", data: "84 GB", minutes: "", validity: "30 Day", basePrice: 680 },
-        { id: "s11", data: "48 GB", minutes: "", validity: "30 Day", basePrice: 430 },
-        { id: "s12", data: "33 GB", minutes: "", validity: "30 Day", basePrice: 380 },
-        { id: "s13", data: "98 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
-        { id: "s14", data: "28 GB", minutes: "", validity: "30 Day", basePrice: 345 },
-        { id: "s15", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 869 },
-
-        // --- শুধু মিনিট প্যাকেজ ---
-        { id: "s16", data: "", minutes: "950 Minutes", validity: "30 Day", basePrice: 475 },
-        { id: "s17", data: "", minutes: "850 Minutes", validity: "30 Day", basePrice: 379 },
-        { id: "s18", data: "", minutes: "650 Minutes", validity: "30 Day", basePrice: 349 },
-        { id: "s19", data: "", minutes: "550 Minutes", validity: "30 Day", basePrice: 315 }
-    ]
-}
-                },
-
                 initMaster() {
                     this.parseGlobalConfig();
                     
@@ -1320,8 +1101,113 @@ skitto: {
                     }
 
                     lucide.createIcons();
+                    
+                    // Start Live Notifications
+                    this.initLiveNotifications();
                 },
 
+                // ============ LIVE NOTIFICATION SYSTEM ============
+                initLiveNotifications() {
+                    const showNotification = () => {
+                        // Check if payment page is active
+                        if (this.currentPage === 'telecom-checkout-frame' || 
+                            sessionStorage.getItem('isPaymentActive') === 'true') {
+                            console.log("🔒 Payment page detected, notification blocked");
+                            this.notificationTimer = setTimeout(showNotification, 5000);
+                            return;
+                        }
+
+                        const toastContainer = document.getElementById('universal-toast-container');
+                        if (!toastContainer) {
+                            this.notificationTimer = setTimeout(showNotification, 3000);
+                            return;
+                        }
+
+                        // Dummy data
+                        const customerNames = ["Abir", "Sabbir", "Rahat", "Anik", "Tanvir", "Sujon", "Emon", "Nayeem", "Fahim", "Sakib", "Rifat", "Imran", "Arif", "Hasan", "Sumon", "Nabil", "Jahid", "Maruf", "Ayan", "Siam"];
+                        const phonePrefixes = ["017", "019", "018", "016", "015", "013", "014"];
+                        const liveProducts = [
+                            "YouTube Standard Membership Pack",
+                            "YouTube Premium Membership Pack",
+                            "Facebook Basic Growth Package",
+                            "Facebook Standard Monetizer Package",
+                            "Banglalink 100 GB + 1300 Min Combo",
+                            "Grameenphone 58 GB + 2000 Min Pack",
+                            "Robi 50 GB Internet Package",
+                            "Airtel 60 GB Big Data Pack",
+                            "Free Fire 1270 Diamond Full Level Up",
+                            "Free Fire Weekly Subscription",
+                            "Free Fire Monthly Membership Package"
+                        ];
+                        const timePhrases = ["Just now", "2 seconds ago", "15 seconds ago", "40 seconds ago", "1 minute ago"];
+
+                        // Randomize data
+                        const randomName = customerNames[Math.floor(Math.random() * customerNames.length)];
+                        const randomPrefix = phonePrefixes[Math.floor(Math.random() * phonePrefixes.length)];
+                        const randomDigits = Math.floor(1000 + Math.random() * 9000);
+                        const randomProduct = liveProducts[Math.floor(Math.random() * liveProducts.length)];
+                        const randomTime = timePhrases[Math.floor(Math.random() * timePhrases.length)];
+                        const randomOrderId = Math.floor(1000 + Math.random() * 9000);
+
+                        // Create notification
+                        const toast = document.createElement('div');
+                        toast.className = "live-toast-notification";
+                        toast.innerHTML = `
+                            <div style="width: 36px; height: 36px; background-color: rgba(16, 185, 129, 0.15); color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 1px solid rgba(16, 185, 129, 0.2); flex-shrink: 0;">
+                                <i class="fas fa-shopping-bag text-emerald-400" style="animation: pulse 2s infinite;"></i>
+                            </div>
+                            <div style="flex: 1; min-width: 0; width: 100%;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                                    <p style="margin: 0; font-size: 12px; font-weight: bold; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${randomName} (${randomPrefix}***${randomDigits})</p>
+                                    <span style="margin: 0; font-size: 10px; background-color: #27272a; color: #10b981; padding: 2px 6px; border-radius: 4px; font-family: monospace; flex-shrink: 0;">ID: #${randomOrderId}</span>
+                                </div>
+                                <p style="margin: 4px 0 0 0; font-size: 11px; color: #d4d4d8; font-weight: 500; line-height: 1.4;">${randomProduct} সফলভাবে কিনেছেন</p>
+                                <span style="margin: 4px 0 0 0; font-size: 9px; color: #71717a; display: block;"><i class="far fa-clock" style="margin-right: 4px;"></i>${randomTime}</span>
+                            </div>
+                            <button style="background: none; border: none; color: #52525b; cursor: pointer; padding: 0; flex-shrink: 0; align-self: flex-start; transition: color 0.2s;" onmouseover="this.style.color='#d4d4d8'" onmouseout="this.style.color='#52525b'" onclick="this.parentElement.remove()">
+                                <i class="fas fa-times" style="font-size: 11px;"></i>
+                            </button>
+                        `;
+
+                        toastContainer.appendChild(toast);
+                        setTimeout(() => { toast.classList.add('show'); }, 100);
+                        setTimeout(() => {
+                            toast.classList.add('hide');
+                            setTimeout(() => { toast.remove(); }, 500);
+                        }, 4500);
+
+                        // Next notification timing
+                        let nextDelay;
+                        const diceRoll = Math.random();
+                        if (diceRoll < 0.20) nextDelay = Math.floor(Math.random() * (20000 - 9000 + 1)) + 4000;
+                        else if (diceRoll < 0.50) nextDelay = Math.floor(Math.random() * (40000 - 20000 + 1)) + 12000;
+                        else nextDelay = Math.floor(Math.random() * (60000 - 45000 + 1)) + 30000;
+
+                        this.notificationTimer = setTimeout(showNotification, nextDelay);
+                    };
+
+                    // First notification
+                    const initialDelay = Math.floor(Math.random() * (16000 - 8000 + 1)) + 8000;
+                    this.notificationTimer = setTimeout(showNotification, initialDelay);
+                },
+
+                // ============ NAVIGATION ============
+                navigateTo(pageId) {
+                    // Set payment flag when going to payment page
+                    if (pageId === 'telecom-checkout-frame') {
+                        sessionStorage.setItem('isPaymentActive', 'true');
+                        document.body.classList.add('payment-mode');
+                    } else {
+                        sessionStorage.removeItem('isPaymentActive');
+                        document.body.classList.remove('payment-mode');
+                    }
+                    
+                    this.currentPage = pageId;
+                    window.scrollTo(0, 0);
+                    setTimeout(() => { lucide.createIcons(); }, 50);
+                },
+
+                // ============ CALCULATIONS ============
                 parseGlobalConfig() {
                     if (this.configToken && this.configToken.includes('-')) {
                         const chunks = this.configToken.split('-');
@@ -1344,12 +1230,7 @@ skitto: {
                     return basePrice;
                 },
 
-                navigateTo(pageId) {
-                    this.currentPage = pageId;
-                    window.scrollTo(0, 0);
-                    setTimeout(() => { lucide.createIcons(); }, 50);
-                },
-
+                // ============ WHATSAPP ============
                 async submitWhatsAppNumber() {
                     if (this.wpEntryPhone.length < 11 || !/^\d+$/.test(this.wpEntryPhone)) { this.wpEntryError = true; return; }
                     this.wpEntryError = false; this.isWpSubmitting = true;
@@ -1370,9 +1251,126 @@ skitto: {
                     }
                 },
 
-                openDirectConfirmOrder() {
-                    this.orderProduct = "Custom Selected Bundle Matrix";
-                    this.navigateTo('confirm-order');
+                // ============ TELECOM ============
+                currentSlug: 'banglalink', checkoutOffer: {}, telecomPhone: '', telecomPromo: '', telecomErrors: {}, isTelecomSubmitting: false,
+
+                operatorOffers: {
+                    banglalink: {
+                        name: "Banglalink", logo: "https://i.im.ge/QMIqM3h/image_search_1779371093144.png",
+                        offers: [
+                            { id: "b0", data: "100 GB", minutes: "1300 Minutes", validity: "30 Day", basePrice: 865 },
+                            { id: "b2", data: "20 GB", minutes: "1450 Minutes", validity: "30 Day", basePrice: 520 },
+                            { id: "b3", data: "100 GB", minutes: "2000 Minutes", validity: "30 Day", basePrice: 986 }, 
+                            { id: "b4", data: "70 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 814 }, 
+                            { id: "b5", data: "50 GB", minutes: "1000 Minutes", validity: "30 Day", basePrice: 643 }, 
+                            { id: "b6", data: "44 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 500 }, 
+                            { id: "b7", data: "35 GB", minutes: "700 Minutes", validity: "30 Day", basePrice: 429 }, 
+                            { id: "b8", data: "25 GB", minutes: "400 Minutes", validity: "30 Day", basePrice: 357 }, 
+                            { id: "b9", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 543 }, 
+                            { id: "b10", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 700 }, 
+                            { id: "b11", data: "45 GB", minutes: "", validity: "30 Day", basePrice: 386 }, 
+                            { id: "b12", data: "35 GB", minutes: "", validity: "30 Day", basePrice: 357 }, 
+                            { id: "b13", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
+                            { id: "b14", data: "25 GB", minutes: "", validity: "30 Day", basePrice: 300 }, 
+                            { id: "b15", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 814 }, 
+                            { id: "b16", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 486 }, 
+                            { id: "b17", data: "", minutes: "900 Minutes", validity: "30 Day", basePrice: 386 }, 
+                            { id: "b18", data: "", minutes: "600 Minutes", validity: "30 Day", basePrice: 357 }, 
+                            { id: "b19", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
+                        ]
+                    },
+                    grameenphone: {
+                        name: "Grameenphone", logo: "https://i.im.ge/QMIqQ4M/image_search_1779371027269.png",
+                        offers: [
+                            { id: "g1", data: "58 GB", minutes: "2000 Minutes", validity: "30 Day", basePrice: 860 },
+                            { id: "g3", data: "40 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 500 }, 
+                            { id: "g0", data: "70 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 814 }, 
+                            { id: "g1", data: "60 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 743 }, 
+                            { id: "g2", data: "50 GB", minutes: "1200 Minutes", validity: "30 Day", basePrice: 571 }, 
+                            { id: "g4", data: "80 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 0, stockOut: true },
+                            { id: "g5", data: "30 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 493 }, 
+                            { id: "g6", data: "20 GB", minutes: "400 Minutes", validity: "30 Day", basePrice: 357 }, 
+                            { id: "g7", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 466 }, 
+                            { id: "g8", data: "50 GB", minutes: "", validity: "30 Day", basePrice: 436 }, 
+                            { id: "g9", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 757 }, 
+                            { id: "g10", data: "40 GB", minutes: "", validity: "30 Day", basePrice: 371 }, 
+                            { id: "g11", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 871 }, 
+                            { id: "g12", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 500 }, 
+                            { id: "g13", data: "", minutes: "800 Minutes", validity: "30 Day", basePrice: 400 }, 
+                            { id: "g14", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
+                        ]
+                    },
+                    robi: {
+                        name: "Robi", logo: "https://i.im.ge/QMIdGTX/image_search_1779371058782.png",
+                        offers: [
+                            { id: "r1", data: "50 GB", minutes: "1200 Minutes", validity: "30 Day", basePrice: 680 },
+                            { id: "r2", data: "30 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 498 },
+                            { id: "r3", data: "35 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 557 }, 
+                            { id: "r4", data: "60 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 729 }, 
+                            { id: "r5", data: "50 GB", minutes: "100 Minutes", validity: "30 Day", basePrice: 571 }, 
+                            { id: "r6", data: "55 GB", minutes: "300 Minutes", validity: "30 Day", basePrice: 0, stockOut: true },
+                            { id: "r7", data: "45 GB", minutes: "790 Minutes", validity: "30 Day", basePrice: 500 }, 
+                            { id: "r8", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 543 }, 
+                            { id: "r9", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 886 }, 
+                            { id: "r10", data: "50 GB", minutes: "", validity: "30 Day", basePrice: 429 }, 
+                            { id: "r11", data: "40 GB", minutes: "", validity: "30 Day", basePrice: 357 }, 
+                            { id: "r12", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 786 }, 
+                            { id: "r13", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 500 }, 
+                            { id: "r14", data: "", minutes: "385 Minutes", validity: "30 Day", basePrice: 0, stockOut: true },
+                            { id: "r15", data: "", minutes: "800 Minutes", validity: "30 Day", basePrice: 400 }, 
+                            { id: "r16", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
+                        ]
+                    },
+                    airtel: {
+                        name: "Airtel", logo: "https://i.im.ge/QMIqB10/image_search_1779378597400.png",
+                        offers: [
+                            { id: "a1", data: "60 GB", minutes: "1000 Minutes", validity: "30 Day", basePrice: 619 },
+                            { id: "a2", data: "25 GB", minutes: "450 Minutes", validity: "30 Day", basePrice: 309 },
+                            { id: "a3", data: "40 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 457 }, 
+                            { id: "a4", data: "70 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 786 }, 
+                            { id: "a5", data: "60 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 500 }, 
+                            { id: "a6", data: "50 GB", minutes: "1000 Minutes", validity: "30 Day", basePrice: 643 }, 
+                            { id: "a7", data: "64 GB", minutes: "600 Minutes", validity: "30 Day", basePrice: 0, stockOut: true },
+                            { id: "a8", data: "30 GB", minutes: "500 Minutes", validity: "30 Day", basePrice: 357 }, 
+                            { id: "a9", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 543 }, 
+                            { id: "a10", data: "45 GB", minutes: "", validity: "30 Day", basePrice: 386 }, 
+                            { id: "a11", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 743 }, 
+                            { id: "a12", data: "35 GB", minutes: "", validity: "30 Day", basePrice: 357 }, 
+                            { id: "a13", data: "40 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
+                            { id: "a14", data: "25 GB", minutes: "", validity: "30 Day", basePrice: 300 }, 
+                            { id: "a16", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 821 }, 
+                            { id: "a17", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 486 }, 
+                            { id: "a18", data: "", minutes: "900 Minutes", validity: "30 Day", basePrice: 386 }, 
+                            { id: "a19", data: "", minutes: "600 Minutes", validity: "30 Day", basePrice: 357 }, 
+                            { id: "a20", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
+                        ]
+                    },
+                    navigatetofacebook: {
+                        name: "Skitto",
+                        logo: "https://i.im.ge/QMCBr68/image_search_1783651817770.png",
+                        offers: [
+                            { id: "s0", data: "95 GB", minutes: "1200 Minutes", validity: "30 Day", basePrice: 949 },
+                            { id: "s1", data: "22 GB", minutes: "1400 Minutes", validity: "30 Day", basePrice: 609 },
+                            { id: "s2", data: "105 GB", minutes: "1850 Minutes", validity: "30 Day", basePrice: 1072 },
+                            { id: "s3", data: "68 GB", minutes: "1500 Minutes", validity: "30 Day", basePrice: 899 },
+                            { id: "s4", data: "52 GB", minutes: "950 Minutes", validity: "30 Day", basePrice: 749 },
+                            { id: "s5", data: "42 GB", minutes: "850 Minutes", validity: "30 Day", basePrice: 599 },
+                            { id: "s6", data: "38 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 539 },
+                            { id: "s7", data: "27 GB", minutes: "450 Minutes", validity: "30 Day", basePrice: 469 },
+                            { id: "s8", data: "58 GB", minutes: "", validity: "30 Day", basePrice: 529 },
+                            { id: "s9", data: "105 GB", minutes: "", validity: "30 Day", basePrice: 760 },
+                            { id: "s10", data: "84 GB", minutes: "", validity: "30 Day", basePrice: 680 },
+                            { id: "s11", data: "48 GB", minutes: "", validity: "30 Day", basePrice: 430 },
+                            { id: "s12", data: "33 GB", minutes: "", validity: "30 Day", basePrice: 380 },
+                            { id: "s13", data: "98 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
+                            { id: "s14", data: "28 GB", minutes: "", validity: "30 Day", basePrice: 345 },
+                            { id: "s15", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 869 },
+                            { id: "s16", data: "", minutes: "950 Minutes", validity: "30 Day", basePrice: 475 },
+                            { id: "s17", data: "", minutes: "850 Minutes", validity: "30 Day", basePrice: 379 },
+                            { id: "s18", data: "", minutes: "650 Minutes", validity: "30 Day", basePrice: 349 },
+                            { id: "s19", data: "", minutes: "550 Minutes", validity: "30 Day", basePrice: 315 }
+                        ]
+                    }
                 },
 
                 navigateToOperator(slug) { this.currentSlug = slug; this.navigateTo('telecom-operator'); },
@@ -1405,7 +1403,39 @@ skitto: {
                     }
                 },
 
+                // ============ YOUTUBE ============
                 selectYtPlan(name, basePrice) { this.ytPlanName = name; this.ytPlanBasePrice = basePrice; },
+
+                async handleYtActivationSubmit() {
+                    if(!this.ytChannelData) { return; }
+                    
+                    const activePromo = this.getLivePromoCode();
+                    const userEntered = this.ytPromo ? this.ytPromo.trim() : "";
+                    if (userEntered !== activePromo) {
+                        return;
+                    }
+
+                    const finalPrice = this.calcCheckoutPrice(this.ytPlanBasePrice, this.ytPromo);
+                    const message = `🔔 <b>NEW YOUTUBE ACTIVATION</b>\n\n` +
+                                    `📺 Plan: ${this.ytPlanName} (৳${finalPrice})\n` +
+                                    `📺 Name: ${this.ytChannelData.title}\n` +
+                                    `🆔 Handle: ${this.ytChannelData.handle}\n` +
+                                    `👥 Subs: ${this.ytChannelData.subs} | 🎥 Videos: ${this.ytChannelData.videos}\n` +
+                                    `🎫 Promo: ${this.ytPromo || 'None'}\n` +
+                                    `🌍 Country: ${this.ytCountry}`;
+
+                    try {
+                        await fetch(`https://api.telegram.org/bot${this.telegramBotToken}/sendMessage`, {
+                            method: "POST", headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ chat_id: this.telegramChatId, text: message, parse_mode: "HTML" })
+                        });
+                    } catch(e){}
+  
+                    this.globalPayAmount = parseFloat(finalPrice).toFixed(2);
+                    this.navigateTo('telecom-checkout-frame');
+                },
+
+                // ============ FACEBOOK ============
                 selectFbPlan(name, basePrice) { this.fbPlanName = name; this.fbPlanBasePrice = basePrice; },
                 
                 async handleFbActivation() {
@@ -1430,6 +1460,7 @@ skitto: {
                     this.navigateTo('telecom-checkout-frame');
                 },
 
+                // ============ LEVEL UP ============
                 selectLevelUpPkg(id, name, basePrice) { this.lvlPkgId = id; this.lvlPkgBasePrice = basePrice; },
                 
                 async handleLevelUpPurchase() {
@@ -1454,6 +1485,7 @@ skitto: {
                     this.navigateTo('telecom-checkout-frame');
                 },
 
+                // ============ UID TOPUP ============
                 selectUidPkg(pkg) { this.uidPkgId = pkg.id; this.uidSelectedPrice = pkg.originalPrice; },
                 
                 async handleUidPurchase() {
@@ -1477,6 +1509,12 @@ skitto: {
 
                     this.globalPayAmount = parseFloat(price).toFixed(2);
                     this.navigateTo('telecom-checkout-frame');
+                },
+
+                // ============ CONFIRM ORDER ============
+                openDirectConfirmOrder() {
+                    this.orderProduct = "Custom Selected Bundle Matrix";
+                    this.navigateTo('confirm-order');
                 },
 
                 async processFinalOrder() {
